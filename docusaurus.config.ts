@@ -164,13 +164,12 @@ const config: Config = {
     navbar: {
       logo: {
         alt: 'Trilemma Foundation',
-        src: 'img/trilemma_foundation_white.png',
-        srcDark: 'img/trilemma_foundation_white.png',
+        src: 'img/foundation_white.webp',
+        srcDark: 'img/foundation_white.webp',
         href: '/',
-        height: 26,
+        height: 32,
       },
       items: [
-        { to: '/', label: 'Home', position: 'left' },
         {
           type: 'dropdown',
           label: 'Humans',
@@ -222,7 +221,6 @@ const config: Config = {
       ],
     },
     footer: {
-      // Infima: 'light' omits .footer--dark (hardcoded grey/blue); tokens come from custom.css.
       style: 'light',
       links: [
         {
@@ -231,7 +229,7 @@ const config: Config = {
             {
               html: `<div class="footer-foundation">
   <a class="footer-foundation__logo-link" href="/" aria-label="Trilemma Foundation home">
-    <img class="footer-foundation__logo" src="/img/trilemma_foundation_white.png" alt="Trilemma Foundation" loading="lazy" />
+    <img class="footer-foundation__logo" src="/img/foundation_white.webp" alt="Trilemma Foundation" loading="lazy" />
   </a>
   <p class="footer-foundation__description">
     Trilemma Foundation is a Canadian Registered Charity that incubates technical talent through global university partnerships, open source collaboration, and performance based opportunities. Our mission is to enable the brightest minds to rise based on performance.
@@ -241,15 +239,17 @@ const config: Config = {
           ],
         },
         {
-          title: 'On this site',
-          className: 'footer-col--on-site',
+          title: 'Quick Links',
+          className: 'footer-col--quick-links',
           items: [
             { label: 'Home', to: '/' },
-            { label: 'Agents', to: '/agents' },
             {
-              label: 'Human intro',
+              label: 'Human Intro',
               to: '/docs/intro/what-is-a-microproduct',
             },
+            { label: 'Templates', to: '/templates' },
+            { label: 'Agents', to: '/agents' },
+            { label: 'Showcase', to: '/showcase' },
           ],
         },
         {
@@ -279,7 +279,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Trilemma Foundation`,
+      copyright: `© ${new Date().getFullYear()} Trilemma Foundation. All rights reserved.`,
     },
   } satisfies Preset.ThemeConfig,
 };
