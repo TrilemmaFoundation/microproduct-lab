@@ -47,7 +47,13 @@ function DocByline(): ReactNode {
           {pageAuthors.map((author, index) => (
             <React.Fragment key={author.id}>
               {index > 0 && ', '}
-              {author.url ? <a href={author.url}>{author.name}</a> : author.name}
+              {author.url ? (
+                <a href={author.url} target="_blank" rel="noopener noreferrer">
+                  {author.name}
+                </a>
+              ) : (
+                author.name
+              )}
             </React.Fragment>
           ))}
         </span>

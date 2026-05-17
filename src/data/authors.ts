@@ -6,6 +6,11 @@ export type Author = {
 
 export const authors: Author[] = [
   {
+    id: 'mohammad-ashkani',
+    name: 'Mohammad Ashkani',
+    url: 'https://www.linkedin.com/in/mohammadashkani/',
+  },
+  {
     id: 'trilemma-foundation',
     name: 'Trilemma Foundation',
     url: 'https://www.trilemma.foundation/',
