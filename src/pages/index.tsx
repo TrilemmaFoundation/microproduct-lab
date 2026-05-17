@@ -8,14 +8,14 @@ import {
 export default function Home() {
   return (
     <Layout
-      title="Turn Data Into Microproducts"
-      description="An AI-agent hub and a human playbook—pick where you are starting."
+      title="Turn Data Into Value"
+      description="An open source knowledge hub by Trilemma Foundation for our community of builders."
     >
       <main className="bt-shell">
         <div className="bt-page">
           <PageSection
-            title="Turn Data Into Microproducts"
-            description="Agents should start at the hub with machine-readable entrypoints. Humans should start with the microproduct definition, then follow the operational build sequence."
+            title="Turn Data Into Value"
+            description="An open source knowledge hub by Trilemma Foundation for our community of builders."
             variant="hero"
           >
             <div className="bt-two-column-grid">

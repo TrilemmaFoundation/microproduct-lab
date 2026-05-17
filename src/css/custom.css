@@ -450,13 +450,15 @@ textarea:focus-visible {
 }
 
 .bt-shell {
-  min-height: calc(100vh - 60px);
+  min-height: calc(100vh - var(--ifm-navbar-height));
+  display: grid;
+  align-items: center;
 }
 
 .bt-page {
   width: min(1200px, calc(100% - 2rem));
   margin: 0 auto;
-  padding: 3.5rem 0 4.5rem;
+  padding: 4rem 0;
   display: grid;
   gap: 4rem;
 }
@@ -558,7 +560,7 @@ textarea:focus-visible {
 @media (max-width: 640px) {
   .bt-page {
     width: min(100% - 1.25rem, 1200px);
-    padding-top: 2.5rem;
-    padding-bottom: 3.5rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
   }
 }
