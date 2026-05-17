@@ -2,6 +2,7 @@
 title: "<Microproduct Name>"
 description: "One-sentence summary of the utility this microproduct provides."
 last_reviewed: 2026-03-04
+authors: [trilemma-foundation]
 ---
 
 ## Problem

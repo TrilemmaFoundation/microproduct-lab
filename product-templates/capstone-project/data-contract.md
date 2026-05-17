@@ -2,6 +2,7 @@
 title: capstone-project · Data Contract
 description: Documentation fragment for starter capstone-project (e97dd12bef).
 last_reviewed: 2026-05-04
+authors: [trilemma-foundation]
 ---
 
 ## Data contract

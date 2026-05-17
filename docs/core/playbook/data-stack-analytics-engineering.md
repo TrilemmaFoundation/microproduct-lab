@@ -2,6 +2,7 @@
 title: Data Stack & Analytics Engineering
 description: Opinionated MVP patterns for orchestration, transformation, and analytics storage.
 last_reviewed: 2026-03-05
+authors: [trilemma-foundation]
 ---
 
 ## Context

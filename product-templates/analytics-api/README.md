@@ -2,6 +2,7 @@
 title: analytics-api · Readme
 description: Documentation fragment for starter analytics-api (c8d4d4d412).
 last_reviewed: 2026-05-04
+authors: [trilemma-foundation]
 ---
 
 ## Overview

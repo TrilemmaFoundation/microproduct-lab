@@ -2,6 +2,7 @@
 title: data-app · Agents
 description: Documentation fragment for starter data-app (b6463e9431).
 last_reviewed: 2026-05-04
+authors: [trilemma-foundation]
 ---
 
 ## Agents — Data app starter

@@ -2,6 +2,7 @@
 title: dashboard-to-tool · Architecture
 description: Documentation fragment for starter dashboard-to-tool (e4ef10eb08).
 last_reviewed: 2026-05-04
+authors: [trilemma-foundation]
 ---
 
 ## Architecture

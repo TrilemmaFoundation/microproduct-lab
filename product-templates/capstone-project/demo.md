@@ -2,6 +2,7 @@
 title: capstone-project · Demo
 description: Documentation fragment for starter capstone-project (402e56187f).
 last_reviewed: 2026-05-04
+authors: [trilemma-foundation]
 ---
 
 ## Demo

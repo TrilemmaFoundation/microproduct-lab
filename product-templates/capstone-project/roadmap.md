@@ -2,6 +2,7 @@
 title: capstone-project · Roadmap
 description: Documentation fragment for starter capstone-project (79d6f1005d).
 last_reviewed: 2026-05-04
+authors: [trilemma-foundation]
 ---
 
 ## Roadmap

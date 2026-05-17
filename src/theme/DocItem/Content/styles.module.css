@@ -1,0 +1,25 @@
+.docByline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  align-items: center;
+  margin-top: -0.75rem;
+  margin-bottom: 1.75rem;
+  color: var(--ifm-color-content-secondary);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.docByline a {
+  color: inherit;
+  text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+  text-underline-offset: 0.18em;
+}
+
+.docByline a:hover {
+  color: var(--ifm-link-hover-color);
+}
+
+.separator {
+  opacity: 0.7;
+}

@@ -2,6 +2,7 @@
 title: dashboard-to-tool · Readme
 description: Documentation fragment for starter dashboard-to-tool (d914b4d491).
 last_reviewed: 2026-05-04
+authors: [trilemma-foundation]
 ---
 
 ## Overview

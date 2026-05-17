@@ -2,6 +2,7 @@
 title: analytics-api · Demo
 description: Documentation fragment for starter analytics-api (6025f52f5f).
 last_reviewed: 2026-05-04
+authors: [trilemma-foundation]
 ---
 
 ## Demo

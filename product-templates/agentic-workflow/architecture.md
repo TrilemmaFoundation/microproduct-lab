@@ -2,6 +2,7 @@
 title: agentic-workflow · Architecture
 description: Documentation fragment for starter agentic-workflow (0bb89885c0).
 last_reviewed: 2026-05-04
+authors: [trilemma-foundation]
 ---
 
 ## Architecture

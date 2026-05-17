@@ -3,6 +3,7 @@ title: Folder contract
 description: Standard microproduct repository layout mandated for Trilemma-aligned projects.
 slug: folder-contract
 last_reviewed: 2026-05-04
+authors: [trilemma-foundation]
 ---
 
 Every microproduct—even experimental prototypes—is easier to shepherd when it conforms to one predictable repo shape.

@@ -2,6 +2,7 @@
 title: data-app · Data Contract
 description: Documentation fragment for starter data-app (24a3873de2).
 last_reviewed: 2026-05-04
+authors: [trilemma-foundation]
 ---
 
 ## Data contract

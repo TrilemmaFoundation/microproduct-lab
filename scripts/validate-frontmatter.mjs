@@ -4,10 +4,11 @@ import path from 'node:path';
 const docsRoot = path.resolve('docs');
 const templatesRoot = path.resolve('templates');
 const productTemplatesRoot = path.resolve('product-templates');
-const requiredFields = ['title', 'description', 'last_reviewed'];
+const requiredFields = ['title', 'description', 'last_reviewed', 'authors'];
 const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
 
 const errors = [];
+const authorIds = loadAuthorIds();
 
 function walk(dir) {
   const entries = fs.readdirSync(dir, { withFileTypes: true });
@@ -112,35 +113,39 @@ function splitInlineList(value) {
   return items;
 }
 
-function validateTags(frontmatter, filePath) {
+function readYamlList(frontmatter, field, filePath, {required = false} = {}) {
   const lines = frontmatter.split('\n');
-  const tagsIndex = lines.findIndex((line) => /^tags:\s*/.test(line));
-  if (tagsIndex === -1) {
-    return;
+  const fieldIndex = lines.findIndex((line) => new RegExp(`^${field}:\\s*`).test(line));
+  if (fieldIndex === -1) {
+    if (required) {
+      errors.push(`${filePath}: missing required frontmatter field '${field}'`);
+    }
+    return null;
   }
 
-  const tagsLine = lines[tagsIndex];
-  const tagsValue = tagsLine.replace(/^tags:\s*/, '').trim();
+  const fieldLine = lines[fieldIndex];
+  const fieldValue = fieldLine.replace(new RegExp(`^${field}:\\s*`), '').trim();
 
-  if (tagsValue.startsWith('[') && tagsValue.endsWith(']')) {
-    const items = splitInlineList(tagsValue.slice(1, -1));
+  if (fieldValue.startsWith('[') && fieldValue.endsWith(']')) {
+    const items = splitInlineList(fieldValue.slice(1, -1));
     if (!items) {
-      errors.push(`${filePath}: tags must be a YAML list of strings`);
-      return;
+      errors.push(`${filePath}: ${field} must be a YAML list of strings`);
+      return null;
     }
     for (const item of items) {
       if (!isYamlStringScalar(item)) {
-        errors.push(`${filePath}: tags must contain only string values`);
-        return;
+        errors.push(`${filePath}: ${field} must contain only string values`);
+        return null;
       }
     }
-    return;
+    return items.map((item) => item.trim().replace(/^['"]|['"]$/g, ''));
   }
 
-  if (!tagsValue) {
+  if (!fieldValue) {
     let foundListItem = false;
+    const items = [];
 
-    for (let i = tagsIndex + 1; i < lines.length; i += 1) {
+    for (let i = fieldIndex + 1; i < lines.length; i += 1) {
       const line = lines[i];
       if (!line.trim()) {
         continue;
@@ -152,24 +157,65 @@ function validateTags(frontmatter, filePath) {
 
       const listItem = line.trim().match(/^-\s+(.+)$/);
       if (!listItem) {
-        errors.push(`${filePath}: tags must be a YAML list of strings`);
-        return;
+        errors.push(`${filePath}: ${field} must be a YAML list of strings`);
+        return null;
       }
 
       foundListItem = true;
       if (!isYamlStringScalar(listItem[1])) {
-        errors.push(`${filePath}: tags must contain only string values`);
-        return;
+        errors.push(`${filePath}: ${field} must contain only string values`);
+        return null;
       }
+      items.push(listItem[1].trim().replace(/^['"]|['"]$/g, ''));
     }
 
     if (!foundListItem) {
-      errors.push(`${filePath}: tags must be a YAML list of strings`);
+      errors.push(`${filePath}: ${field} must be a YAML list of strings`);
+      return null;
     }
+    return items;
+  }
+
+  errors.push(`${filePath}: ${field} must be a YAML list of strings`);
+  return null;
+}
+
+function validateTags(frontmatter, filePath) {
+  readYamlList(frontmatter, 'tags', filePath);
+}
+
+function validateAuthors(frontmatter, filePath) {
+  const authors = readYamlList(frontmatter, 'authors', filePath);
+  if (!authors) {
     return;
   }
 
-  errors.push(`${filePath}: tags must be a YAML list of strings`);
+  if (authors.length === 0) {
+    errors.push(`${filePath}: authors must contain at least one author ID`);
+    return;
+  }
+
+  for (const author of authors) {
+    if (!authorIds.has(author)) {
+      errors.push(`${filePath}: unknown author ID '${author}'`);
+    }
+  }
+}
+
+function loadAuthorIds() {
+  const authorsPath = path.resolve('src/data/authors.ts');
+  if (!fs.existsSync(authorsPath)) {
+    errors.push(`${authorsPath}: author registry is missing`);
+    return new Set();
+  }
+
+  const content = fs.readFileSync(authorsPath, 'utf8');
+  const ids = [...content.matchAll(/\bid:\s*['"]([^'"]+)['"]/g)].map((match) => match[1]);
+  if (ids.length === 0) {
+    errors.push(`${authorsPath}: author registry must define at least one author ID`);
+  }
+
+  return new Set(ids);
 }
 
 function validateFile(filePath) {
@@ -188,6 +234,7 @@ function validateFile(filePath) {
   }
 
   validateTags(frontmatter, filePath);
+  validateAuthors(frontmatter, filePath);
 
   const dateMatch = frontmatter.match(/^last_reviewed:\s*(.+)$/m);
   if (!dateMatch) {

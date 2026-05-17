@@ -4,6 +4,7 @@ description: Community-maintained table of microproducts being built.
 slug: /
 tags: [showcase, community]
 last_reviewed: 2026-03-04
+authors: [trilemma-foundation]
 ---
 
 This table is the canonical MVP showcase format.

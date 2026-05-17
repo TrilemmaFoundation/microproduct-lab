@@ -2,6 +2,7 @@
 title: dashboard-to-tool · Roadmap
 description: Documentation fragment for starter dashboard-to-tool (9b048b75f0).
 last_reviewed: 2026-05-04
+authors: [trilemma-foundation]
 ---
 
 ## Roadmap

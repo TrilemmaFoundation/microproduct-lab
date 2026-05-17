@@ -16,8 +16,8 @@
     "lint:markdown": "markdownlint \"docs/**/*.md\" \"docs/**/*.mdx\" \"README.md\" \"CONTRIBUTING.md\" \"CODE_OF_CONDUCT.md\" \"templates/**/*.md\" \"product-templates/**/*.md\" \"products/**/*.md\"",
     "spellcheck": "cspell \"docs/**\" \"product-templates/**\" \"templates/**/*.md\"",
     "check": "npm run spellcheck && npm run validate:frontmatter && npm run validate:registry && npm run lint:markdown && npm run build",
-    "test": "jest && node --test scripts/__tests__/llmsMdxUtils.test.mjs",
-    "test:coverage": "jest --coverage && node --test scripts/__tests__/llmsMdxUtils.test.mjs"
+    "test": "jest && node --test scripts/__tests__/*.test.mjs",
+    "test:coverage": "jest --coverage && node --test scripts/__tests__/*.test.mjs"
   },
   "dependencies": {
     "@docusaurus/core": "^3.10.1",

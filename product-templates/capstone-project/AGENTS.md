@@ -2,6 +2,7 @@
 title: capstone-project · Agents
 description: Documentation fragment for starter capstone-project (16434736c0).
 last_reviewed: 2026-05-04
+authors: [trilemma-foundation]
 ---
 
 ## Agents — Capstone starter kit

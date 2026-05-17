@@ -2,6 +2,7 @@
 title: capstone-project · Readme
 description: Documentation fragment for starter capstone-project (f914c91491).
 last_reviewed: 2026-05-04
+authors: [trilemma-foundation]
 ---
 
 ## Overview

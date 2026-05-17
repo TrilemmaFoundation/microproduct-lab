@@ -3,6 +3,7 @@ title: "Archetype: Workflow automation product"
 description: Choreographed human + bot steps that must stay auditable and idempotent.
 slug: workflow-automation-product
 last_reviewed: 2026-05-04
+authors: [trilemma-foundation]
 ---
 
 

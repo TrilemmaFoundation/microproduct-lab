@@ -3,6 +3,7 @@ title: "Archetype: Forecasting product"
 description: Future-state projections grounded in reproducible assumptions and bands.
 slug: forecasting-product
 last_reviewed: 2026-05-04
+authors: [trilemma-foundation]
 ---
 
 

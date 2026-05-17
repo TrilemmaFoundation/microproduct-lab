@@ -3,6 +3,7 @@ title: Agents Hub
 description: Canonical AI-agent instructions, workflows, and links into Build Trilemma.
 slug: /
 last_reviewed: 2026-05-10
+authors: [trilemma-foundation]
 ---
 
 **`/agents`** is the web control plane for scaffolding and validating microproducts. Read this hub first, then use the static artifacts for machine ingestion. The site root **`/`** is an audience chooser; humans typically start from [What is a microproduct?](/docs/intro/what-is-a-microproduct).

@@ -20,6 +20,16 @@ function setupFixture(missionFrontmatter: string) {
 
   writeFile(
     fixtureDir,
+    'src/data/authors.ts',
+    [
+      'export const authors = [',
+      "  {id: 'trilemma-foundation', name: 'Trilemma Foundation'},",
+      '];',
+    ].join('\n'),
+  );
+
+  writeFile(
+    fixtureDir,
     'docs/core/intro/mission.md',
     baseTemplate(missionFrontmatter),
   );
@@ -33,6 +43,7 @@ function setupFixture(missionFrontmatter: string) {
         'description: Community-maintained table of microproducts being built.',
         'slug: /',
         'last_reviewed: 2026-03-04',
+        'authors: [trilemma-foundation]',
       ].join('\n'),
     )}\n| Name | Description | Team | Link |\n| --- | --- | --- | --- |\n`,
   );
@@ -45,6 +56,7 @@ function setupFixture(missionFrontmatter: string) {
         'title: Playbook Module',
         'description: Template entry',
         'last_reviewed: 2026-03-05',
+        'authors: [trilemma-foundation]',
       ].join('\n'),
     ),
   );
@@ -68,6 +80,7 @@ describe('validate-frontmatter tags handling', () => {
         'title: Mission',
         'description: Why this open knowledge hub exists and what success looks like.',
         'last_reviewed: 2026-03-04',
+        'authors: [trilemma-foundation]',
       ].join('\n'),
     );
 
@@ -84,6 +97,7 @@ describe('validate-frontmatter tags handling', () => {
         'description: Why this open knowledge hub exists and what success looks like.',
         'tags: [intro, mission]',
         'last_reviewed: 2026-03-04',
+        'authors: [trilemma-foundation]',
       ].join('\n'),
     );
 
@@ -101,6 +115,7 @@ describe('validate-frontmatter tags handling', () => {
         '  - intro',
         '  - mission',
         'last_reviewed: 2026-03-04',
+        'authors: [trilemma-foundation]',
       ].join('\n'),
     );
 
@@ -116,6 +131,7 @@ describe('validate-frontmatter tags handling', () => {
         'description: Why this open knowledge hub exists and what success looks like.',
         'tags: mission',
         'last_reviewed: 2026-03-04',
+        'authors: [trilemma-foundation]',
       ].join('\n'),
     );
 
@@ -132,12 +148,93 @@ describe('validate-frontmatter tags handling', () => {
         'description: Why this open knowledge hub exists and what success looks like.',
         'tags: [intro, 123]',
         'last_reviewed: 2026-03-04',
+        'authors: [trilemma-foundation]',
       ].join('\n'),
     );
 
     const result = runValidator(fixtureDir);
     expect(result.status).toBe(1);
     expect(result.stderr).toContain('tags must contain only string values');
+    fs.rmSync(fixtureDir, { recursive: true, force: true });
+  });
+});
+
+describe('validate-frontmatter authors handling', () => {
+  it('passes with valid author IDs', () => {
+    const fixtureDir = setupFixture(
+      [
+        'title: Mission',
+        'description: Why this open knowledge hub exists and what success looks like.',
+        'last_reviewed: 2026-03-04',
+        'authors: [trilemma-foundation]',
+      ].join('\n'),
+    );
+
+    const result = runValidator(fixtureDir);
+    expect(result.status).toBe(0);
+    fs.rmSync(fixtureDir, { recursive: true, force: true });
+  });
+
+  it('fails when authors are missing', () => {
+    const fixtureDir = setupFixture(
+      [
+        'title: Mission',
+        'description: Why this open knowledge hub exists and what success looks like.',
+        'last_reviewed: 2026-03-04',
+      ].join('\n'),
+    );
+
+    const result = runValidator(fixtureDir);
+    expect(result.status).toBe(1);
+    expect(result.stderr).toContain("missing required frontmatter field 'authors'");
+    fs.rmSync(fixtureDir, { recursive: true, force: true });
+  });
+
+  it('fails when authors are not a list', () => {
+    const fixtureDir = setupFixture(
+      [
+        'title: Mission',
+        'description: Why this open knowledge hub exists and what success looks like.',
+        'last_reviewed: 2026-03-04',
+        'authors: trilemma-foundation',
+      ].join('\n'),
+    );
+
+    const result = runValidator(fixtureDir);
+    expect(result.status).toBe(1);
+    expect(result.stderr).toContain('authors must be a YAML list of strings');
+    fs.rmSync(fixtureDir, { recursive: true, force: true });
+  });
+
+  it('fails when authors contain non-string values', () => {
+    const fixtureDir = setupFixture(
+      [
+        'title: Mission',
+        'description: Why this open knowledge hub exists and what success looks like.',
+        'last_reviewed: 2026-03-04',
+        'authors: [123]',
+      ].join('\n'),
+    );
+
+    const result = runValidator(fixtureDir);
+    expect(result.status).toBe(1);
+    expect(result.stderr).toContain('authors must contain only string values');
+    fs.rmSync(fixtureDir, { recursive: true, force: true });
+  });
+
+  it('fails when author IDs are unknown', () => {
+    const fixtureDir = setupFixture(
+      [
+        'title: Mission',
+        'description: Why this open knowledge hub exists and what success looks like.',
+        'last_reviewed: 2026-03-04',
+        'authors: [unknown-author]',
+      ].join('\n'),
+    );
+
+    const result = runValidator(fixtureDir);
+    expect(result.status).toBe(1);
+    expect(result.stderr).toContain("unknown author ID 'unknown-author'");
     fs.rmSync(fixtureDir, { recursive: true, force: true });
   });
 });

@@ -1,6 +1,7 @@
 import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 import { SITE_URL } from './siteUrl';
+import docReadTimesPlugin from './src/plugins/docReadTimes';
 
 const REPO_URL = 'https://github.com/TrilemmaFoundation/microproduct-lab';
 
@@ -134,7 +135,15 @@ const config: Config = {
           editUrl: DOC_ISLAND_EDIT_URL,
         },
       ] as const,
-  ),
+  ).concat([
+    [
+      docReadTimesPlugin,
+      {
+        siteDir: __dirname,
+        docRoots: ['docs/core', ...docsIslandPlugins.map((spec) => spec.path)],
+      },
+    ],
+  ]),
 
   themeConfig: {
     colorMode: {

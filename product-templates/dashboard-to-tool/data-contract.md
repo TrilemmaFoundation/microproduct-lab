@@ -2,6 +2,7 @@
 title: dashboard-to-tool · Data Contract
 description: Documentation fragment for starter dashboard-to-tool (c6838eecca).
 last_reviewed: 2026-05-04
+authors: [trilemma-foundation]
 ---
 
 ## Data contract

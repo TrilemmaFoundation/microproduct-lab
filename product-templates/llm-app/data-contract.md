@@ -2,6 +2,7 @@
 title: llm-app · Data Contract
 description: Documentation fragment for starter llm-app (8d5424e72e).
 last_reviewed: 2026-05-04
+authors: [trilemma-foundation]
 ---
 
 ## Data contract

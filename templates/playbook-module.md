@@ -3,6 +3,7 @@ title: "<Module Title>"
 description: "One-sentence summary of this phase module."
 tags: [playbook]
 last_reviewed: 2026-03-05
+authors: [trilemma-foundation]
 ---
 
 ## Phase Context

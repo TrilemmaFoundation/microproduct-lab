@@ -3,6 +3,7 @@ title: What counts as a good microproduct
 description: Qualitative guardrails complementing structured metadata and automated checks.
 slug: what-counts-as-good
 last_reviewed: 2026-05-04
+authors: [trilemma-foundation]
 ---
 
 Good microproducts share several observable traits—most of them discoverable directly from Markdown contracts plus live demos:

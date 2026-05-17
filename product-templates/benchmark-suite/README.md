@@ -2,6 +2,7 @@
 title: benchmark-suite · Readme
 description: Documentation fragment for starter benchmark-suite (g81c41d891).
 last_reviewed: 2026-05-04
+authors: [trilemma-foundation]
 ---
 
 ## Overview

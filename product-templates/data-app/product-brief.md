@@ -2,6 +2,7 @@
 title: data-app · Product Brief
 description: Documentation fragment for starter data-app (1da724a5c2).
 last_reviewed: 2026-05-04
+authors: [trilemma-foundation]
 ---
 
 ## Product brief — Data app starter

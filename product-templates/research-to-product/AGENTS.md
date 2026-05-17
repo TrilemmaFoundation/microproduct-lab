@@ -2,6 +2,7 @@
 title: research-to-product · Agents
 description: Documentation fragment for starter research-to-product (f280bbf6b9).
 last_reviewed: 2026-05-04
+authors: [trilemma-foundation]
 ---
 
 ## Agents — Research→product starter

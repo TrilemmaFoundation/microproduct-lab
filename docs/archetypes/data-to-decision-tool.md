@@ -3,6 +3,7 @@ title: "Archetype: Data-to-decision tool"
 description: Convert governed datasets into a narrow choice surface for operators.
 slug: data-to-decision-tool
 last_reviewed: 2026-05-04
+authors: [trilemma-foundation]
 ---
 
 

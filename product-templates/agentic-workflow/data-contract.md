@@ -2,6 +2,7 @@
 title: agentic-workflow · Data Contract
 description: Documentation fragment for starter agentic-workflow (7dbd9f561f).
 last_reviewed: 2026-05-04
+authors: [trilemma-foundation]
 ---
 
 ## Data contract

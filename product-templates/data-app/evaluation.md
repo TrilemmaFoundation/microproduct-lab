@@ -2,6 +2,7 @@
 title: data-app · Evaluation
 description: Documentation fragment for starter data-app (fe7c0596b4).
 last_reviewed: 2026-05-04
+authors: [trilemma-foundation]
 ---
 
 ## Evaluation plan

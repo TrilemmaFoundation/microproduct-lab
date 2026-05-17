@@ -3,6 +3,7 @@ title: "Archetype: Search discovery product"
 description: High-recall retrieval with transparent ranking signals.
 slug: search-discovery-product
 last_reviewed: 2026-05-04
+authors: [trilemma-foundation]
 ---
 
 

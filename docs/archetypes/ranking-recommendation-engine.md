@@ -3,6 +3,7 @@ title: "Archetype: Ranking recommendation engine"
 description: Ordered lists with calibrated explanations for humans who must defend picks.
 slug: ranking-recommendation-engine
 last_reviewed: 2026-05-04
+authors: [trilemma-foundation]
 ---
 
 

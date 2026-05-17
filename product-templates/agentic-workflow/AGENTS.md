@@ -2,6 +2,7 @@
 title: agentic-workflow · Agents
 description: Documentation fragment for starter agentic-workflow (a7b28ee18e).
 last_reviewed: 2026-05-04
+authors: [trilemma-foundation]
 ---
 
 ## Agents — Agentic workflow starter

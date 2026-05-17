@@ -3,6 +3,7 @@ title: End-to-End Ownership
 description: "Phase 3 of the playbook: own distribution, learning, and iteration after launch."
 tags: [playbook, ownership]
 last_reviewed: 2026-03-05
+authors: [trilemma-foundation]
 ---
 
 ## Phase Goal

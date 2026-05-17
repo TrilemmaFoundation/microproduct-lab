@@ -2,6 +2,7 @@
 title: data-app · Readme
 description: Documentation fragment for starter data-app (a132a1fa34).
 last_reviewed: 2026-05-04
+authors: [trilemma-foundation]
 ---
 
 ## Overview

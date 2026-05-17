@@ -2,6 +2,7 @@
 title: capstone-project · Product Brief
 description: Documentation fragment for starter capstone-project (d9104f6e0a).
 last_reviewed: 2026-05-04
+authors: [trilemma-foundation]
 ---
 
 ## Product brief — Capstone starter kit

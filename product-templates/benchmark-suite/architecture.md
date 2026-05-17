@@ -2,6 +2,7 @@
 title: benchmark-suite · Architecture
 description: Documentation fragment for starter benchmark-suite (bd0ae3ba33).
 last_reviewed: 2026-05-04
+authors: [trilemma-foundation]
 ---
 
 ## Architecture

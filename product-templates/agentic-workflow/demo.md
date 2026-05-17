@@ -2,6 +2,7 @@
 title: agentic-workflow · Demo
 description: Documentation fragment for starter agentic-workflow (f33f3e9a31).
 last_reviewed: 2026-05-04
+authors: [trilemma-foundation]
 ---
 
 ## Demo

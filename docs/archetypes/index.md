@@ -3,6 +3,7 @@ title: Archetype catalog
 description: Reusable microproduct patterns with agent prompts, pitfalls, and MVP checklists.
 slug: /
 last_reviewed: 2026-05-04
+authors: [trilemma-foundation]
 ---
 
 Archetypes anchor design reviews, prompt packs, and telemetry plans. Pick one before opening a template—the combination encodes most product risk.

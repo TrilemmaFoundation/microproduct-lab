@@ -2,6 +2,7 @@
 title: llm-app · Readme
 description: Documentation fragment for starter llm-app (b13a73125e).
 last_reviewed: 2026-05-04
+authors: [trilemma-foundation]
 ---
 
 ## Overview

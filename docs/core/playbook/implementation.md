@@ -3,6 +3,7 @@ title: Implementation
 description: Phase 2 module for delivering an MVP with clear PM workflows and execution controls.
 tags: [playbook, implementation]
 last_reviewed: 2026-03-05
+authors: [trilemma-foundation]
 ---
 
 ## Phase Goal

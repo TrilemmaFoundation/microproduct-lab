@@ -2,6 +2,7 @@
 title: data-app · Demo
 description: Documentation fragment for starter data-app (d0f6215f3d).
 last_reviewed: 2026-05-04
+authors: [trilemma-foundation]
 ---
 
 ## Demo

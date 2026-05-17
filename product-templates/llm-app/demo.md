@@ -2,6 +2,7 @@
 title: llm-app · Demo
 description: Documentation fragment for starter llm-app (9208fedb96).
 last_reviewed: 2026-05-04
+authors: [trilemma-foundation]
 ---
 
 ## Demo

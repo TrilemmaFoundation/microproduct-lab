@@ -2,6 +2,7 @@
 title: Resources
 description: Curated references that help builders execute faster.
 last_reviewed: 2026-03-05
+authors: [trilemma-foundation]
 ---
 
 ## Starter Resource Types

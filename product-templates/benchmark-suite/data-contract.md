@@ -2,6 +2,7 @@
 title: benchmark-suite · Data Contract
 description: Documentation fragment for starter benchmark-suite (512d512d03).
 last_reviewed: 2026-05-04
+authors: [trilemma-foundation]
 ---
 
 ## Data contract

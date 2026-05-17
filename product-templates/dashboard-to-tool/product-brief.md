@@ -2,6 +2,7 @@
 title: dashboard-to-tool · Product Brief
 description: Documentation fragment for starter dashboard-to-tool (ad631a278b).
 last_reviewed: 2026-05-04
+authors: [trilemma-foundation]
 ---
 
 ## Product brief — Dashboard→tool starter

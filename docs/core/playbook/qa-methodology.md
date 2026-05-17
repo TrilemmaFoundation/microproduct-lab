@@ -3,6 +3,7 @@ title: QA Methodology
 description: Phase 2 QA track for validating agent-assisted builds and ensuring progress.
 tags: [playbook, qa]
 last_reviewed: 2026-05-06
+authors: [trilemma-foundation]
 ---
 
 ## QA Track in Implementation Phase

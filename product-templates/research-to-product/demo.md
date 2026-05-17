@@ -2,6 +2,7 @@
 title: research-to-product · Demo
 description: Documentation fragment for starter research-to-product (5c335e716e).
 last_reviewed: 2026-05-04
+authors: [trilemma-foundation]
 ---
 
 ## Demo
