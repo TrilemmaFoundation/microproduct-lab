@@ -1,22 +1,102 @@
 ---
 title: What Is a Microproduct?
 description: Definition and core characteristics of microproducts.
-last_reviewed: 2026-05-10
+last_reviewed: 2026-05-16
 ---
 
 import UniversityMarquee from '@site/src/components/UniversityMarquee';
 
-A microproduct is a focused app that turns data into usable tools and real utility.
+A microproduct is a focused product that turns data into value.
+
+Most data work stops before the thing people can
+actually use. A notebook turns data into analysis. A presentation turns analysis
+into a story. A dashboard turns metrics into visibility. Those are valuable
+artifacts, but they still leave a large gap between insight and utility.
+
+A microproduct closes that gap. It asks: what user experience, workflow, alert,
+recommendation, decision aid, API, monitor, or operational tool would make this
+data useful in someone's real life or work?
+
+## The Shift
+
+Traditional data science projects often begin with the tools and knowledge the
+builder wants to demonstrate. The final artifact becomes proof of technical
+ability: a clever model, a clean notebook, a polished slide deck, or a Kaggle
+style workflow that shows what the builder can implement.
+
+Microproduct work starts from the other end.
+
+It works backward from value:
+
+1. Who is this for?
+2. What useful thing should become easier, faster, clearer, safer, or more
+   reliable?
+3. What experience would someone actually return to?
+4. What data, models, systems, and workflows are required to support that
+   experience?
+
+This changes the standard. The question is no longer only "what can I do with
+this data?" It becomes "what must exist for this data to create utility?"
+
+## From Insight To Experience
+
+The distance between insight and experience is usually larger than it looks.
+
+An insight in a notebook can be true and still not change behavior. A chart in a
+presentation can be persuasive and still disappear after the meeting. A dashboard
+can be accurate and still fail if nobody knows what to do next.
+
+Utility requires a sharper product shape:
+
+- A user story with a real job to be done.
+- A clear interface for action, exploration, monitoring, or decision-making.
+- Data that refreshes when the use case needs it.
+- Logic that is reliable enough to become part of a workflow.
+- Delivery that does not depend on one person rerunning a local script.
+
+That is why a microproduct is not just a small data project. It is a small
+product with data at its core.
+
+## Why Analytics Engineering Matters
+
+If the goal is utility, the data practice has to mature with the product.
+
+One-off analysis can live in a local notebook. A sustainable microproduct cannot.
+It may need live screens, scheduled refreshes, large datasets, reliable metrics,
+backfills, alerts, access controls, APIs, or product-facing data models. The
+implementation should not be limited by the convenience of the first local dump
+of data.
+
+Analytics engineering is the bridge. It applies software engineering best
+practices to data and analytics so useful data work can become maintainable
+systems.
+
+In practice, that means thinking beyond ad hoc analysis and designing a data
+practice:
+
+- A stack for storage, transformation, orchestration, serving, and observability.
+- Tools such as dbt, Dagster, DuckDB, Snowflake, or other fit-for-purpose
+  systems.
+- Workflows for testing, documentation, scheduling, deployment, and iteration.
+- Ownership patterns that make the product reliable after the first demo.
+
+This is not a new idea invented here. The industry is already moving in this
+direction: analytics engineers, modern data pipelines, warehouse-scale storage
+and compute, code-defined transformations, and orchestration are becoming normal
+parts of serious data work.
+
+The opportunity is to use that shift for personal and small-team ownership.
+Personal projects do not have to be disposable portfolios or one-time analyses.
+They can become microproducts: focused tools that create real value, serve real
+users, and in some cases genuinely monetize.
 
 ## Core Characteristics
 
 - Solves one high-value problem clearly.
-- Uses data to drive outcomes, not dashboards alone.
-- Ships quickly and iterates based on real usage.
-
-## Why This Matters
-
-LLMs and agentic workflows reduce build friction. The opportunity is to empower technical talent to create practical, high-impact tools faster.
+- Works backward from a user story or value promise.
+- Turns data into an experience, workflow, or utility.
+- Uses analytics engineering when reliability, scale, or maintainability matter.
+- Ships quickly, then improves based on real usage.
 
 ## Your path on this site
 
