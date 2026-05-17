@@ -6,8 +6,9 @@
   --color-text-secondary: #a9a8bd;
   --color-text-secondary-strong: #d2d2e3;
 
-  --color-accent-orange: #ff9438;
-  --color-accent-blue: #6ba7de;
+  --color-accent-orange: #ff993f;
+  --color-accent-blue: #6ca8e4;
+  --color-flow-line: rgba(255, 255, 255, 0.9);
 
   --color-border-subtle: rgba(255, 255, 255, 0.08);
   --color-border-subtle-strong: rgba(255, 255, 255, 0.16);
@@ -508,6 +509,62 @@ textarea:focus-visible {
   gap: 0.45rem;
 }
 
+.bt-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+.bt-hero-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  border: 1px solid var(--color-accent-orange);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-text-primary);
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1;
+  padding: 0.85rem 1.25rem;
+  text-decoration: none;
+  transition:
+    box-shadow 180ms ease,
+    background-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.bt-hero-button:hover {
+  color: var(--color-text-primary);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.28);
+  text-decoration: none;
+  transform: translateY(-4px);
+}
+
+.bt-hero-button--primary {
+  background: var(--color-accent-orange);
+  color: var(--color-bg-dark);
+}
+
+.bt-hero-button--primary:hover {
+  background: var(--color-accent-orange);
+  color: var(--color-bg-dark);
+}
+
+.bt-hero-button--agents {
+  border-color: var(--color-accent-blue);
+  background: var(--color-accent-blue);
+  color: var(--color-bg-dark);
+}
+
+.bt-hero-button--agents:hover {
+  background: var(--color-accent-blue);
+  color: var(--color-bg-dark);
+}
+
 .bt-steps-grid {
   display: grid;
   gap: 1.5rem;
@@ -554,6 +611,10 @@ textarea:focus-visible {
   .bt-link-grid,
   .bt-two-column-grid {
     grid-template-columns: 1fr;
+  }
+
+  .bt-hero-actions {
+    gap: 0.7rem;
   }
 }
 

@@ -1,9 +1,6 @@
 import Layout from '@theme/Layout';
-import {
-  ActionCard,
-  MetadataPill,
-  PageSection,
-} from '../components/ControlSurface';
+import Link from '@docusaurus/Link';
+import { PageSection } from '../components/ControlSurface';
 
 export default function Home() {
   return (
@@ -18,41 +15,16 @@ export default function Home() {
             description="An open source knowledge hub by Trilemma Foundation for our community of builders."
             variant="hero"
           >
-            <div className="bt-two-column-grid">
-              <ActionCard
-                title="AI agents"
-                description="Hub pages with instructions, machine-readable artifacts, and workflows into templates and standards."
-                actions={[
-                  {
-                    label: 'Open the agents hub',
-                    to: '/agents',
-                    description: 'Canonical web entry for contributor agents and tooling.',
-                  },
-                ]}
-                aside={
-                  <div className="bt-inline-pills">
-                    <MetadataPill tone="accent">Agent-first</MetadataPill>
-                    <MetadataPill>Templates + standards</MetadataPill>
-                  </div>
-                }
-              />
-              <ActionCard
-                title="Humans"
-                description="Understand what a microproduct is, then walk the same folder contract, archetype, template, and validation path."
-                actions={[
-                  {
-                    label: 'Start with What is a microproduct?',
-                    to: '/docs/intro/what-is-a-microproduct',
-                    description: 'Definition, characteristics, and your path on this site.',
-                  },
-                ]}
-                aside={
-                  <div className="bt-inline-pills">
-                    <MetadataPill>Playbook</MetadataPill>
-                    <MetadataPill>Templates + standards</MetadataPill>
-                  </div>
-                }
-              />
+            <div className="bt-hero-actions" aria-label="Choose your path">
+              <Link
+                className="bt-hero-button bt-hero-button--primary"
+                to="/docs/intro/what-is-a-microproduct"
+              >
+                Humans
+              </Link>
+              <Link className="bt-hero-button bt-hero-button--agents" to="/agents">
+                Agents
+              </Link>
             </div>
           </PageSection>
         </div>
