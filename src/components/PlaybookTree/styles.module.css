@@ -90,7 +90,6 @@
 
 .nodeButton {
   display: grid;
-  gap: 0.15rem;
   justify-items: start;
   padding: 0.75rem 0.85rem;
   text-align: left;
@@ -105,14 +104,6 @@
 .nodeRowSelected .nodeButton {
   border-color: color-mix(in srgb, var(--node-accent) 62%, transparent);
   background: color-mix(in srgb, var(--node-accent) 14%, transparent);
-}
-
-.nodeLevel {
-  color: var(--node-accent);
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
 }
 
 .nodeTitle {
@@ -130,14 +121,12 @@
   top: calc(var(--ifm-navbar-height) + 1rem);
 }
 
-.detailLevel,
 .detailTitle,
 .detailSummary,
 .contributorHint p {
   margin: 0;
 }
 
-.detailLevel,
 .contributorLabel {
   color: var(--color-accent-orange);
   font-size: 0.74rem;

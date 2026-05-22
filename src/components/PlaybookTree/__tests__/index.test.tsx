@@ -3,7 +3,7 @@ import {fireEvent, render, screen, within} from '@testing-library/react';
 import {PlaybookTree, humanPlaybookTree} from '../index';
 
 describe('PlaybookTree', () => {
-  const defaultExpandedIds = [
+  const fullyExpandedIds = [
     'human-overview',
     'intro',
     'playbook',
@@ -11,11 +11,10 @@ describe('PlaybookTree', () => {
     'build',
   ];
 
-  it('renders the root and level-2 branches', () => {
+  it('renders only the root and its direct branches by default', () => {
     render(
       <PlaybookTree
         nodes={humanPlaybookTree}
-        defaultExpandedIds={defaultExpandedIds}
         initialSelectedId="human-overview"
       />,
     );
@@ -26,9 +25,10 @@ describe('PlaybookTree', () => {
     expect(screen.getByRole('button', {name: 'Intro'})).toBeInTheDocument();
     expect(screen.getByRole('button', {name: 'Playbook'})).toBeInTheDocument();
     expect(screen.getByRole('button', {name: 'Resources'})).toBeInTheDocument();
-    expect(screen.getByRole('button', {name: 'Frame'})).toBeInTheDocument();
-    expect(screen.getByRole('button', {name: 'Build'})).toBeInTheDocument();
-    expect(screen.getByRole('button', {name: 'Operate'})).toBeInTheDocument();
+    expect(screen.queryByRole('button', {name: 'Frame'})).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', {name: 'Build'})).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', {name: 'Operate'})).not.toBeInTheDocument();
+    expect(screen.queryByText(/Level \d/)).not.toBeInTheDocument();
   });
 
   it('expands and collapses tree branches', () => {
@@ -53,7 +53,7 @@ describe('PlaybookTree', () => {
     render(
       <PlaybookTree
         nodes={humanPlaybookTree}
-        defaultExpandedIds={defaultExpandedIds}
+        defaultExpandedIds={fullyExpandedIds}
         initialSelectedId="human-overview"
       />,
     );
@@ -73,7 +73,7 @@ describe('PlaybookTree', () => {
     render(
       <PlaybookTree
         nodes={humanPlaybookTree}
-        defaultExpandedIds={defaultExpandedIds}
+        defaultExpandedIds={fullyExpandedIds}
         initialSelectedId="frame"
       />,
     );

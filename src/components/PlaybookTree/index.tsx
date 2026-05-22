@@ -236,7 +236,6 @@ function TreeNode({
           aria-pressed={isSelected}
           aria-label={node.title}
         >
-          <span className={styles.nodeLevel}>Level {node.level}</span>
           <span className={styles.nodeTitle}>{node.title}</span>
         </button>
       </div>
@@ -260,7 +259,7 @@ function TreeNode({
 
 export function PlaybookTree({
   nodes,
-  defaultExpandedIds = [],
+  defaultExpandedIds,
   initialSelectedId,
 }: PlaybookTreeProps) {
   const initialNode = useMemo(
@@ -268,7 +267,7 @@ export function PlaybookTree({
     [initialSelectedId, nodes],
   );
   const [expandedIds, setExpandedIds] = useState(
-    () => new Set(defaultExpandedIds),
+    () => new Set(defaultExpandedIds ?? nodes.map((node) => node.id)),
   );
   const [selectedId, setSelectedId] = useState(initialNode.id);
   const selectedNode = findNode(nodes, selectedId);
@@ -302,7 +301,6 @@ export function PlaybookTree({
         </ul>
       </div>
       <aside className={styles.detailPanel} aria-live="polite">
-        <p className={styles.detailLevel}>Level {selectedNode.level}</p>
         <Heading as="h2" className={styles.detailTitle}>
           {selectedNode.title}
         </Heading>
