@@ -177,6 +177,10 @@ const config: Config = {
           activeBaseRegex: '^/(docs|contribute|showcase)(/|$)',
           items: [
             {
+              to: '/docs/human-overview',
+              label: 'Human overview',
+            },
+            {
               to: '/docs/intro/what-is-a-microproduct',
               label: 'What is a microproduct?',
             },
@@ -185,8 +189,12 @@ const config: Config = {
               label: 'Mission',
             },
             {
-              to: '/docs/playbook/getting-started',
-              label: 'Getting started',
+              to: '/docs/intro/authors',
+              label: 'Authors',
+            },
+            {
+              to: '/docs/playbook/frame',
+              label: 'Frame',
             },
             {
               to: '/docs/playbook/ideation',
@@ -244,8 +252,8 @@ const config: Config = {
           items: [
             { label: 'Home', to: '/' },
             {
-              label: 'Human Intro',
-              to: '/docs/intro/what-is-a-microproduct',
+              label: 'Human Overview',
+              to: '/docs/human-overview',
             },
             { label: 'Templates', to: '/templates' },
             { label: 'Agents', to: '/agents' },

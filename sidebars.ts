@@ -2,10 +2,15 @@ import type { SidebarsConfig } from '@docusaurus/plugin-content-docs';
 
 const sidebars: SidebarsConfig = {
   incubatorSidebar: [
+    'human-overview',
     {
       type: 'category',
       label: 'Intro',
-      items: ['intro/what-is-a-microproduct', 'intro/mission'],
+      items: [
+        'intro/what-is-a-microproduct',
+        'intro/mission',
+        'intro/authors',
+      ],
     },
     {
       type: 'category',
@@ -13,9 +18,9 @@ const sidebars: SidebarsConfig = {
       items: [
         {
           type: 'category',
-          label: 'Getting Started',
+          label: 'Frame',
           items: [
-            'playbook/getting-started',
+            'playbook/frame',
             'playbook/ideation',
             'playbook/architecture',
             'playbook/data-stack-analytics-engineering',
@@ -23,17 +28,17 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: 'category',
-          label: 'Implementation',
+          label: 'Build',
           items: [
-            'playbook/implementation-phase',
-            'playbook/implementation',
+            'playbook/build',
+            'playbook/build-module',
             'playbook/qa-methodology',
           ],
         },
         {
           type: 'category',
-          label: 'End-to-End Ownership',
-          items: ['playbook/end-to-end-ownership'],
+          label: 'Operate',
+          items: ['playbook/operate'],
         },
       ],
     },

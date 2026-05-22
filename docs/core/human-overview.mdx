@@ -1,0 +1,45 @@
+---
+title: Human Overview
+description: A tree map for reading and contributing to the Build Trilemma playbook.
+last_reviewed: 2026-05-22
+authors: [mohammad-ashkani]
+---
+
+import {
+  PlaybookTree,
+  humanPlaybookTree,
+} from '@site/src/components/PlaybookTree';
+
+This page is the orientation layer for the Build Trilemma playbook.
+
+Before diving into definitions, use the tree below to see the whole shape of the
+knowledge hub: the top-level purpose, the main branches of the work, and the
+modules where readers and contributors can go deeper.
+
+<PlaybookTree
+  nodes={humanPlaybookTree}
+  defaultExpandedIds={[
+    'human-overview',
+    'intro',
+    'playbook',
+    'frame',
+    'build',
+  ]}
+  initialSelectedId="human-overview"
+/>
+
+## How To Read This Tree
+
+The playbook moves top down:
+
+1. **Turn data into value.** We call the focused tools that do this
+   microproducts, and we use analytics engineering to make them reliable.
+2. **Move through the main branches.** Start with Intro, frame the opportunity,
+   build the product, then operate distribution, learning, and iteration.
+3. **Drill into the nuance.** Each branch contains modules that can be improved
+   independently by contributors working at a specific point in the tree.
+
+Start with [What Is a Microproduct?](/docs/intro/what-is-a-microproduct) when
+you want the definition. Start with
+[Frame](/docs/playbook/frame) when you are ready to shape an
+idea into a buildable product.

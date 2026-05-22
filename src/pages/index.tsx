@@ -18,7 +18,7 @@ export default function Home() {
             <div className="bt-hero-actions" aria-label="Choose your path">
               <Link
                 className="bt-hero-button bt-hero-button--primary"
-                to="/docs/intro/what-is-a-microproduct"
+                to="/docs/human-overview"
               >
                 Humans
               </Link>

@@ -10,7 +10,7 @@ A microproduct is a focused software tool that turns data, models, workflows, or
 
 - `/` — Audience chooser (agents vs humans).
 - `/agents` — Web control plane for AI agents (start here in the browser).
-- `/docs/intro/what-is-a-microproduct` — Default human narrative entry.
+- `/docs/human-overview` — Default human overview and playbook tree.
 
 ## Primary agent objective
 

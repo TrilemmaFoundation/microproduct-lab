@@ -6,7 +6,7 @@ last_reviewed: 2026-05-06
 authors: [trilemma-foundation]
 ---
 
-## QA Track in Implementation Phase
+## QA Track in Build
 
 Delivering high-quality microproducts to users requires effort in ideation,
 implementation, and operation. This guide focuses on the implementation phase,

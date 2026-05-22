@@ -1,0 +1,27 @@
+.hero {
+  min-height: calc(100vh - 60px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 760px;
+  text-align: left;
+}
+
+.container h1 {
+  margin-bottom: 1rem;
+}
+
+.container p {
+  margin-bottom: 2rem;
+  font-size: 1.125rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}

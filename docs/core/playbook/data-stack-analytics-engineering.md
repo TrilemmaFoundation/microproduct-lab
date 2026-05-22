@@ -126,5 +126,5 @@ Move from DuckDB to Snowflake when one or more thresholds are consistently true:
 
 ## Next Step
 
-- Apply these decisions in [Implementation](/docs/playbook/implementation).
+- Apply these decisions in [Build](/docs/playbook/build).
 - Validate delivery quality with [QA Methodology](/docs/playbook/qa-methodology).

@@ -1,7 +1,7 @@
 ---
-title: Implementation Phase
+title: Build
 description: "Phase 2 of the playbook: execute, validate quality, and deliver a usable MVP."
-tags: [playbook, implementation]
+tags: [playbook, build]
 last_reviewed: 2026-03-05
 authors: [trilemma-foundation]
 ---

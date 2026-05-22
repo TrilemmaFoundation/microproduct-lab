@@ -1,7 +1,7 @@
 ---
-title: Getting Started
+title: Frame
 description: "Phase 1 of the playbook: validate opportunity and architecture before building."
-tags: [playbook, getting-started]
+tags: [playbook, frame]
 last_reviewed: 2026-03-05
 authors: [trilemma-foundation]
 ---

@@ -15,7 +15,7 @@ describe('Home page', () => {
     ).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Humans' })).toHaveAttribute(
       'href',
-      '/docs/intro/what-is-a-microproduct',
+      '/docs/human-overview',
     );
     expect(screen.getByRole('link', { name: 'Agents' })).toHaveAttribute(
       'href',

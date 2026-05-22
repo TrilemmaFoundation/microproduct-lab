@@ -1,0 +1,18 @@
+---
+title: Authors
+description: People and organizations contributing to Build Trilemma docs.
+last_reviewed: 2026-05-22
+authors: [trilemma-foundation]
+---
+
+import {authors} from '@site/src/data/authors';
+
+The authors below are listed from the shared site author registry.
+
+<ul>
+  {authors.map((author) => (
+    <li key={author.id}>
+      {author.url ? <a href={author.url}>{author.name}</a> : author.name}
+    </li>
+  ))}
+</ul>
