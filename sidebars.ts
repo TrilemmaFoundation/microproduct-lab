@@ -9,35 +9,35 @@ const sidebars: SidebarsConfig = {
       items: [
         {
           type: 'category',
-          label: 'Intro',
+          label: 'Intro Section',
           items: [
-            'intro/what-is-a-microproduct',
-            'intro/mission',
+            'playbook/intro/what-is-a-microproduct',
+            'playbook/intro/mission',
           ],
         },
         {
           type: 'category',
-          label: 'Frame',
+          label: 'Frame Section',
           items: [
-            'playbook/frame',
-            'playbook/ideation',
-            'playbook/architecture',
-            'playbook/data-stack-analytics-engineering',
+            'playbook/frame/frame',
+            'playbook/frame/ideation',
+            'playbook/frame/architecture',
+            'playbook/frame/data-stack-analytics-engineering',
           ],
         },
         {
           type: 'category',
-          label: 'Build',
+          label: 'Build Section',
           items: [
-            'playbook/build',
-            'playbook/build-module',
-            'playbook/qa-methodology',
+            'playbook/build/build',
+            'playbook/build/build-module',
+            'playbook/build/qa-methodology',
           ],
         },
         {
           type: 'category',
-          label: 'Operate',
-          items: ['playbook/operate'],
+          label: 'Operate Section',
+          items: ['playbook/operate/operate'],
         },
       ],
     },
@@ -49,7 +49,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'category',
       label: 'Authors',
-      items: ['intro/authors'],
+      items: ['authors/index'],
     },
   ],
 };

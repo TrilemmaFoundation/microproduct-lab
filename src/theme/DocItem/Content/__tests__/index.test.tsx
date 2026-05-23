@@ -56,7 +56,7 @@ describe('DocItemContent byline', () => {
         content_kind: 'reference',
         authors: ['trilemma-foundation'],
       },
-      '@site/docs/human/intro/authors.mdx',
+      '@site/docs/human/authors/index.mdx',
     );
 
     expect(screen.getByText(/Maintained by/i)).toBeInTheDocument();
@@ -70,7 +70,7 @@ describe('DocItemContent byline', () => {
       {
         authors: ['mohammad-ashkani'],
       },
-      '@site/docs/human/intro/what-is-a-microproduct.mdx',
+      '@site/docs/human/playbook/intro/what-is-a-microproduct.mdx',
     );
 
     expect(screen.getByText(/^By/i)).toBeInTheDocument();

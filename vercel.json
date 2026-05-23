@@ -40,6 +40,16 @@
       "permanent": true
     },
     {
+      "source": "/docs/intro/authors",
+      "destination": "/docs/authors",
+      "permanent": true
+    },
+    {
+      "source": "/docs/intro/authors/",
+      "destination": "/docs/authors",
+      "permanent": true
+    },
+    {
       "source": "/docs/playbook/getting-started",
       "destination": "/docs/playbook/frame",
       "permanent": true

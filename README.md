@@ -7,8 +7,8 @@ This repository is an open knowledge hub to help builders learn, contribute, and
 ## Start Here
 
 - **Site routing:** On the deployed site, `/` is an audience chooser. Use `/docs/human-overview` as the human entry point and `/agents` as the agent web hub (paths match this repo’s Docusaurus routes). Stable machine-readable URLs such as `/registry.json` and `/schemas/product.schema.json` are summarized on the agents hub.
-- Read: [What is a Microproduct?](docs/human/intro/what-is-a-microproduct.mdx)
-- Learn the process: [Playbook](docs/human/playbook/ideation.md)
+- Read: [What is a Microproduct?](docs/human/playbook/intro/what-is-a-microproduct.mdx)
+- Learn the process: [Playbook](docs/human/playbook/frame/ideation.md)
 - Explore examples: [Showcase](docs/showcase/microproducts.md)
 - Contribute: [How to contribute](docs/contribute/how-to-contribute.md)
 - Agent-facing files in the static site root: `static/AGENTS.md`, `static/llms.txt`, and generated `static/llms-full.txt` (created on `npm run build`)

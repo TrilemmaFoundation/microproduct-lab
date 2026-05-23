@@ -1,6 +1,7 @@
 ---
 title: Build Module
 description: Phase 2 module for delivering an MVP with clear PM workflows and execution controls.
+slug: /playbook/build-module
 tags: [playbook, build]
 last_reviewed: 2026-03-05
 authors: [trilemma-foundation]

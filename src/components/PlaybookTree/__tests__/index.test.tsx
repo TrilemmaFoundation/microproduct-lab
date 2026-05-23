@@ -7,8 +7,8 @@ describe('PlaybookTree', () => {
     'human-overview',
     'intro',
     'playbook',
-    'frame',
-    'build',
+    'frame-section',
+    'build-section',
   ];
 
   it('renders only the root and its direct branches by default', () => {
@@ -65,19 +65,39 @@ describe('PlaybookTree', () => {
     expect(visibleNodeLabels).toEqual([
       'Human Overview',
       'Playbook',
-      'Intro',
-      'Frame',
-      'Build',
-      'Operate',
+      'Intro Section',
+      'Frame Section',
+      'Build Section',
+      'Operate Section',
       'Resources',
       'Authors',
     ]);
 
-    fireEvent.click(screen.getByRole('button', {name: 'Expand Frame'}));
+    fireEvent.click(screen.getByRole('button', {name: 'Expand Frame Section'}));
     expect(screen.getByRole('button', {name: 'Ideation'})).toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole('button', {name: 'Collapse Frame'}));
+    fireEvent.click(screen.getByRole('button', {name: 'Collapse Frame Section'}));
     expect(screen.queryByRole('button', {name: 'Ideation'})).not.toBeInTheDocument();
+  });
+
+  it('treats folder-like sections as non-module containers', () => {
+    render(
+      <PlaybookTree
+        nodes={humanPlaybookTree}
+        defaultExpandedIds={['human-overview', 'playbook']}
+        initialSelectedId="human-overview"
+      />,
+    );
+
+    fireEvent.click(screen.getByRole('button', {name: 'Frame Section'}));
+
+    const detailPanel = screen.getByRole('complementary');
+    expect(
+      within(detailPanel).getByRole('heading', {name: 'Frame Section'}),
+    ).toBeInTheDocument();
+    expect(
+      within(detailPanel).queryByRole('link', {name: 'Open module'}),
+    ).not.toBeInTheDocument();
   });
 
   it('updates the context panel when a node is selected', () => {

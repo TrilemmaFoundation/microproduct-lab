@@ -37,7 +37,7 @@ export const humanPlaybookTree: PlaybookTreeNode[] = [
         children: [
           {
             id: 'intro',
-            title: 'Intro',
+            title: 'Intro Section',
             level: 3,
             description:
               'Start with the shared concepts and mission behind the Build Trilemma docs.',
@@ -61,13 +61,20 @@ export const humanPlaybookTree: PlaybookTreeNode[] = [
             ],
           },
           {
-            id: 'frame',
-            title: 'Frame',
+            id: 'frame-section',
+            title: 'Frame Section',
             level: 3,
             description:
               'The planning layer of the analytics development lifecycle, organizing content around defining opportunities, understanding users, scoping microproducts, and analyzing whether an idea is worth building.',
-            to: '/docs/playbook/frame',
             children: [
+              {
+                id: 'frame',
+                title: 'Frame',
+                level: 4,
+                description:
+                  'Validate whether a microproduct is worth building and feasible to deliver before execution.',
+                to: '/docs/playbook/frame',
+              },
               {
                 id: 'ideation',
                 title: 'Ideation',
@@ -95,13 +102,20 @@ export const humanPlaybookTree: PlaybookTreeNode[] = [
             ],
           },
           {
-            id: 'build',
-            title: 'Build',
+            id: 'build-section',
+            title: 'Build Section',
             level: 3,
             description:
               'The development layer of the analytics development lifecycle, organizing content around designing, developing, testing, and deploying microproducts through iterative implementation.',
-            to: '/docs/playbook/build',
             children: [
+              {
+                id: 'build',
+                title: 'Build',
+                level: 4,
+                description:
+                  'Execute, validate quality, and deliver a reliable MVP through focused delivery workflows.',
+                to: '/docs/playbook/build',
+              },
               {
                 id: 'build-module',
                 title: 'Build Module',
@@ -121,12 +135,21 @@ export const humanPlaybookTree: PlaybookTreeNode[] = [
             ],
           },
           {
-            id: 'operate',
-            title: 'Operate',
+            id: 'operate-section',
+            title: 'Operate Section',
             level: 3,
             description:
               'The operational layer of the analytics development lifecycle, organizing content around operating, observing, learning from, and improving shipped microproducts over time.',
-            to: '/docs/playbook/operate',
+            children: [
+              {
+                id: 'operate',
+                title: 'Operate',
+                level: 4,
+                description:
+                  'Own distribution, learning, and iteration after launch so the product keeps improving.',
+                to: '/docs/playbook/operate',
+              },
+            ],
           },
         ],
       },
@@ -144,7 +167,7 @@ export const humanPlaybookTree: PlaybookTreeNode[] = [
         level: 2,
         description:
           'The people and organizations listed in the shared author registry for the docs.',
-        to: '/docs/intro/authors',
+        to: '/docs/authors',
       },
     ],
   },
