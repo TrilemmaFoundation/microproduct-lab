@@ -8,9 +8,8 @@ export type PlaybookTreeNode = {
   id: string;
   title: string;
   level: 1 | 2 | 3 | 4;
-  summary: string;
+  description: string;
   to?: string;
-  contributorHint?: string;
   children?: PlaybookTreeNode[];
 };
 
@@ -26,49 +25,39 @@ export const humanPlaybookTree: PlaybookTreeNode[] = [
     title: 'Human Overview',
     level: 1,
     to: '/docs/human-overview',
-    summary:
-      'The top-level map for humans reading, using, and contributing to the Build Trilemma knowledge hub.',
-    contributorHint:
-      'Keep this orientation aligned with the sidebar, the playbook branches, and the reader journey for new human contributors.',
+    description:
+      'The interactive guide to the knowledge hub, helping you understand its structure and explore how ideas connect across the ecosystem.',
     children: [
       {
         id: 'intro',
         title: 'Intro',
         level: 2,
-        summary:
+        description:
           'Start with the shared concepts, mission, and people behind the Build Trilemma docs.',
-        contributorHint:
-          'Keep the introductory branch welcoming, current, and easy to understand before readers enter the playbook.',
         children: [
           {
             id: 'what-is-a-microproduct',
             title: 'What Is a Microproduct?',
             level: 3,
-            summary:
+            description:
               'The core definition: a focused product that turns data into value through an experience, workflow, or utility.',
             to: '/docs/intro/what-is-a-microproduct',
-            contributorHint:
-              'Refine the definition when new examples reveal clearer language for first-time readers.',
           },
           {
             id: 'mission',
             title: 'Mission',
             level: 3,
-            summary:
+            description:
               'The reason this open knowledge hub exists and the outcomes it is meant to create.',
             to: '/docs/intro/mission',
-            contributorHint:
-              'Keep mission language aligned with the foundation model and the practical builder community.',
           },
           {
             id: 'authors',
             title: 'Authors',
             level: 3,
-            summary:
+            description:
               'The people and organizations listed in the shared author registry for the docs.',
             to: '/docs/intro/authors',
-            contributorHint:
-              'Keep author metadata in the shared registry so this page and document bylines stay synchronized.',
           },
         ],
       },
@@ -76,50 +65,40 @@ export const humanPlaybookTree: PlaybookTreeNode[] = [
         id: 'playbook',
         title: 'Playbook',
         level: 2,
-        summary:
+        description:
           'The build path for turning a microproduct idea into a shipped, operated product.',
-        contributorHint:
-          'Keep the playbook branches practical, sequenced, and grounded in repeatable contributor workflows.',
         children: [
           {
             id: 'frame',
             title: 'Frame',
             level: 3,
-            summary:
+            description:
               'Frame the opportunity, define the user, understand what a microproduct is, and decide whether the idea is worth building.',
             to: '/docs/playbook/frame',
-            contributorHint:
-              'Add examples, validation prompts, and decision criteria that help builders choose the right problem before implementation.',
             children: [
               {
                 id: 'ideation',
                 title: 'Ideation',
                 level: 4,
-                summary:
+                description:
                   'Identify demand, available data, and the minimum useful outcome before the product shape hardens.',
                 to: '/docs/playbook/ideation',
-                contributorHint:
-                  'Contribute sharper discovery questions, interview patterns, and example opportunity briefs.',
               },
               {
                 id: 'architecture',
                 title: 'Architecture',
                 level: 4,
-                summary:
+                description:
                   'Choose the pipeline, storage, serving model, and operating constraints that can support the product.',
                 to: '/docs/playbook/architecture',
-                contributorHint:
-                  'Add architecture tradeoffs, reference diagrams, and constraints from real projects.',
               },
               {
                 id: 'analytics-engineering',
                 title: 'Data Stack & Analytics Engineering',
                 level: 4,
-                summary:
+                description:
                   'Apply software engineering discipline to data workflows so the product can be tested, refreshed, observed, and reused.',
                 to: '/docs/playbook/data-stack-analytics-engineering',
-                contributorHint:
-                  'Contribute stack patterns, data quality checks, and deployment notes for maintainable analytics systems.',
               },
             ],
           },
@@ -127,31 +106,25 @@ export const humanPlaybookTree: PlaybookTreeNode[] = [
             id: 'build',
             title: 'Build',
             level: 3,
-            summary:
+            description:
               'Build the MVP in small vertical slices, keep humans accountable for review, and install quality gates before release.',
             to: '/docs/playbook/build',
-            contributorHint:
-              'Add delivery workflows, prompt specs, QA practices, and examples of strong implementation tasks.',
             children: [
               {
                 id: 'build-module',
                 title: 'Build Module',
                 level: 4,
-                summary:
+                description:
                   'Translate architecture and acceptance criteria into focused build tasks and working product slices.',
                 to: '/docs/playbook/build-module',
-                contributorHint:
-                  'Add examples of task specs, implementation handoffs, and MVP slicing decisions.',
               },
               {
                 id: 'qa-methodology',
                 title: 'QA Methodology',
                 level: 4,
-                summary:
+                description:
                   'Use quality gates, behavior-driven checks, and review norms to keep AI-assisted builds reliable.',
                 to: '/docs/playbook/qa-methodology',
-                contributorHint:
-                  'Contribute test scenarios, acceptance criteria examples, and review rubrics.',
               },
             ],
           },
@@ -159,11 +132,9 @@ export const humanPlaybookTree: PlaybookTreeNode[] = [
             id: 'operate',
             title: 'Operate',
             level: 3,
-            summary:
+            description:
               'Operate the shipped microproduct as an outcome-focused product with distribution, learning, and iteration loops.',
             to: '/docs/playbook/operate',
-            contributorHint:
-              'Add operating rhythms, launch learnings, metrics reviews, and ownership practices from real products.',
           },
         ],
       },
@@ -171,11 +142,9 @@ export const humanPlaybookTree: PlaybookTreeNode[] = [
         id: 'resources',
         title: 'Resources',
         level: 2,
-        summary:
+        description:
           'Curated references that help builders execute faster without changing the playbook hierarchy.',
         to: '/docs/resources',
-        contributorHint:
-          'Add practical resources with direct relevance to shipping microproducts.',
       },
     ],
   },
@@ -304,13 +273,7 @@ export function PlaybookTree({
         <Heading as="h2" className={styles.detailTitle}>
           {selectedNode.title}
         </Heading>
-        <p className={styles.detailSummary}>{selectedNode.summary}</p>
-        {selectedNode.contributorHint ? (
-          <div className={styles.contributorHint}>
-            <span className={styles.contributorLabel}>Contributor focus</span>
-            <p>{selectedNode.contributorHint}</p>
-          </div>
-        ) : null}
+        <p className={styles.detailSummary}>{selectedNode.description}</p>
         {selectedNode.to ? (
           <Link className={styles.openLink} to={selectedNode.to}>
             Open module

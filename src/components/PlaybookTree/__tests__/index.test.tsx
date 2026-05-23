@@ -66,7 +66,7 @@ describe('PlaybookTree', () => {
     expect(
       screen.getByText(/Use quality gates, behavior-driven checks/i),
     ).toBeInTheDocument();
-    expect(screen.getByText('Contributor focus')).toBeInTheDocument();
+    expect(screen.queryByText('Contributor focus')).not.toBeInTheDocument();
   });
 
   it('links selected modules to their docs route', () => {
