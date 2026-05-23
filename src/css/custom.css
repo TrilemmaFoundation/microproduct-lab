@@ -156,10 +156,11 @@ textarea:focus-visible {
 }
 
 .navbar > .navbar__inner {
-  width: min(100% - 2rem, 1280px);
+  width: 100%;
   height: var(--ifm-navbar-height);
-  margin: 0 auto;
-  padding: 0;
+  margin: 0;
+  padding: 0 clamp(1rem, 3vw, 2rem);
+  box-sizing: border-box;
 }
 
 .navbar__brand {
@@ -371,7 +372,7 @@ textarea:focus-visible {
 @media (max-width: 996px) {
   .navbar > .navbar__inner {
     display: flex;
-    width: min(100% - 2rem, 1280px);
+    width: 100%;
     justify-content: space-between;
   }
 
