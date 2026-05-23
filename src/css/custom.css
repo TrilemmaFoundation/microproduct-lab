@@ -262,6 +262,31 @@ textarea:focus-visible {
   backdrop-filter: blur(8px);
 }
 
+@media (min-width: 997px) {
+  html.plugin-id-default.docs-doc-page .theme-doc-sidebar-container {
+    border-right: 0;
+  }
+
+  html.plugin-id-default.docs-doc-page .theme-doc-sidebar-container > div {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    max-height: 100vh;
+    border-right: 1px solid var(--ifm-toc-border-color);
+    overflow: hidden;
+  }
+
+  html.plugin-id-default.docs-doc-page .theme-doc-sidebar-container > div > div {
+    box-sizing: border-box;
+    height: 100%;
+  }
+
+  html.plugin-id-default.docs-doc-page .theme-doc-sidebar-container .menu {
+    min-height: 0;
+    overflow-y: auto;
+  }
+}
+
 .footer {
   border-top: none;
   background: linear-gradient(180deg, var(--color-bg-primary), var(--color-bg-dark));
