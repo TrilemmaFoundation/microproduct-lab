@@ -30,11 +30,11 @@ const sources = [
   ['static/schemas/product.schema.json', 'Product schema'],
 
   [
-    'docs/core/intro/what-is-a-microproduct.mdx',
+    'docs/human/intro/what-is-a-microproduct.mdx',
     'Microproduct definition',
     stripFrontmatterAndMdxForLlms,
   ],
-  ['docs/core/intro/mission.md', 'Mission', stripYamlFrontmatter],
+  ['docs/human/intro/mission.md', 'Mission', stripYamlFrontmatter],
   ['docs/templates/index.md', 'Templates overview', stripYamlFrontmatter],
   ['docs/agents/index.md', 'Agents hub', stripYamlFrontmatter],
 

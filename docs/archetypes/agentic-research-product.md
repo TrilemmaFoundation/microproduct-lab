@@ -1,6 +1,7 @@
 ---
 title: "Archetype: Agentic research product"
 description: Multi-step investigations where autonomous agents gather evidence under policy.
+content_kind: reference
 slug: agentic-research-product
 last_reviewed: 2026-05-04
 authors: [trilemma-foundation]

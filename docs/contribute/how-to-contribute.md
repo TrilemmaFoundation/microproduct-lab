@@ -1,6 +1,7 @@
 ---
 title: How to Contribute
 description: Exact process for proposing and publishing new hub content.
+content_kind: reference
 slug: /
 last_reviewed: 2026-03-04
 authors: [trilemma-foundation]

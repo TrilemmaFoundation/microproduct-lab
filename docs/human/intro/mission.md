@@ -1,6 +1,7 @@
 ---
 title: Mission
 description: Why this open knowledge hub exists and what success looks like.
+content_kind: foundation
 tags: [intro, mission]
 last_reviewed: 2026-03-04
 authors: [trilemma-foundation]

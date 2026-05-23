@@ -111,7 +111,7 @@ const config: Config = {
       {
         debug: false,
         docs: {
-          path: 'docs/core',
+          path: 'docs/human',
           sidebarPath: './sidebars.ts',
           editUrl: `${REPO_URL}/edit/main/`,
         },
@@ -140,7 +140,7 @@ const config: Config = {
       docReadTimesPlugin,
       {
         siteDir: __dirname,
-        docRoots: ['docs/core', ...docsIslandPlugins.map((spec) => spec.path)],
+        docRoots: ['docs/human', ...docsIslandPlugins.map((spec) => spec.path)],
       },
     ],
   ]),

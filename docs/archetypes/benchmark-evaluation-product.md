@@ -1,6 +1,7 @@
 ---
 title: "Archetype: Benchmark evaluation product"
 description: Compare competing models, pipelines, or policies with fair harnesses.
+content_kind: reference
 slug: benchmark-evaluation-product
 last_reviewed: 2026-05-04
 authors: [trilemma-foundation]

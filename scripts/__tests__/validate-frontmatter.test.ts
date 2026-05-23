@@ -30,7 +30,7 @@ function setupFixture(missionFrontmatter: string) {
 
   writeFile(
     fixtureDir,
-    'docs/core/intro/mission.md',
+    'docs/human/intro/mission.md',
     baseTemplate(missionFrontmatter),
   );
 
@@ -235,6 +235,72 @@ describe('validate-frontmatter authors handling', () => {
     const result = runValidator(fixtureDir);
     expect(result.status).toBe(1);
     expect(result.stderr).toContain("unknown author ID 'unknown-author'");
+    fs.rmSync(fixtureDir, { recursive: true, force: true });
+  });
+});
+
+describe('validate-frontmatter content_kind handling', () => {
+  it('passes for foundation pages without authors', () => {
+    const fixtureDir = setupFixture(
+      [
+        'title: Human Overview',
+        'description: A tree map for reading and contributing.',
+        'content_kind: foundation',
+        'last_reviewed: 2026-05-22',
+      ].join('\n'),
+    );
+
+    const result = runValidator(fixtureDir);
+    expect(result.status).toBe(0);
+    fs.rmSync(fixtureDir, { recursive: true, force: true });
+  });
+
+  it('fails for module pages without authors', () => {
+    const fixtureDir = setupFixture(
+      [
+        'title: Data Stack',
+        'description: A granular playbook module.',
+        'content_kind: module',
+        'last_reviewed: 2026-05-22',
+      ].join('\n'),
+    );
+
+    const result = runValidator(fixtureDir);
+    expect(result.status).toBe(1);
+    expect(result.stderr).toContain("missing required frontmatter field 'authors'");
+    fs.rmSync(fixtureDir, { recursive: true, force: true });
+  });
+
+  it('fails for invalid content_kind values', () => {
+    const fixtureDir = setupFixture(
+      [
+        'title: Mission',
+        'description: Why this open knowledge hub exists and what success looks like.',
+        'content_kind: blog',
+        'last_reviewed: 2026-03-04',
+        'authors: [trilemma-foundation]',
+      ].join('\n'),
+    );
+
+    const result = runValidator(fixtureDir);
+    expect(result.status).toBe(1);
+    expect(result.stderr).toContain('content_kind must be one of foundation, module, reference');
+    fs.rmSync(fixtureDir, { recursive: true, force: true });
+  });
+
+  it('passes for reference pages with foundation attribution', () => {
+    const fixtureDir = setupFixture(
+      [
+        'title: Authors',
+        'description: People and organizations contributing to Build Trilemma docs.',
+        'content_kind: reference',
+        'last_reviewed: 2026-05-22',
+        'authors: [trilemma-foundation]',
+      ].join('\n'),
+    );
+
+    const result = runValidator(fixtureDir);
+    expect(result.status).toBe(0);
     fs.rmSync(fixtureDir, { recursive: true, force: true });
   });
 });

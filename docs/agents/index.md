@@ -1,6 +1,7 @@
 ---
 title: Agents Hub
 description: Canonical AI-agent instructions, workflows, and links into Build Trilemma.
+content_kind: reference
 slug: /
 last_reviewed: 2026-05-10
 authors: [trilemma-foundation]

@@ -1,6 +1,7 @@
 ---
 title: Product templates overview
 description: Starter repositories for scaffolding microproducts—from data apps to agentic workflows.
+content_kind: reference
 slug: /
 last_reviewed: 2026-05-04
 authors: [trilemma-foundation]

@@ -14,6 +14,14 @@ type ReadTimeData = {
   readTimes?: Record<string, number>;
 };
 
+type BuildTrilemmaFrontMatter = {
+  authors?: unknown;
+  content_kind?: unknown;
+};
+
+const INSTITUTIONAL_AUTHOR_ID = 'trilemma-foundation';
+const institutionalContentKinds = new Set(['foundation', 'reference']);
+
 function useSyntheticTitle(): string | null {
   const {metadata, frontMatter, contentTitle} = useDoc();
   const shouldRender =
@@ -27,10 +35,20 @@ function useSyntheticTitle(): string | null {
 function DocByline(): ReactNode {
   const {metadata, frontMatter} = useDoc();
   const readTimeData = usePluginData('doc-read-times') as ReadTimeData | undefined;
-  const authorIds = Array.isArray(frontMatter.authors)
-    ? frontMatter.authors.filter((authorId): authorId is string => typeof authorId === 'string')
+  const buildFrontMatter = frontMatter as BuildTrilemmaFrontMatter;
+  const contentKind =
+    typeof buildFrontMatter.content_kind === 'string'
+      ? buildFrontMatter.content_kind
+      : 'module';
+  const isInstitutional = institutionalContentKinds.has(contentKind);
+  const authorIds = Array.isArray(buildFrontMatter.authors)
+    ? buildFrontMatter.authors.filter((authorId): authorId is string => typeof authorId === 'string')
     : [];
-  const pageAuthors = authorIds
+  const bylineAuthorIds =
+    isInstitutional && authorIds.length === 0
+      ? [INSTITUTIONAL_AUTHOR_ID]
+      : authorIds;
+  const pageAuthors = bylineAuthorIds
     .map((authorId) => authorsById.get(authorId))
     .filter(Boolean);
   const readMinutes = readTimeData?.readTimes?.[metadata.source];
@@ -43,7 +61,7 @@ function DocByline(): ReactNode {
     <p className={styles.docByline}>
       {pageAuthors.length > 0 && (
         <span>
-          By{' '}
+          {isInstitutional ? 'Maintained by ' : 'By '}
           {pageAuthors.map((author, index) => (
             <React.Fragment key={author.id}>
               {index > 0 && ', '}

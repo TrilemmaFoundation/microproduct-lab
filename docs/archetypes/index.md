@@ -1,6 +1,7 @@
 ---
 title: Archetype catalog
 description: Reusable microproduct patterns with agent prompts, pitfalls, and MVP checklists.
+content_kind: reference
 slug: /
 last_reviewed: 2026-05-04
 authors: [trilemma-foundation]

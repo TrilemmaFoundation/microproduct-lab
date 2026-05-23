@@ -4,7 +4,8 @@ import path from 'node:path';
 const docsRoot = path.resolve('docs');
 const templatesRoot = path.resolve('templates');
 const productTemplatesRoot = path.resolve('product-templates');
-const requiredFields = ['title', 'description', 'last_reviewed', 'authors'];
+const baseRequiredFields = ['title', 'description', 'last_reviewed'];
+const contentKinds = new Set(['foundation', 'module', 'reference']);
 const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
 
 const errors = [];
@@ -38,6 +39,20 @@ function extractFrontmatter(content) {
 function hasField(frontmatter, field) {
   const pattern = new RegExp(`^${field}:`, 'm');
   return pattern.test(frontmatter);
+}
+
+function readYamlScalar(frontmatter, field) {
+  const match = frontmatter.match(new RegExp(`^${field}:\\s*(.+)$`, 'm'));
+  if (!match) {
+    return null;
+  }
+
+  const value = match[1].trim();
+  if (!isYamlStringScalar(value)) {
+    return null;
+  }
+
+  return value.replace(/^['"]|['"]$/g, '');
 }
 
 function isYamlStringScalar(value) {
@@ -202,6 +217,24 @@ function validateAuthors(frontmatter, filePath) {
   }
 }
 
+function validateContentKind(frontmatter, filePath) {
+  const rawContentKind = readYamlScalar(frontmatter, 'content_kind');
+  if (hasField(frontmatter, 'content_kind') && !rawContentKind) {
+    errors.push(`${filePath}: content_kind must be a string value`);
+    return 'module';
+  }
+
+  const contentKind = rawContentKind ?? 'module';
+  if (!contentKinds.has(contentKind)) {
+    errors.push(
+      `${filePath}: content_kind must be one of ${[...contentKinds].join(', ')}`,
+    );
+    return 'module';
+  }
+
+  return contentKind;
+}
+
 function loadAuthorIds() {
   const authorsPath = path.resolve('src/data/authors.ts');
   if (!fs.existsSync(authorsPath)) {
@@ -227,14 +260,22 @@ function validateFile(filePath) {
     return;
   }
 
-  for (const field of requiredFields) {
+  const contentKind = validateContentKind(frontmatter, filePath);
+
+  for (const field of baseRequiredFields) {
     if (!hasField(frontmatter, field)) {
       errors.push(`${filePath}: missing required frontmatter field '${field}'`);
     }
   }
 
+  if (contentKind === 'module' && !hasField(frontmatter, 'authors')) {
+    errors.push(`${filePath}: missing required frontmatter field 'authors'`);
+  }
+
   validateTags(frontmatter, filePath);
-  validateAuthors(frontmatter, filePath);
+  if (hasField(frontmatter, 'authors')) {
+    validateAuthors(frontmatter, filePath);
+  }
 
   const dateMatch = frontmatter.match(/^last_reviewed:\s*(.+)$/m);
   if (!dateMatch) {

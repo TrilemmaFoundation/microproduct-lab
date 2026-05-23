@@ -1,6 +1,7 @@
 ---
 title: Standards overview
 description: Canonical conventions for structuring, reviewing, and maturing Trilemma-aligned microproducts.
+content_kind: reference
 slug: /
 last_reviewed: 2026-05-04
 authors: [trilemma-foundation]

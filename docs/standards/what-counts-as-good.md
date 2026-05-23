@@ -1,6 +1,7 @@
 ---
 title: What counts as a good microproduct
 description: Qualitative guardrails complementing structured metadata and automated checks.
+content_kind: reference
 slug: what-counts-as-good
 last_reviewed: 2026-05-04
 authors: [trilemma-foundation]
