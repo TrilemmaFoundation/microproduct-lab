@@ -12,7 +12,7 @@ export default function Home() {
         <div className="bt-page">
           <PageSection
             title="Turn Data Into Value"
-            description="An open source knowledge hub by Trilemma Foundation for our community of builders."
+            description="An open source knowledge hub by Trilemma Foundation for our community of builders"
             variant="hero"
           >
             <div className="bt-hero-actions" aria-label="Choose your path">
