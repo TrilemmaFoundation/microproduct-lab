@@ -29,37 +29,37 @@ export const humanPlaybookTree: PlaybookTreeNode[] = [
       'The interactive guide to the knowledge hub, helping you understand its structure and explore how ideas connect across the ecosystem.',
     children: [
       {
-        id: 'intro',
-        title: 'Intro',
-        level: 2,
-        description:
-          'Start with the shared concepts and mission behind the Build Trilemma docs.',
-        children: [
-          {
-            id: 'what-is-a-microproduct',
-            title: 'What Is a Microproduct?',
-            level: 3,
-            description:
-              'The core definition: a focused product that turns data into value through an experience, workflow, or utility.',
-            to: '/docs/intro/what-is-a-microproduct',
-          },
-          {
-            id: 'mission',
-            title: 'Mission',
-            level: 3,
-            description:
-              'The reason this open knowledge hub exists and the outcomes it is meant to create.',
-            to: '/docs/intro/mission',
-          },
-        ],
-      },
-      {
         id: 'playbook',
         title: 'Playbook',
         level: 2,
         description:
-          'A living collection of contributor-built modules for building microproducts that turn data into value, organized around the phases of the analytics development lifecycle: frame, build, and operate.',
+          'A living collection of contributor-built modules for building microproducts that turn data into value, moving from shared foundations into the analytics development lifecycle: frame, build, and operate.',
         children: [
+          {
+            id: 'intro',
+            title: 'Intro',
+            level: 3,
+            description:
+              'Start with the shared concepts and mission behind the Build Trilemma docs.',
+            children: [
+              {
+                id: 'what-is-a-microproduct',
+                title: 'What Is a Microproduct?',
+                level: 4,
+                description:
+                  'The core definition: a focused product that turns data into value through an experience, workflow, or utility.',
+                to: '/docs/intro/what-is-a-microproduct',
+              },
+              {
+                id: 'mission',
+                title: 'Mission',
+                level: 4,
+                description:
+                  'The reason this open knowledge hub exists and the outcomes it is meant to create.',
+                to: '/docs/intro/mission',
+              },
+            ],
+          },
           {
             id: 'frame',
             title: 'Frame',

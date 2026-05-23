@@ -22,10 +22,10 @@ describe('PlaybookTree', () => {
     expect(
       screen.getByRole('button', {name: 'Human Overview'}),
     ).toBeInTheDocument();
-    expect(screen.getByRole('button', {name: 'Intro'})).toBeInTheDocument();
     expect(screen.getByRole('button', {name: 'Playbook'})).toBeInTheDocument();
     expect(screen.getByRole('button', {name: 'Resources'})).toBeInTheDocument();
     expect(screen.getByRole('button', {name: 'Authors'})).toBeInTheDocument();
+    expect(screen.queryByRole('button', {name: 'Intro'})).not.toBeInTheDocument();
     expect(screen.queryByRole('button', {name: 'Frame'})).not.toBeInTheDocument();
     expect(screen.queryByRole('button', {name: 'Build'})).not.toBeInTheDocument();
     expect(screen.queryByRole('button', {name: 'Operate'})).not.toBeInTheDocument();
@@ -39,7 +39,6 @@ describe('PlaybookTree', () => {
 
     expect(visibleNodeLabels).toEqual([
       'Human Overview',
-      'Intro',
       'Playbook',
       'Resources',
       'Authors',
@@ -56,6 +55,23 @@ describe('PlaybookTree', () => {
     );
 
     expect(screen.queryByRole('button', {name: 'Ideation'})).not.toBeInTheDocument();
+
+    const tree = screen.getByRole('list', {name: 'Human playbook tree'});
+    const visibleNodeLabels = within(tree)
+      .getAllByRole('button')
+      .filter((button) => button.getAttribute('aria-pressed') !== null)
+      .map((button) => button.textContent);
+
+    expect(visibleNodeLabels).toEqual([
+      'Human Overview',
+      'Playbook',
+      'Intro',
+      'Frame',
+      'Build',
+      'Operate',
+      'Resources',
+      'Authors',
+    ]);
 
     fireEvent.click(screen.getByRole('button', {name: 'Expand Frame'}));
     expect(screen.getByRole('button', {name: 'Ideation'})).toBeInTheDocument();

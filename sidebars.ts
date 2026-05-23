@@ -5,16 +5,16 @@ const sidebars: SidebarsConfig = {
     'human-overview',
     {
       type: 'category',
-      label: 'Intro',
-      items: [
-        'intro/what-is-a-microproduct',
-        'intro/mission',
-      ],
-    },
-    {
-      type: 'category',
       label: 'Playbook',
       items: [
+        {
+          type: 'category',
+          label: 'Intro',
+          items: [
+            'intro/what-is-a-microproduct',
+            'intro/mission',
+          ],
+        },
         {
           type: 'category',
           label: 'Frame',
