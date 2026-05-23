@@ -6,7 +6,7 @@ This repository is an open knowledge hub to help builders learn, contribute, and
 
 ## Start Here
 
-- **Site routing:** On the deployed site, `/` is an audience chooser. Use `/agents` for the agent web hub or `/docs/human-overview` for the default human overview (paths match this repo’s Docusaurus routes). The top nav groups **Humans** and **Agents** into separate dropdowns; stable machine-readable URLs such as `/registry.json` and `/schemas/product.schema.json` are linked from the **Agents** dropdown and summarized on the agents hub.
+- **Site routing:** On the deployed site, `/` is an audience chooser. Use `/docs/human-overview` as the human entry point and `/agents` as the agent web hub (paths match this repo’s Docusaurus routes). Stable machine-readable URLs such as `/registry.json` and `/schemas/product.schema.json` are summarized on the agents hub.
 - Read: [What is a Microproduct?](docs/human/intro/what-is-a-microproduct.mdx)
 - Learn the process: [Playbook](docs/human/playbook/ideation.md)
 - Explore examples: [Showcase](docs/showcase/microproducts.md)

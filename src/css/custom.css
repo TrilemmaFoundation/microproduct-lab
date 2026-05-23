@@ -102,12 +102,6 @@ html[data-theme='light'] {
 
   --ifm-card-background-color: var(--color-surface-card);
 
-  --ifm-dropdown-background-color: color-mix(
-    in srgb,
-    var(--color-bg-primary) 92%,
-    var(--color-text-primary) 8%
-  );
-
   --ifm-toc-border-color: var(--color-border-subtle);
 
   --ifm-global-shadow-lw: 0 1px 2px var(--color-shadow-soft);
@@ -189,8 +183,7 @@ textarea:focus-visible {
   width: auto;
 }
 
-.navbar__link,
-.dropdown > .navbar__link {
+.navbar__link {
   min-height: 44px;
   display: inline-flex;
   align-items: center;
@@ -203,9 +196,7 @@ textarea:focus-visible {
 }
 
 .navbar__link:hover,
-.navbar__link--active,
-.dropdown > .navbar__link:hover,
-.dropdown > .navbar__link--active {
+.navbar__link--active {
   color: var(--color-accent-orange);
 }
 
@@ -213,26 +204,10 @@ textarea:focus-visible {
   transform: translateY(-1px);
 }
 
-.dropdown__menu {
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: color-mix(in srgb, var(--color-bg-dark) 72%, var(--color-bg-primary) 28%);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.34);
-}
-
-.dropdown__link {
-  color: var(--color-text-primary);
-}
-
-.dropdown__link:hover,
-.dropdown__link--active {
-  background: rgba(255, 255, 255, 0.08);
-  color: var(--color-accent-orange);
-}
-
-/* Swizzled Navbar/Content: logo | centered links | right actions */
+/* Swizzled Navbar/Content: logo | search */
 .navbar__inner {
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: 1fr auto;
   align-items: center;
   flex-wrap: nowrap;
 }
@@ -243,16 +218,6 @@ textarea:focus-visible {
   flex: unset;
   justify-self: start;
   min-width: 0;
-}
-
-.navbar__items--center-links {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: unset;
-  gap: 1.5rem;
-  justify-self: center;
-  grid-column: 2;
 }
 
 .navbar__items.navbar__items--right {
@@ -412,10 +377,6 @@ textarea:focus-visible {
 
   .navbar__items--brand-side {
     flex: 1 1 auto;
-  }
-
-  .navbar__items--center-links {
-    display: none;
   }
 
   .navbar__items.navbar__items--right {

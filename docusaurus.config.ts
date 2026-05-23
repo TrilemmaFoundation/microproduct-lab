@@ -169,64 +169,6 @@ const config: Config = {
         href: '/',
         height: 32,
       },
-      items: [
-        {
-          type: 'dropdown',
-          label: 'Humans',
-          position: 'left',
-          activeBaseRegex: '^/(docs|contribute|showcase)(/|$)',
-          items: [
-            {
-              to: '/docs/human-overview',
-              label: 'Human overview',
-            },
-            {
-              to: '/docs/intro/what-is-a-microproduct',
-              label: 'What is a microproduct?',
-            },
-            {
-              to: '/docs/intro/mission',
-              label: 'Mission',
-            },
-            {
-              to: '/docs/intro/authors',
-              label: 'Authors',
-            },
-            {
-              to: '/docs/playbook/frame',
-              label: 'Frame',
-            },
-            {
-              to: '/docs/playbook/ideation',
-              label: 'Ideation',
-            },
-            {
-              to: '/contribute',
-              label: 'How to contribute',
-            },
-            {
-              to: '/showcase',
-              label: 'Showcase',
-            },
-          ],
-        },
-        {
-          type: 'dropdown',
-          label: 'Agents',
-          position: 'left',
-          activeBaseRegex: '^/agents(/|$)',
-          items: [
-            { to: '/agents', label: 'Agents hub' },
-            { label: 'AGENTS.md', href: 'pathname:///AGENTS.md' },
-            { label: 'llms-full.txt', href: 'pathname:///llms-full.txt' },
-            { label: 'registry.json', href: 'pathname:///registry.json' },
-            {
-              label: 'product.schema.json',
-              href: 'pathname:///schemas/product.schema.json',
-            },
-          ],
-        },
-      ],
     },
     footer: {
       style: 'light',
