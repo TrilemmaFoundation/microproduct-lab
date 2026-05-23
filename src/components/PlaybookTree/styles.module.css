@@ -145,6 +145,7 @@
   border-radius: 8px;
   background: var(--color-accent-orange);
   color: var(--color-bg-dark);
+  font: inherit;
   font-weight: 800;
   line-height: 1;
   padding: 0.8rem 1rem;
@@ -154,6 +155,11 @@
 .openLink:hover {
   color: var(--color-bg-dark);
   text-decoration: none;
+}
+
+.currentPageButton {
+  cursor: default;
+  opacity: 0.82;
 }
 
 @media (max-width: 996px) {

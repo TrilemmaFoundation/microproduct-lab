@@ -66,14 +66,14 @@ export const humanPlaybookTree: PlaybookTreeNode[] = [
         title: 'Playbook',
         level: 2,
         description:
-          'The build path for turning a microproduct idea into a shipped, operated product.',
+          'A living collection of contributor-built modules for building microproducts that turn data into value, organized around the phases of the analytics development lifecycle: frame, build, and operate.',
         children: [
           {
             id: 'frame',
             title: 'Frame',
             level: 3,
             description:
-              'Frame the opportunity, define the user, understand what a microproduct is, and decide whether the idea is worth building.',
+              'The planning layer of the analytics development lifecycle, organizing content around defining opportunities, understanding users, scoping microproducts, and analyzing whether an idea is worth building.',
             to: '/docs/playbook/frame',
             children: [
               {
@@ -107,7 +107,7 @@ export const humanPlaybookTree: PlaybookTreeNode[] = [
             title: 'Build',
             level: 3,
             description:
-              'Build the MVP in small vertical slices, keep humans accountable for review, and install quality gates before release.',
+              'The development layer of the analytics development lifecycle, organizing content around designing, developing, testing, and deploying microproducts through iterative implementation.',
             to: '/docs/playbook/build',
             children: [
               {
@@ -133,7 +133,7 @@ export const humanPlaybookTree: PlaybookTreeNode[] = [
             title: 'Operate',
             level: 3,
             description:
-              'Operate the shipped microproduct as an outcome-focused product with distribution, learning, and iteration loops.',
+              'The operational layer of the analytics development lifecycle, organizing content around operating, observing, learning from, and improving shipped microproducts over time.',
             to: '/docs/playbook/operate',
           },
         ],
@@ -240,6 +240,7 @@ export function PlaybookTree({
   );
   const [selectedId, setSelectedId] = useState(initialNode.id);
   const selectedNode = findNode(nodes, selectedId);
+  const isCurrentPage = selectedNode.id === 'human-overview';
 
   function toggleNode(id: string) {
     setExpandedIds((currentIds) => {
@@ -274,7 +275,15 @@ export function PlaybookTree({
           {selectedNode.title}
         </Heading>
         <p className={styles.detailSummary}>{selectedNode.description}</p>
-        {selectedNode.to ? (
+        {isCurrentPage ? (
+          <button
+            type="button"
+            className={clsx(styles.openLink, styles.currentPageButton)}
+            disabled
+          >
+            You are here
+          </button>
+        ) : selectedNode.to ? (
           <Link className={styles.openLink} to={selectedNode.to}>
             Open module
           </Link>

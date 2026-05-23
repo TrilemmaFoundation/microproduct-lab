@@ -69,6 +69,21 @@ describe('PlaybookTree', () => {
     expect(screen.queryByText('Contributor focus')).not.toBeInTheDocument();
   });
 
+  it('shows the current-page state for the human overview root', () => {
+    render(
+      <PlaybookTree
+        nodes={humanPlaybookTree}
+        initialSelectedId="human-overview"
+      />,
+    );
+
+    const detailPanel = screen.getByRole('complementary');
+    expect(within(detailPanel).getByRole('button', {name: 'You are here'})).toBeDisabled();
+    expect(
+      within(detailPanel).queryByRole('link', {name: 'Open module'}),
+    ).not.toBeInTheDocument();
+  });
+
   it('links selected modules to their docs route', () => {
     render(
       <PlaybookTree
