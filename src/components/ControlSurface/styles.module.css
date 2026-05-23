@@ -4,7 +4,28 @@
 }
 
 .sectionHero {
-  gap: 2rem;
+  gap: 2.4rem;
+  justify-items: center;
+  text-align: center;
+}
+
+.sectionHero .sectionHeader {
+  margin-inline: auto;
+}
+
+.sectionHero .sectionDescription {
+  margin-inline: auto;
+}
+
+.sectionHero .sectionTitle {
+  margin-bottom: 1rem;
+  font-size: clamp(2rem, 3vw, 3rem);
+}
+
+.sectionHero .sectionDescription {
+  max-width: 58rem;
+  font-size: clamp(1.2rem, 1.45vw, 1.55rem);
+  line-height: 1.55;
 }
 
 .sectionHeader {
