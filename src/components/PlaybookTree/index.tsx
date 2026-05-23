@@ -33,7 +33,7 @@ export const humanPlaybookTree: PlaybookTreeNode[] = [
         title: 'Intro',
         level: 2,
         description:
-          'Start with the shared concepts, mission, and people behind the Build Trilemma docs.',
+          'Start with the shared concepts and mission behind the Build Trilemma docs.',
         children: [
           {
             id: 'what-is-a-microproduct',
@@ -50,14 +50,6 @@ export const humanPlaybookTree: PlaybookTreeNode[] = [
             description:
               'The reason this open knowledge hub exists and the outcomes it is meant to create.',
             to: '/docs/intro/mission',
-          },
-          {
-            id: 'authors',
-            title: 'Authors',
-            level: 3,
-            description:
-              'The people and organizations listed in the shared author registry for the docs.',
-            to: '/docs/intro/authors',
           },
         ],
       },
@@ -145,6 +137,14 @@ export const humanPlaybookTree: PlaybookTreeNode[] = [
         description:
           'Curated references that help builders execute faster without changing the playbook hierarchy.',
         to: '/docs/resources',
+      },
+      {
+        id: 'authors',
+        title: 'Authors',
+        level: 2,
+        description:
+          'The people and organizations listed in the shared author registry for the docs.',
+        to: '/docs/intro/authors',
       },
     ],
   },

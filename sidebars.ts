@@ -9,7 +9,6 @@ const sidebars: SidebarsConfig = {
       items: [
         'intro/what-is-a-microproduct',
         'intro/mission',
-        'intro/authors',
       ],
     },
     {
@@ -46,6 +45,11 @@ const sidebars: SidebarsConfig = {
       type: 'category',
       label: 'Resources',
       items: ['resources/index'],
+    },
+    {
+      type: 'category',
+      label: 'Authors',
+      items: ['intro/authors'],
     },
   ],
 };

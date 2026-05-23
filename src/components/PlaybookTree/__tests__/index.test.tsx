@@ -25,10 +25,25 @@ describe('PlaybookTree', () => {
     expect(screen.getByRole('button', {name: 'Intro'})).toBeInTheDocument();
     expect(screen.getByRole('button', {name: 'Playbook'})).toBeInTheDocument();
     expect(screen.getByRole('button', {name: 'Resources'})).toBeInTheDocument();
+    expect(screen.getByRole('button', {name: 'Authors'})).toBeInTheDocument();
     expect(screen.queryByRole('button', {name: 'Frame'})).not.toBeInTheDocument();
     expect(screen.queryByRole('button', {name: 'Build'})).not.toBeInTheDocument();
     expect(screen.queryByRole('button', {name: 'Operate'})).not.toBeInTheDocument();
     expect(screen.queryByText(/Level \d/)).not.toBeInTheDocument();
+
+    const tree = screen.getByRole('list', {name: 'Human playbook tree'});
+    const visibleNodeLabels = within(tree)
+      .getAllByRole('button')
+      .filter((button) => button.getAttribute('aria-pressed') !== null)
+      .map((button) => button.textContent);
+
+    expect(visibleNodeLabels).toEqual([
+      'Human Overview',
+      'Intro',
+      'Playbook',
+      'Resources',
+      'Authors',
+    ]);
   });
 
   it('expands and collapses tree branches', () => {
