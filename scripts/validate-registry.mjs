@@ -9,6 +9,7 @@ import path from 'node:path';
 import Ajv2020 from 'ajv/dist/2020.js';
 import addFormats from 'ajv-formats';
 
+import {validatePublicHttpsUrl} from './publicUrl.mjs';
 import { EXPECTED_REGISTRY_ROOT } from './registryRootExpectations.mjs';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
@@ -29,6 +30,7 @@ addFormats(ajv);
 const validate = ajv.compile(schema);
 
 const errors = [];
+const publicUrlFields = ['repo', 'site', 'docs', 'agent_entrypoint'];
 
 if (!registry || typeof registry !== 'object') {
   errors.push('registry.json: root must be an object.');
@@ -53,6 +55,17 @@ if (!registry || typeof registry !== 'object') {
           ?.map((e) => `${e.instancePath || '/'} ${e.message}`)
           .join('; ');
         errors.push(`registry.json: products[${i}] failed schema: ${msg}`);
+      }
+
+      for (const field of publicUrlFields) {
+        if (typeof product?.[field] !== 'string') {
+          continue;
+        }
+
+        const urlError = validatePublicHttpsUrl(product[field]);
+        if (urlError) {
+          errors.push(`registry.json: products[${i}].${field} ${urlError}`);
+        }
       }
     }
   }

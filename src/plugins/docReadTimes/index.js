@@ -1,11 +1,11 @@
 import {buildDocReadTimes} from '../../../scripts/readTimeUtils.mjs';
 
-export default function docReadTimesPlugin(_context, options) {
+export default function docReadTimesPlugin(context, options) {
   return {
     name: 'doc-read-times',
     loadContent() {
       return buildDocReadTimes({
-        siteDir: options.siteDir,
+        siteDir: context.siteDir,
         docRoots: options.docRoots,
       });
     },
