@@ -40,7 +40,12 @@ export function calculateReadMinutes(content) {
   return Math.max(1, Math.ceil(countReadableWords(content) / WORDS_PER_MINUTE));
 }
 
+/**
+ * @param {{siteDir: string, docRoots: string[]}} options
+ * @returns {Record<string, number>}
+ */
 export function buildDocReadTimes({siteDir, docRoots}) {
+  /** @type {Record<string, number>} */
   const readTimes = {};
 
   for (const docRoot of docRoots) {

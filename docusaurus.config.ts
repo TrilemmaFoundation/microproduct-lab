@@ -1,4 +1,4 @@
-import type { Config } from '@docusaurus/types';
+import type {Config, PluginConfig} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 import { SITE_URL } from './siteUrl';
 import docReadTimesPlugin from './src/plugins/docReadTimes';
@@ -45,6 +45,27 @@ const docsIslandPlugins = [
     sidebarPath: './sidebars.standards.ts' as const,
   },
 ] as const;
+
+const plugins: PluginConfig[] = [
+  ...docsIslandPlugins.map(
+    (spec): PluginConfig => [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: spec.id,
+        path: spec.path,
+        routeBasePath: spec.routeBasePath,
+        sidebarPath: spec.sidebarPath,
+        editUrl: DOC_ISLAND_EDIT_URL,
+      },
+    ],
+  ),
+  [
+    docReadTimesPlugin,
+    {
+      docRoots: ['docs/human', ...docsIslandPlugins.map((spec) => spec.path)],
+    },
+  ],
+];
 
 const config: Config = {
   title: 'Build Trilemma',
@@ -131,26 +152,7 @@ const config: Config = {
       } satisfies Preset.Options,
     ],
   ],
-  plugins: docsIslandPlugins.map(
-    (spec) =>
-      [
-        '@docusaurus/plugin-content-docs',
-        {
-          id: spec.id,
-          path: spec.path,
-          routeBasePath: spec.routeBasePath,
-          sidebarPath: spec.sidebarPath,
-          editUrl: DOC_ISLAND_EDIT_URL,
-        },
-      ] as const,
-  ).concat([
-    [
-      docReadTimesPlugin,
-      {
-        docRoots: ['docs/human', ...docsIslandPlugins.map((spec) => spec.path)],
-      },
-    ],
-  ]),
+  plugins,
 
   themeConfig: {
     colorMode: {

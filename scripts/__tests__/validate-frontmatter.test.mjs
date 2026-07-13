@@ -1,0 +1,189 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import {describe, it} from 'node:test';
+
+import {
+  collectFrontmatterErrors,
+  extractFrontmatter,
+  isValidReviewedDate,
+} from '../validate-frontmatter.mjs';
+
+const validMission = [
+  'title: Mission',
+  'description: Why this hub exists.',
+  'last_reviewed: 2026-03-04',
+  'authors: [trilemma-foundation]',
+].join('\n');
+
+function writeFile(root, filePath, content) {
+  const fullPath = path.join(root, filePath);
+  fs.mkdirSync(path.dirname(fullPath), {recursive: true});
+  fs.writeFileSync(fullPath, content, 'utf8');
+}
+
+function frontmatter(body, newline = '\n') {
+  return `---${newline}${body.replaceAll('\n', newline)}${newline}---${newline}${newline}Body${newline}`;
+}
+
+function setupFixture(mission = frontmatter(validMission)) {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'frontmatter-validator-'));
+  writeFile(
+    root,
+    'src/data/authors.json',
+    JSON.stringify([{id: 'trilemma-foundation', name: 'Trilemma Foundation'}]),
+  );
+  writeFile(root, 'docs/human/intro/mission.md', mission);
+  writeFile(
+    root,
+    'docs/showcase/microproducts.md',
+    `${frontmatter(validMission)}\n| Name | Description | Team | Link |\n`,
+  );
+  writeFile(root, 'templates/playbook-module.mdx', frontmatter(validMission));
+  writeFile(root, 'product-templates/example/product.yaml', 'id: ignored\n');
+  return root;
+}
+
+function validate(mission = frontmatter(validMission), mutate) {
+  const root = setupFixture(mission);
+  try {
+    mutate?.(root);
+    return collectFrontmatterErrors(root);
+  } finally {
+    fs.rmSync(root, {recursive: true, force: true});
+  }
+}
+
+function hasError(errors, text) {
+  assert.ok(errors.some((error) => error.includes(text)), errors.join('\n'));
+}
+
+describe('frontmatter parsing and validation', () => {
+  it('accepts full YAML, CRLF, optional tags, and valid leap days', () => {
+    const body = [
+      'title: "Mission: details"',
+      'description: >-',
+      '  A multiline description.',
+      'tags:',
+      '  - intro',
+      '  - "mission, goals"',
+      'last_reviewed: 2024-02-29',
+      'authors: [trilemma-foundation]',
+    ].join('\n');
+    assert.deepEqual(validate(frontmatter(body, '\r\n')), []);
+    assert.deepEqual(validate(), []);
+  });
+
+  it('rejects missing, non-mapping, malformed, and duplicate frontmatter', () => {
+    hasError(validate('Body only\n'), 'missing frontmatter block');
+    hasError(validate('---\n- item\n---\n'), 'frontmatter must be a YAML mapping');
+    hasError(validate('---\ntitle: [\n---\n'), 'invalid YAML frontmatter');
+    hasError(
+      validate(frontmatter(`${validMission}\ntitle: Duplicate`)),
+      'duplicated mapping key',
+    );
+  });
+
+  it('validates list fields and known authors', () => {
+    hasError(
+      validate(frontmatter(`${validMission}\ntags: intro`)),
+      'tags must be a YAML list of strings',
+    );
+    hasError(
+      validate(frontmatter(`${validMission}\ntags: [intro, 123]`)),
+      'tags must contain only string values',
+    );
+    hasError(
+      validate(frontmatter(validMission.replace('authors: [trilemma-foundation]', 'authors: []'))),
+      'authors must contain at least one author ID',
+    );
+    hasError(
+      validate(frontmatter(validMission.replace('trilemma-foundation', 'unknown-author'))),
+      "unknown author ID 'unknown-author'",
+    );
+    hasError(
+      validate(frontmatter(validMission.replace('authors: [trilemma-foundation]', 'authors: owner'))),
+      'authors must be a YAML list of strings',
+    );
+    hasError(
+      validate(frontmatter(validMission.replace('authors: [trilemma-foundation]', 'authors: [123]'))),
+      'authors must contain only string values',
+    );
+  });
+
+  it('applies content-kind author rules', () => {
+    const withoutAuthors = validMission.replace('\nauthors: [trilemma-foundation]', '');
+    hasError(validate(frontmatter(withoutAuthors)), "missing required frontmatter field 'authors'");
+    assert.deepEqual(
+      validate(frontmatter(`${withoutAuthors}\ncontent_kind: foundation`)),
+      [],
+    );
+    assert.deepEqual(
+      validate(frontmatter(`${validMission}\ncontent_kind: reference`)),
+      [],
+    );
+    hasError(
+      validate(frontmatter(`${validMission}\ncontent_kind: blog`)),
+      'content_kind must be one of foundation, module, reference',
+    );
+    hasError(
+      validate(frontmatter(`${validMission}\ncontent_kind: 2`)),
+      'content_kind must be a string value',
+    );
+  });
+
+  it('requires complete metadata and real calendar dates', () => {
+    hasError(validate(frontmatter('authors: [trilemma-foundation]')), "missing required frontmatter field 'title'");
+    hasError(validate(frontmatter('title: Missing date\ndescription: Example\nauthors: [trilemma-foundation]')), 'missing last_reviewed value');
+    hasError(
+      validate(frontmatter(validMission.replace('2026-03-04', '2026-02-30'))),
+      'expected valid YYYY-MM-DD',
+    );
+    assert.equal(isValidReviewedDate('2024-02-29'), true);
+    assert.equal(isValidReviewedDate('2023-02-29'), false);
+    assert.equal(isValidReviewedDate('not-a-date'), false);
+    assert.equal(isValidReviewedDate(20260304), false);
+  });
+
+  it('reports missing or invalid author registries', () => {
+    hasError(
+      validate(undefined, (root) => fs.rmSync(path.join(root, 'src/data/authors.json'))),
+      'author registry is missing',
+    );
+    hasError(
+      validate(undefined, (root) => writeFile(root, 'src/data/authors.json', '{}')),
+      'author registry must be an array',
+    );
+    hasError(
+      validate(undefined, (root) => writeFile(root, 'src/data/authors.json', 'not json')),
+      'invalid author registry',
+    );
+    hasError(
+      validate(undefined, (root) => writeFile(root, 'src/data/authors.json', '[{}]')),
+      'must define at least one author ID',
+    );
+  });
+
+  it('reports missing content roots and showcase contract drift', () => {
+    hasError(
+      validate(undefined, (root) => fs.rmSync(path.join(root, 'templates'), {recursive: true})),
+      'templates directory does not exist',
+    );
+    hasError(
+      validate(undefined, (root) => fs.rmSync(path.join(root, 'docs/showcase/microproducts.md'))),
+      'docs/showcase/microproducts.md: file is missing',
+    );
+    hasError(
+      validate(undefined, (root) =>
+        writeFile(root, 'docs/showcase/microproducts.md', frontmatter(validMission)),
+      ),
+      'table header must be exactly',
+    );
+  });
+
+  it('extracts frontmatter without consuming the body', () => {
+    assert.equal(extractFrontmatter(frontmatter(validMission)), validMission);
+    assert.equal(extractFrontmatter('Body'), null);
+  });
+});

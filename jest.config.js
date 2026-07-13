@@ -30,7 +30,7 @@ module.exports = {
     '!src/__mocks__/**',
     '!src/**/__tests__/**',
     '!src/components/UniversityMarquee/**',
-    '!src/theme/**',
+    '!src/theme/Navbar/**',
     '!src/plugins/**',
     '!src/constants/**',
   ],

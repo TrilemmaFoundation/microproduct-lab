@@ -4,7 +4,7 @@ status: spec
 maturity: 1
 maturity_label: spec
 scope: community
-archetype: research-to-product-workflow
+archetype: benchmark-evaluation-product
 problem: >-
   Starter repo that needs you to articulate the narrowly scoped wedge for this archetype before coding widens scope.
 target_users:
