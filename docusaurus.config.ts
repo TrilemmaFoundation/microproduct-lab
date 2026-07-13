@@ -94,6 +94,12 @@ const config: Config = {
   projectName: 'microproduct-lab',
 
   onBrokenLinks: 'throw',
+  future: {
+    v4: {
+      removeLegacyPostBuildHeadAttribute: true,
+    },
+    faster: true,
+  },
   markdown: {
     hooks: {
       onBrokenMarkdownLinks: 'throw',
