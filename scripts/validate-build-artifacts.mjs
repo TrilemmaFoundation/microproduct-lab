@@ -2,31 +2,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-
-const root = path.resolve(import.meta.dirname, '..');
-const buildRoot = path.join(root, 'build');
-const files = walkFiles(buildRoot);
-const sourceMaps = files.filter((filePath) => filePath.endsWith('.map'));
-const forbiddenPaths = [...new Set([root, '/vercel/path0'])];
-const leakingFiles = files.filter(
-  (filePath) =>
-    filePath.endsWith('.js') &&
-    forbiddenPaths.some((forbiddenPath) =>
-      fs.readFileSync(filePath, 'utf8').includes(forbiddenPath),
-    ),
-);
-
-if (sourceMaps.length || leakingFiles.length) {
-  for (const filePath of sourceMaps) {
-    console.error(`Source map emitted: ${path.relative(root, filePath)}`);
-  }
-  for (const filePath of leakingFiles) {
-    console.error(`Build path leaked: ${path.relative(root, filePath)}`);
-  }
-  process.exit(1);
-}
-
-console.log('Build artifact validation passed.');
+import {pathToFileURL} from 'node:url';
 
 function walkFiles(directory) {
   const files = [];
@@ -39,4 +15,49 @@ function walkFiles(directory) {
     }
   }
   return files;
+}
+
+export function collectBuildArtifactErrors(
+  root = path.resolve(import.meta.dirname, '..'),
+  forbiddenPaths = [root, '/vercel/path0'],
+) {
+  const buildRoot = path.join(root, 'build');
+  if (!fs.existsSync(buildRoot)) {
+    return ['Build directory missing: build'];
+  }
+
+  const errors = [];
+  for (const filePath of walkFiles(buildRoot)) {
+    const relativePath = path.relative(root, filePath);
+    if (filePath.endsWith('.map')) {
+      errors.push(`Source map emitted: ${relativePath}`);
+    }
+    if (
+      filePath.endsWith('.js') &&
+      forbiddenPaths.some((forbiddenPath) =>
+        fs.readFileSync(filePath, 'utf8').includes(forbiddenPath),
+      )
+    ) {
+      errors.push(`Build path leaked: ${relativePath}`);
+    }
+  }
+  return errors;
+}
+
+function isMain() {
+  return Boolean(
+    process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href,
+  );
+}
+
+if (isMain()) {
+  const errors = collectBuildArtifactErrors();
+  if (errors.length > 0) {
+    for (const error of errors) {
+      console.error(error);
+    }
+    process.exitCode = 1;
+  } else {
+    console.log('Build artifact validation passed.');
+  }
 }

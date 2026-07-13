@@ -20,12 +20,10 @@ function setupFixture(missionFrontmatter: string) {
 
   writeFile(
     fixtureDir,
-    'src/data/authors.ts',
-    [
-      'export const authors = [',
-      "  {id: 'trilemma-foundation', name: 'Trilemma Foundation'},",
-      '];',
-    ].join('\n'),
+    'src/data/authors.json',
+    JSON.stringify([
+      {id: 'trilemma-foundation', name: 'Trilemma Foundation'},
+    ]),
   );
 
   writeFile(
