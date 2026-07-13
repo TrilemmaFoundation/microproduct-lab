@@ -613,3 +613,17 @@ textarea:focus-visible {
     padding-bottom: 3rem;
   }
 }
+
+/*
+ * Mermaid diagrams: by default Docusaurus scales the SVG down with
+ * `max-width: 100%` to fit the article column, which crushes large
+ * flowcharts to an unreadable size. Let wide diagrams render at their
+ * natural size and scroll horizontally instead.
+ */
+.docusaurus-mermaid-container {
+  overflow-x: auto;
+}
+
+.docusaurus-mermaid-container svg {
+  max-width: none;
+}

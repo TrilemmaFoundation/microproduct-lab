@@ -21,6 +21,7 @@ const sidebars: SidebarsConfig = {
           items: [
             'playbook/frame/frame',
             'playbook/frame/ideation',
+            'playbook/frame/design',
             'playbook/frame/architecture',
             'playbook/frame/data-stack-analytics-engineering',
           ],
@@ -32,6 +33,7 @@ const sidebars: SidebarsConfig = {
             'playbook/build/build',
             'playbook/build/build-module',
             'playbook/build/qa-methodology',
+            'playbook/build/release',
           ],
         },
         {

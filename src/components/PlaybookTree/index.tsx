@@ -84,6 +84,14 @@ export const humanPlaybookTree: PlaybookTreeNode[] = [
                 to: '/docs/playbook/ideation',
               },
               {
+                id: 'design',
+                title: 'Design',
+                level: 4,
+                description:
+                  'Define the shape of the product and its implementation, creating a blueprint for future work.',
+                to: '/docs/playbook/design',
+              },
+              {
                 id: 'architecture',
                 title: 'Architecture',
                 level: 4,
@@ -131,6 +139,14 @@ export const humanPlaybookTree: PlaybookTreeNode[] = [
                 description:
                   'Use quality gates, behavior-driven checks, and review norms to keep AI-assisted builds reliable.',
                 to: '/docs/playbook/qa-methodology',
+              },
+              {
+                id: 'release',
+                title: 'Release',
+                level: 4,
+                description:
+                  'Key release-readiness criteria, including a graph of how these relate to other components of the playbook.',
+                to: '/docs/playbook/release',
               },
             ],
           },

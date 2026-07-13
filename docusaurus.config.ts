@@ -98,7 +98,9 @@ const config: Config = {
     hooks: {
       onBrokenMarkdownLinks: 'throw',
     },
+    mermaid: true,
   },
+  themes: ['@docusaurus/theme-mermaid'],
 
   i18n: {
     defaultLocale: 'en',
@@ -150,6 +152,16 @@ const config: Config = {
       defaultMode: 'dark',
       disableSwitch: true,
       respectPrefersColorScheme: false,
+    },
+    mermaid: {
+      // Match the label-measurement font to the rendered font so node
+      // boxes are sized correctly and text isn't clipped.
+      options: {
+        fontFamily: 'var(--ifm-font-family-base)',
+        flowchart: {
+          useMaxWidth: false,
+        },
+      },
     },
     metadata: [
       { property: 'og:title', content: 'Build Trilemma' },

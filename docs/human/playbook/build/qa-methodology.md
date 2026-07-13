@@ -126,7 +126,6 @@ Apply checks by risk tier:
 ## Contributor Expansion Areas
 
 - QA automation patterns for agent-first repositories.
-- Risk scoring models for release decisions.
 - Post-release quality review templates.
 
 [Propose an improvement](https://github.com/TrilemmaFoundation/microproduct-lab/pulls)
