@@ -1,5 +1,5 @@
 /**
- * Drops Docusaurus generated output and the webpack/babel cache without removing
+ * Drops Docusaurus generated output and the bundler cache without removing
  * the production build folder — avoids ENOENT / @generated churn on dev start when
  * .docusaurus is out of sync with the bundler cache.
  */
