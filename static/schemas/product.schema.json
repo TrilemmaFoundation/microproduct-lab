@@ -3,6 +3,13 @@
   "$id": "https://build.trilemma.foundation/schemas/product.schema.json",
   "title": "Build Trilemma Product Metadata",
   "type": "object",
+  "$defs": {
+    "publicHttpsUrl": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://"
+    }
+  },
   "required": [
     "id",
     "name",
@@ -80,20 +87,16 @@
       }
     },
     "repo": {
-      "type": "string",
-      "format": "uri"
+      "$ref": "#/$defs/publicHttpsUrl"
     },
     "site": {
-      "type": "string",
-      "format": "uri"
+      "$ref": "#/$defs/publicHttpsUrl"
     },
     "docs": {
-      "type": "string",
-      "format": "uri"
+      "$ref": "#/$defs/publicHttpsUrl"
     },
     "agent_entrypoint": {
-      "type": "string",
-      "format": "uri"
+      "$ref": "#/$defs/publicHttpsUrl"
     },
     "tags": {
       "type": "array",

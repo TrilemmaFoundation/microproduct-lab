@@ -3,7 +3,7 @@ title: How to Contribute
 description: Exact process for proposing and publishing new hub content.
 content_kind: reference
 slug: /
-last_reviewed: 2026-03-04
+last_reviewed: 2026-07-13
 authors: [trilemma-foundation]
 ---
 
@@ -14,6 +14,10 @@ authors: [trilemma-foundation]
 3. Run `npm run check` locally.
 4. Open a PR and complete the checklist.
 5. Committee members review, request changes if needed, and merge.
+
+Registry link fields (`repo`, `site`, `docs`, and `agent_entrypoint`) must use
+public HTTPS domains. Localhost, local or internal domains, credentials, and
+IP-address destinations are rejected by registry validation.
 
 ## Review Expectations
 

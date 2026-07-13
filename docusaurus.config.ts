@@ -141,7 +141,6 @@ const config: Config = {
     [
       docReadTimesPlugin,
       {
-        siteDir: __dirname,
         docRoots: ['docs/human', ...docsIslandPlugins.map((spec) => spec.path)],
       },
     ],
