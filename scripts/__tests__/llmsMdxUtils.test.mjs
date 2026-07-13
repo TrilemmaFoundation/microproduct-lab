@@ -4,6 +4,7 @@ import { describe, it } from 'node:test';
 import {
   stripFrontmatterAndMdxForLlms,
   stripMdxForPlainText,
+  stripYamlFrontmatter,
 } from '../llmsMdxUtils.mjs';
 
 describe('llmsMdxUtils', () => {
@@ -49,5 +50,13 @@ Body <Foo /> tail.
     assert.doesNotMatch(out, /title:/);
     assert.doesNotMatch(out, /import X/);
     assert.doesNotMatch(out, /<Foo/);
+  });
+
+  it('stripYamlFrontmatter preserves plain text and malformed blocks', () => {
+    assert.equal(stripYamlFrontmatter('Plain text'), 'Plain text');
+    assert.equal(
+      stripYamlFrontmatter('---\ntitle: Incomplete\nBody'),
+      '---\ntitle: Incomplete\nBody',
+    );
   });
 });

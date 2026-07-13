@@ -54,7 +54,7 @@ function loadYaml(filePath, label, errors) {
     return load(fs.readFileSync(filePath, 'utf8'), {schema: JSON_SCHEMA});
   } catch (error) {
     errors.push(`${label}: invalid YAML (${error.message})`);
-    return null;
+    return undefined;
   }
 }
 
@@ -128,7 +128,7 @@ export function collectRegistryErrors(root = path.resolve(import.meta.dirname, '
     }
     const relativePath = `product-templates/${entry.name}/product.yaml`;
     const product = loadYaml(path.join(root, relativePath), relativePath, errors);
-    if (product !== null) {
+    if (typeof product !== 'undefined') {
       validateProduct(product, relativePath, validateSchema, errors, archetypes);
     }
   }
@@ -136,6 +136,7 @@ export function collectRegistryErrors(root = path.resolve(import.meta.dirname, '
   return errors;
 }
 
+/* node:coverage disable */
 function isMain() {
   return Boolean(
     process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href,
@@ -154,3 +155,4 @@ if (isMain()) {
     console.log('Registry validation passed.');
   }
 }
+/* node:coverage enable */

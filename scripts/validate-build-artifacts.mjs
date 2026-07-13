@@ -44,6 +44,7 @@ export function collectBuildArtifactErrors(
   return errors;
 }
 
+/* node:coverage disable */
 function isMain() {
   return Boolean(
     process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href,
@@ -61,3 +62,4 @@ if (isMain()) {
     console.log('Build artifact validation passed.');
   }
 }
+/* node:coverage enable */

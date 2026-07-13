@@ -15,7 +15,8 @@ This repository is an open knowledge hub to help builders learn, contribute, and
 
 ## Local Development
 
-Requires Node.js 22.18 or newer.
+Requires Node.js 22. With `nvm`, run `nvm use` to select the repository's
+reproducible development and CI version, Node.js 22.18.0, from `.nvmrc`.
 
 ```bash
 npm install
@@ -32,9 +33,11 @@ npm run check
 
 This runs:
 
+- TypeScript checking (`tsc --noEmit`)
 - spelling check (`cspell` on `docs/`, `product-templates/`, `templates/`)
-- frontmatter validation (`docs/`, `templates/`, `product-templates/`)
-- registry JSON validation against `static/schemas/product.schema.json` (`validate:registry`)
+- full YAML frontmatter validation, including real `YYYY-MM-DD` review dates
+- registry JSON and starter `product.yaml` validation against
+  `static/schemas/product.schema.json`; starter archetypes must match the catalog
 - markdown lint for `docs/**/*.md` and `docs/**/*.mdx`, plus `README.md`, `CONTRIBUTING.md`, `templates/**/*.md`, `product-templates/**/*.md`, and `products/**/*.md`
 - `generate-llms-full` followed by a production Docusaurus build (static + link checks)
 
@@ -46,7 +49,10 @@ CI runs `npm run check` then `npm run test:coverage`. Locally:
 npm run test:coverage
 ```
 
-`npm test` and `npm run test:coverage` run **Jest** (React pages and utilities) and **Node’s built-in test runner** for `scripts/llmsMdxUtils.mjs`.
+`npm test` and `npm run test:coverage` run **Jest** for React code and Node's
+built-in test runner for scripts. Coverage enforces 100% line, branch, and
+function coverage for the critical validation utilities while excluding thin
+CLI wrappers.
 
 ## Spelling Check
 

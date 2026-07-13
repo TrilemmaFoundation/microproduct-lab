@@ -91,4 +91,15 @@ describe('human playbook data', () => {
       }),
     ).toThrow("Playbook leaf 'leaf' is missing docId");
   });
+
+  it('generates a root-only sidebar', () => {
+    expect(
+      buildHumanPlaybookSidebar({
+        id: 'root',
+        title: 'Root',
+        description: 'Root document',
+        docId: 'root',
+      }),
+    ).toEqual(['root']);
+  });
 });

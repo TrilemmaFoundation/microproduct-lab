@@ -2,25 +2,34 @@ import React from 'react';
 import {render, screen} from '@testing-library/react';
 import {useDoc} from '@docusaurus/plugin-content-docs/client';
 import {usePluginData} from '@docusaurus/useGlobalData';
+import {authorsById} from '@site/src/data/authors';
 import DocItemContent from '../index';
 
 const mockUseDoc = useDoc as jest.Mock;
 const mockUsePluginData = usePluginData as jest.Mock;
 
-function renderDoc(frontMatter: Record<string, unknown>, source: string) {
+function renderDoc(
+  frontMatter: Record<string, unknown>,
+  source: string,
+  options: {contentTitle?: string; includeReadTime?: boolean} = {},
+) {
   mockUseDoc.mockReturnValue({
     metadata: {
       title: 'Doc Title',
       source,
     },
     frontMatter,
-    contentTitle: undefined,
+    contentTitle: options.contentTitle,
   });
-  mockUsePluginData.mockReturnValue({
-    readTimes: {
-      [source]: 1,
-    },
-  });
+  mockUsePluginData.mockReturnValue(
+    options.includeReadTime === false
+      ? undefined
+      : {
+          readTimes: {
+            [source]: 1,
+          },
+        },
+  );
 
   render(
     <DocItemContent>
@@ -76,5 +85,57 @@ describe('DocItemContent byline', () => {
     expect(screen.getByText(/^By/i)).toBeInTheDocument();
     expect(screen.getByRole('link', {name: 'Mohammad Ashkani'})).toBeInTheDocument();
     expect(screen.queryByText(/Maintained by/i)).not.toBeInTheDocument();
+  });
+
+  it('renders unknown authors as read-time-only metadata', () => {
+    renderDoc(
+      {authors: [123, 'unknown-author']},
+      '@site/docs/human/playbook/unknown.md',
+    );
+
+    expect(screen.getByText('1 min read')).toBeInTheDocument();
+    expect(screen.queryByText(/^By/i)).not.toBeInTheDocument();
+  });
+
+  it('renders authors without profile URLs as plain text', () => {
+    authorsById.set('plain-author', {id: 'plain-author', name: 'Plain Author'});
+    try {
+      renderDoc(
+        {authors: ['plain-author']},
+        '@site/docs/human/playbook/plain-author.md',
+        {includeReadTime: false},
+      );
+      expect(screen.getByText(/Plain Author/)).toBeInTheDocument();
+      expect(screen.queryByRole('link', {name: 'Plain Author'})).not.toBeInTheDocument();
+    } finally {
+      authorsById.delete('plain-author');
+    }
+  });
+
+  it('separates multiple authors', () => {
+    renderDoc(
+      {authors: ['mohammad-ashkani', 'trilemma-foundation']},
+      '@site/docs/human/playbook/coauthored.md',
+    );
+    expect(
+      screen.getByRole('link', {name: 'Mohammad Ashkani'}).parentElement,
+    ).toHaveTextContent('By Mohammad Ashkani, Trilemma Foundation');
+  });
+
+  it('omits an empty byline and respects explicit or hidden titles', () => {
+    renderDoc({}, '@site/docs/human/no-metadata.md', {includeReadTime: false});
+    expect(screen.getByRole('heading', {name: 'Doc Title'})).toBeInTheDocument();
+    expect(screen.queryByText(/min read/)).not.toBeInTheDocument();
+
+    renderDoc({}, '@site/docs/human/explicit.md', {
+      contentTitle: 'Explicit title',
+      includeReadTime: false,
+    });
+    expect(screen.getAllByRole('heading', {name: 'Doc Title'})).toHaveLength(1);
+
+    renderDoc({hide_title: true}, '@site/docs/human/hidden.md', {
+      includeReadTime: false,
+    });
+    expect(screen.getAllByRole('heading', {name: 'Doc Title'})).toHaveLength(1);
   });
 });
