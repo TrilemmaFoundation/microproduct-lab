@@ -2,36 +2,43 @@
 title: "<Module Title>"
 description: "One-sentence summary of this phase module."
 tags: [playbook]
-last_reviewed: 2026-03-05
+last_reviewed: 2026-07-16
 authors: [trilemma-foundation]
 ---
 
-## Phase Context
+## When to Use This Module
 
-What phase this module supports and when it should be used.
+What phase this module supports and when a reader should use it.
 
-## Decision Gates
+## Key Decisions
 
-1. Gate one.
-2. Gate two.
-3. Gate three.
+### Decision Area One
+
+Explain the decision and recommended approach.
+
+### Decision Area Two
+
+Explain the decision and recommended approach.
 
 ## Required Artifacts
 
 - Artifact one.
 - Artifact two.
 
-## Failure Modes
+## Pitfalls
 
-Common ways this phase fails and how to prevent them.
+- Common failure mode one and how to prevent it.
+- Common failure mode two and how to prevent it.
 
-## Contributor Expansion Areas
+## Contribute Here
+
+The following topics are open contribution areas:
 
 - Specialized topic one.
 - Specialized topic two.
 
-## References
+## Next Step
 
-- Add primary references.
+Link to the next module in the playbook sequence.
 
 [Propose an improvement](https://github.com/TrilemmaFoundation/microproduct-lab/pulls)

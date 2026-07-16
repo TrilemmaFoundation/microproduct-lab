@@ -7,7 +7,10 @@ last_reviewed: 2026-07-16
 authors: [trilemma-foundation]
 ---
 
-This guide walks through deploying a microproduct using only GitHub and the
+## When to Use This Module
+
+Use this guide during Phase 2 (Build) when you have a release candidate ready to
+ship. It walks through deploying a microproduct using only GitHub and the
 Vercel free **Hobby** plan. It works for any static site or Vercel-supported
 web app — no paid services required.
 
@@ -40,7 +43,7 @@ into its own repository first.
 3. Select **Import Git Repository** and choose your microproduct repo.
 4. Grant Vercel access to the repository if prompted.
 
-## 3. Configure the build
+## 3. Configure the Build
 
 Vercel auto-detects most frameworks (Next.js, Vite, Astro, Docusaurus, etc.)
 and fills in the build command and output directory. Review the settings before
@@ -71,12 +74,12 @@ Click **Deploy**. Vercel builds your project and assigns a production URL
 (e.g. `your-repo.vercel.app`). Every push to `main` triggers an automatic
 redeploy.
 
-## 5. Preview deployments
+## 5. Preview Deployments
 
 Open a pull request on GitHub and Vercel creates a unique preview URL for that
 branch. Share the preview link for review before merging to `main`.
 
-## Hobby plan limits
+## Hobby Plan Limits
 
 The Vercel Hobby plan is free and suitable for personal and non-commercial
 microproducts. Be aware of these constraints:
@@ -90,7 +93,7 @@ microproducts. Be aware of these constraints:
 If your microproduct outgrows these limits, review Vercel's pricing before
 upgrading.
 
-## What comes next
+## Next Step
 
 Once deployed, move into [Operate](/docs/playbook/operate) to own distribution,
 learning, and iteration after launch.

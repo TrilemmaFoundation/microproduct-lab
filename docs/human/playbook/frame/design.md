@@ -1,31 +1,85 @@
 ---
 title: Design
-description: Serves the 'planning' phase of the implementation cycle with key decisions and guidance for translating ideas into implementable changes.
+description: Translate requirements and learnings into concrete specifications before implementation.
 slug: /playbook/design
-tags: [playbook, implementation]
-last_reviewed: 2026-06-07
+tags: [playbook, frame, design]
+last_reviewed: 2026-07-16
 authors: [trilemma-foundation]
 ---
 
-Requirements gathering, feature requests bug reports and analytics insights all feed into the software development pipeline to continually build and refine the product. Communicating with stakeholders, learning from domain experts, and observing the product in production are vital for delivering high-value, high-quality capabilities. We use the umbrella term 'design' to refer to the process of converting those learnings into concrete software specifications, which in turn become tasks for human coders or agents. This includes, but is certainly not limited to, the creation of mockups and other visual representations of user interfaces.
+## When to Use This Module
 
-System design is expected to take place before the initial code sprint as well as in response to any future enhancement or fix requests. We believe that good design before coding, while requiring effort up-front, results in less time spent in implementation and higher quality deliverables overall. Design artifacts are just as valuable as working code.
+Use this module during Phase 1 (Frame) after you have a problem brief and before
+you commit to architecture. Design converts requirements, stakeholder input,
+domain expertise, and production observations into concrete specifications that
+become implementation tasks.
 
-## Prototyping
-In addition to wireframes and visual mockups, working prototypes are incredibly powerful for getting early user feedback and identifying gaps early. The suggestion that design happen before coding does not mean that coding up prototypes is off limits. Quite the opposite: coding agents make it easier than ever to create quick, throwaway prototypes that help
-communicate intent and reduce unknowns in later phases of the implementation. With that said, avoid the temptation to ship prototypes - let them serve their purpose and become a design artifact to feed into the canonical implementation.
+Design happens before the initial build sprint and in response to future
+enhancement or fix requests. Good design up front reduces rework and produces
+higher-quality deliverables. Design artifacts are as valuable as working code.
 
-## Code Organization
-While design precedes coding, the way components are organized should be taken into account in the design phase. Especially since design tools and domain expertise can help discover natural abstractions, terminology, and boundaries.
+## Key Decisions
 
-The module structure and communication architecture of your application have a large
-impact on its clarity, testability and maintainability. This should be taken
-into consideration when designing and implementing all aspects of the system
-including the frontend, API, and analytics core. There are effectively two options:
-1. Layered (Traditional): modules organized by technical layer (UI, API, DB) and/or into
-models that mix business rules with storage and presentation logic.
-2. Vertical Slices: modules align with use-cases, top-to-bottom.
+### Specifications Over Guesswork
 
-We prefer vertical slice architecture for the following reasons: 1) Microproducts are conceived around and driven by user value and should be organized and tested accordingly. 2) Deep modules work well in agentic engineering workflows and enable easy to verify incremental progress during development.
+Requirements gathering, feature requests, bug reports, and analytics insights all
+feed the development pipeline. Your job is to convert those learnings into clear
+software specifications — including, but not limited to, mockups and visual
+representations of user interfaces.
 
-Of course, teams should choose the style that works best for their project, and architecture patterns can be mixed. Lean on vertical slicing as a default while considering alternatives for exceptionally complex domains.
+### Prototyping
+
+Working prototypes are powerful for early user feedback and gap discovery. Design
+before coding does not mean prototypes are off limits. Coding agents make it
+easier than ever to create quick, throwaway prototypes that communicate intent
+and reduce unknowns.
+
+Avoid the temptation to ship prototypes. Let them serve their purpose, then feed
+the learnings into the canonical implementation.
+
+### Code Organization
+
+Component organization affects clarity, testability, and maintainability. Consider
+structure during design, not only during implementation. Domain expertise and
+design tools can reveal natural abstractions, terminology, and boundaries.
+
+Two common patterns:
+
+1. **Layered (traditional)**: modules organized by technical layer (UI, API, DB)
+   or models that mix business rules with storage and presentation logic.
+2. **Vertical slices**: modules align with use cases, top to bottom.
+
+We prefer vertical slice architecture because microproducts are driven by user
+value and should be organized and tested accordingly. Deep modules also work
+well in agent-assisted workflows and enable incremental, verifiable progress.
+
+Teams should choose the style that fits their project. Architecture patterns can
+be mixed. Lean on vertical slicing as a default; consider alternatives for
+exceptionally complex domains.
+
+## Required Artifacts
+
+- Design specifications that translate requirements into implementable changes.
+- Module boundaries and communication architecture for frontend, API, and data layers.
+- Prototypes or mockups when visual communication reduces ambiguity.
+
+## Pitfalls
+
+- Skipping design and coding directly from a problem brief.
+- Shipping throwaway prototypes as production code.
+- Organizing by technical layer when user-facing slices would be clearer.
+
+## Contribute Here
+
+The following topics are open contribution areas:
+
+- Design specification templates for microproducts.
+- Prototyping workflows with coding agents.
+- Vertical slice architecture examples by product shape.
+
+## Next Step
+
+Continue to [Architecture](./architecture) to pick a data pipeline and system
+baseline, or return to the [Frame](./frame) overview.
+
+[Propose an improvement](https://github.com/TrilemmaFoundation/microproduct-lab/pulls)

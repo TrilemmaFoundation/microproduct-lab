@@ -3,7 +3,7 @@ title: Build
 description: "Phase 2 of the playbook: execute, validate quality, and deliver a usable MVP."
 slug: /playbook/build
 tags: [playbook, build]
-last_reviewed: 2026-03-05
+last_reviewed: 2026-07-16
 authors: [trilemma-foundation]
 ---
 
@@ -11,22 +11,24 @@ authors: [trilemma-foundation]
 
 Ship a reliable MVP by combining focused execution, explicit delivery workflows, and built-in quality gates.
 
-## Execution Model for Agent + LLM Teams
+## What Must Be True Before You Ship
 
-- Plan work in small vertical slices that can be implemented and verified independently.
-- Require clear prompts, acceptance criteria, and constraints for each slice.
-- Keep humans accountable for architecture decisions, review quality, and release decisions.
-
-## Quality Gates in Phase 2
-
-- Define required checks before merge for each slice.
-- Validate highest-value user path on every release candidate.
-- Block release on unresolved high-impact failures.
+- Validated scope from Frame is translated into implementable slices.
+- Each slice has clear acceptance criteria and a review owner.
+- Critical user paths have defined quality checks before release.
+- Humans remain accountable for architecture decisions, review quality, and release decisions.
 
 ## Required Outputs
 
 - MVP that completes a core user task quickly and reliably.
 - QA evidence for critical flows, error paths, and accessibility basics.
 - Pilot release summary with observed failures and next-iteration priorities.
+
+## Module Map
+
+- [Delivery Workflow](./build-module): translate scope into focused build tasks and working product slices.
+- [QA Methodology](./qa-methodology): use quality gates and review norms to keep builds reliable.
+- [Release Checklist](./release): decide whether a release candidate is ready to deploy.
+- [Deploy Quickstart](./deploy-quickstart): ship your microproduct using GitHub and Vercel.
 
 [Propose an improvement](https://github.com/TrilemmaFoundation/microproduct-lab/pulls)

@@ -61,7 +61,7 @@
               {
                 "id": "design",
                 "title": "Design",
-                "description": "Define the shape of the product and its implementation, creating a blueprint for future work.",
+                "description": "Translate requirements and learnings into concrete specifications before implementation.",
                 "docId": "playbook/frame/design",
                 "to": "/docs/playbook/design"
               },
@@ -95,8 +95,8 @@
               },
               {
                 "id": "build-module",
-                "title": "Build Module",
-                "description": "Translate architecture and acceptance criteria into focused build tasks and working product slices.",
+                "title": "Delivery Workflow",
+                "description": "Translate validated scope into focused build tasks and working product slices.",
                 "docId": "playbook/build/build-module",
                 "to": "/docs/playbook/build-module"
               },

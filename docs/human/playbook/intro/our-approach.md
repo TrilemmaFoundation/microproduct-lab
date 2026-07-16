@@ -45,7 +45,7 @@ The last step closes the gap between insight and utility. Ship a focused
 experience, workflow, alert, or tool that puts the modeled data into someone's
 hands. Then learn from real use and improve.
 
-## How this maps to the playbook
+## How This Maps to the Playbook
 
 These four steps are the conceptual arc. The rest of the playbook expands them
 into practice through [Frame](/docs/playbook/frame), [Build](/docs/playbook/build),

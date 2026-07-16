@@ -3,13 +3,13 @@ title: Frame
 description: "Phase 1 of the playbook: validate opportunity and architecture before building."
 slug: /playbook/frame
 tags: [playbook, frame]
-last_reviewed: 2026-03-05
+last_reviewed: 2026-07-16
 authors: [trilemma-foundation]
 ---
 
 ## Phase Goal
 
-Establish whether a microproduct is worth building and feasible to deliver before entering execution.
+Establish whether a microproduct is worth building and feasible to deliver before you enter execution.
 
 ## What Must Be True Before You Build
 
@@ -24,9 +24,11 @@ Establish whether a microproduct is worth building and feasible to deliver befor
 - Go/no-go criteria for moving into implementation.
 - Architecture decision brief with pipeline, storage, and cost assumptions.
 
-## Module Map: Ideation + Architecture
+## Module Map
 
 - [Ideation](./ideation): define demand, data availability, and minimum useful outcome.
+- [Design](./design): translate requirements into concrete specifications and product shape.
 - [Architecture](./architecture): pick a modern data pipeline and justify key system decisions.
+- [Data Stack & Analytics Engineering](./data-stack-analytics-engineering): choose orchestration, transformation, and storage for reliable data workflows.
 
 [Propose an improvement](https://github.com/TrilemmaFoundation/microproduct-lab/pulls)
