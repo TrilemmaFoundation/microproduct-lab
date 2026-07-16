@@ -45,6 +45,14 @@ export const humanPlaybookTree: PlaybookTreeNode[] = [
                 to: '/docs/intro/what-is-a-microproduct',
               },
               {
+                id: 'our-approach',
+                title: 'Our Approach',
+                description:
+                  'The four-step method we use to turn a problem into a microproduct: identify the problem, identify the data, build the pipeline, build the microproduct.',
+                docId: 'playbook/intro/our-approach',
+                to: '/docs/intro/our-approach',
+              },
+              {
                 id: 'mission',
                 title: 'Mission',
                 description:
@@ -139,6 +147,14 @@ export const humanPlaybookTree: PlaybookTreeNode[] = [
                   'Key release-readiness criteria, including a graph of how these relate to other components of the playbook.',
                 docId: 'playbook/build/release',
                 to: '/docs/playbook/release',
+              },
+              {
+                id: 'deploy-quickstart',
+                title: 'Deploy Quickstart',
+                description:
+                  'Ship your microproduct for free using only GitHub and the Vercel Hobby plan.',
+                docId: 'playbook/build/deploy-quickstart',
+                to: '/docs/playbook/deploy-quickstart',
               },
             ],
           },

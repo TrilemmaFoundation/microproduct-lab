@@ -21,6 +21,7 @@ describe('human playbook data', () => {
             label: 'Intro',
             items: [
               'playbook/intro/what-is-a-microproduct',
+              'playbook/intro/our-approach',
               'playbook/intro/mission',
             ],
           },
@@ -43,6 +44,7 @@ describe('human playbook data', () => {
               'playbook/build/build-module',
               'playbook/build/qa-methodology',
               'playbook/build/release',
+              'playbook/build/deploy-quickstart',
             ],
           },
           {

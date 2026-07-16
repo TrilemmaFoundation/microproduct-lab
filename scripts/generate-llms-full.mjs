@@ -34,6 +34,11 @@ const sources = [
     'Microproduct definition',
     stripFrontmatterAndMdxForLlms,
   ],
+  [
+    'docs/human/playbook/intro/our-approach.md',
+    'Our Approach',
+    stripYamlFrontmatter,
+  ],
   ['docs/human/playbook/intro/mission.md', 'Mission', stripYamlFrontmatter],
   ['docs/templates/index.md', 'Templates overview', stripYamlFrontmatter],
   ['docs/agents/index.md', 'Agents hub', stripYamlFrontmatter],
