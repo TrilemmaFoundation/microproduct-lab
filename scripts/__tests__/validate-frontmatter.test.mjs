@@ -125,7 +125,7 @@ describe('frontmatter parsing and validation', () => {
     );
     hasError(
       validate(frontmatter(`${validMission}\ncontent_kind: blog`)),
-      'content_kind must be one of foundation, module, reference',
+      'content_kind must be one of foundation, module, reference, mirror',
     );
     hasError(
       validate(frontmatter(`${validMission}\ncontent_kind: 2`)),
@@ -182,11 +182,119 @@ describe('frontmatter parsing and validation', () => {
     );
   });
 
-  it('skips generated agent mirror docs under docs/agents/human', () => {
-    const errors = validate(undefined, (root) =>
-      writeFile(root, 'docs/agents/human/playbook/intro/bad.md', 'No frontmatter here'),
+  it('validates generated mirror docs with mirror-specific rules', () => {
+    const mirrorDoc = frontmatter(
+      [
+        'title: Mission',
+        'description: Why this hub exists.',
+        'slug: /intro/mission',
+        'canonical_human_url: /docs/intro/mission',
+        'section: intro',
+        'source_doc_id: playbook/intro/mission',
+        'content_kind: mirror',
+      ].join('\n'),
     );
-    assert.equal(errors.length, 0);
+    assert.deepEqual(
+      validate(undefined, (root) =>
+        writeFile(root, 'docs/agents/human/playbook/intro/mission.md', mirrorDoc),
+      ),
+      [],
+    );
+
+    const overviewDoc = frontmatter(
+      [
+        'title: Human Docs Mirror',
+        'description: Agent-first browsable mirror of the human playbook and supporting docs.',
+        'slug: /human',
+        'content_kind: mirror',
+      ].join('\n'),
+    );
+    assert.deepEqual(
+      validate(undefined, (root) => writeFile(root, 'docs/agents/human/index.md', overviewDoc)),
+      [],
+    );
+  });
+
+  it('rejects invalid generated mirror docs and mirror content_kind outside generated roots', () => {
+    hasError(
+      validate(undefined, (root) =>
+        writeFile(root, 'docs/agents/human/playbook/intro/bad.md', 'No frontmatter here'),
+      ),
+      'docs/agents/human/playbook/intro/bad.md: missing frontmatter block',
+    );
+
+    hasError(
+      validate(undefined, (root) =>
+        writeFile(
+          root,
+          'docs/agents/human/bad.md',
+          frontmatter(
+            ['title: Bad Mirror', 'description: Missing content kind.'].join('\n'),
+          ),
+        ),
+      ),
+      "missing required frontmatter field 'content_kind'",
+    );
+
+    hasError(
+      validate(undefined, (root) =>
+        writeFile(
+          root,
+          'docs/agents/human/missing-title.md',
+          frontmatter(['description: Missing title field.', 'content_kind: mirror'].join('\n')),
+        ),
+      ),
+      "missing required frontmatter field 'title'",
+    );
+
+    hasError(
+      validate(
+        frontmatter(
+          [
+            'title: Illegal Mirror',
+            'description: Mirror outside generated tree.',
+            'content_kind: mirror',
+            'last_reviewed: 2026-03-04',
+          ].join('\n'),
+        ),
+      ),
+      'content_kind mirror is reserved for generated docs',
+    );
+
+    hasError(
+      validate(undefined, (root) =>
+        writeFile(
+          root,
+          'docs/agents/human/wrong-kind.md',
+          frontmatter(
+            [
+              'title: Wrong kind',
+              'description: Not a mirror doc.',
+              'content_kind: module',
+            ].join('\n'),
+          ),
+        ),
+      ),
+      'generated mirror docs must use content_kind: mirror',
+    );
+
+    hasError(
+      validate(undefined, (root) =>
+        writeFile(
+          root,
+          'docs/agents/human/invalid-field.md',
+          frontmatter(
+            [
+              'title: Invalid field',
+              'description: Bad canonical URL type.',
+              'content_kind: mirror',
+              'canonical_human_url: 123',
+            ].join('\n'),
+          ),
+        ),
+      ),
+      'canonical_human_url must be a string value',
+    );
   });
 
   it('extracts frontmatter without consuming the body', () => {

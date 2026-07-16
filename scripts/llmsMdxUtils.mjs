@@ -2,6 +2,8 @@
  * MDX/Markdown helpers for scripts/generate-llms-full.mjs (plain-text LLM bundles).
  */
 
+import {stripFrontmatter as stripFrontmatterBody} from './frontmatterUtils.mjs';
+
 const FENCE_SPLIT_REGEX = /(^```[^\n]*\n[\s\S]*?\n```$)/gm;
 
 /** Strip MDX import lines and JSX display components for plain-text context bundles. */
@@ -24,9 +26,8 @@ export function stripMdxForPlainText(text) {
 function stripJsxFromProse(text) {
   return text
     .replace(/^import\s+(?:.|\n)*?from\s+['"][^'"]+['"];?\s*\n?/gm, '')
-    .replace(/<[A-Z][\s\S]*?\/>/g, '')
-    .replace(/<[A-Z][A-Za-z0-9]*\b[\s\S]*?<\/[A-Z][A-Za-z0-9]*>/g, '')
-    .replace(/<UniversityMarquee\b[\s\S]*?<\/UniversityMarquee>/g, '')
+    .replace(/<[A-Z][A-Za-z0-9]*\b[^<>]*\/>/g, '')
+    .replace(/<([A-Z][A-Za-z0-9]*)\b[\s\S]*?<\/\1>/g, '')
     .replace(
       /<(?:ul|ol|div|span|section|article)\b[^>]*>[\s\S]*?<\/(?:ul|ol|div|span|section|article)>/gi,
       (block) => (block.includes('{') ? '' : block),
@@ -34,16 +35,7 @@ function stripJsxFromProse(text) {
 }
 
 export function stripYamlFrontmatter(text) {
-  if (!text.startsWith('---\n')) {
-    return text.trim();
-  }
-
-  const end = text.indexOf('\n---\n', 4);
-  if (end === -1) {
-    return text.trim();
-  }
-
-  return text.slice(end + 5).trim();
+  return stripFrontmatterBody(text, {trim: true});
 }
 
 export function stripFrontmatterAndMdxForLlms(text) {

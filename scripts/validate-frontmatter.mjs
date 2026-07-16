@@ -4,8 +4,13 @@ import {pathToFileURL} from 'node:url';
 
 import {JSON_SCHEMA, load} from 'js-yaml';
 
+import {isUnderGeneratedContentRoot} from './generatedContentRoots.mjs';
+import {extractFrontmatter} from './frontmatterUtils.mjs';
+
+export {extractFrontmatter};
+
 const baseRequiredFields = ['title', 'description', 'last_reviewed'];
-const contentKinds = new Set(['foundation', 'module', 'reference']);
+const contentKinds = new Set(['foundation', 'module', 'reference', 'mirror']);
 const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
 
 function walkMarkdownFiles(dir) {
@@ -19,11 +24,6 @@ function walkMarkdownFiles(dir) {
     }
   }
   return files;
-}
-
-export function extractFrontmatter(content) {
-  const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/);
-  return match?.[1] ?? null;
 }
 
 function parseFrontmatter(content, filePath, errors) {
@@ -62,6 +62,16 @@ function validateStringList(frontmatter, field, filePath, errors) {
   return value;
 }
 
+function validateOptionalStringField(frontmatter, field, filePath, errors) {
+  const value = frontmatter[field];
+  if (typeof value === 'undefined') {
+    return;
+  }
+  if (typeof value !== 'string') {
+    errors.push(`${filePath}: ${field} must be a string value`);
+  }
+}
+
 export function isValidReviewedDate(value) {
   if (typeof value !== 'string' || !dateRegex.test(value)) {
     return false;
@@ -95,12 +105,31 @@ function loadAuthorIds(root, errors) {
   }
 }
 
-function validateFile(filePath, authorIds, errors) {
-  const raw = fs.readFileSync(filePath, 'utf8');
-  const frontmatter = parseFrontmatter(raw, filePath, errors);
-  if (!frontmatter) {
-    return;
+function validateMirrorFile(filePath, frontmatter) {
+  const errors = [];
+  for (const field of ['title', 'description']) {
+    if (!Object.hasOwn(frontmatter, field)) {
+      errors.push(`${filePath}: missing required frontmatter field '${field}'`);
+    }
   }
+
+  if (!Object.hasOwn(frontmatter, 'content_kind')) {
+    errors.push(`${filePath}: missing required frontmatter field 'content_kind'`);
+  } else if (frontmatter.content_kind !== 'mirror') {
+    errors.push(`${filePath}: generated mirror docs must use content_kind: mirror`);
+  }
+
+  validateOptionalStringField(frontmatter, 'canonical_human_url', filePath, errors);
+  validateOptionalStringField(frontmatter, 'source_doc_id', filePath, errors);
+  validateOptionalStringField(frontmatter, 'slug', filePath, errors);
+  validateOptionalStringField(frontmatter, 'section', filePath, errors);
+  validateStringList(frontmatter, 'tags', filePath, errors);
+
+  return errors;
+}
+
+function validateCanonicalFile(filePath, frontmatter, authorIds) {
+  const errors = [];
 
   for (const field of baseRequiredFields) {
     if (!Object.hasOwn(frontmatter, field)) {
@@ -117,6 +146,8 @@ function validateFile(filePath, authorIds, errors) {
       errors.push(
         `${filePath}: content_kind must be one of ${[...contentKinds].join(', ')}`,
       );
+    } else if (rawContentKind === 'mirror') {
+      errors.push(`${filePath}: content_kind mirror is reserved for generated docs`);
     } else {
       contentKind = rawContentKind;
     }
@@ -146,6 +177,22 @@ function validateFile(filePath, authorIds, errors) {
       `${filePath}: invalid last_reviewed '${String(frontmatter.last_reviewed)}', expected valid YYYY-MM-DD`,
     );
   }
+
+  return errors;
+}
+
+function validateFile(filePath, authorIds, root, errors) {
+  const raw = fs.readFileSync(filePath, 'utf8');
+  const frontmatter = parseFrontmatter(raw, filePath, errors);
+  if (!frontmatter) {
+    return;
+  }
+
+  const generated = isUnderGeneratedContentRoot(filePath, root);
+  const fileErrors = generated
+    ? validateMirrorFile(filePath, frontmatter)
+    : validateCanonicalFile(filePath, frontmatter, authorIds);
+  errors.push(...fileErrors);
 }
 
 function validateShowcaseTable(root, errors) {
@@ -172,10 +219,7 @@ export function collectFrontmatterErrors(root = process.cwd()) {
       continue;
     }
     for (const filePath of walkMarkdownFiles(directoryPath)) {
-      if (filePath.includes(`${path.sep}docs${path.sep}agents${path.sep}human${path.sep}`)) {
-        continue;
-      }
-      validateFile(filePath, authorIds, errors);
+      validateFile(filePath, authorIds, root, errors);
     }
   }
 

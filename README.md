@@ -23,7 +23,7 @@ npm install
 npm run dev
 ```
 
-`npm run dev` runs a short pre-step that removes `.docusaurus` and `node_modules/.cache` so the first dev compile does not hit stale generated files. Use `npm run clear` for a full Docusaurus clean (including `build/`).
+`npm run dev` runs a short pre-step that removes `.docusaurus` and `node_modules/.cache`, then regenerates the agent mirror under `docs/agents/human/` from `docs/human/`. Do not edit generated mirror files directly. Use `npm run clear` for a full Docusaurus clean (including `build/`).
 
 ## Validation
 
@@ -35,11 +35,12 @@ This runs:
 
 - TypeScript checking (`tsc --noEmit`)
 - spelling check (`cspell` on `docs/`, `product-templates/`, `templates/`)
-- full YAML frontmatter validation, including real `YYYY-MM-DD` review dates
+- full YAML frontmatter validation, including real `YYYY-MM-DD` review dates and mirror-specific rules for generated agent docs when present
 - registry JSON and starter `product.yaml` validation against
-  `static/schemas/product.schema.json`; starter archetypes must match the catalog
-- markdown lint for `docs/**/*.md` and `docs/**/*.mdx`, plus `README.md`, `CONTRIBUTING.md`, `templates/**/*.md`, `product-templates/**/*.md`, and `products/**/*.md`
-- `generate-llms-full` followed by a production Docusaurus build (static + link checks)
+  `static/schemas/product.schema.json`; product and starter archetypes must match the catalog
+- playbook tree sync check (`humanPlaybook.data.json` must match every file under `docs/human/`)
+- markdown lint for `docs/**/*.md` and `docs/**/*.mdx`, plus `README.md`, `CONTRIBUTING.md`, `templates/**/*.md`, `product-templates/**/*.md`, and `products/**/*.md` (generated `docs/agents/human/**` is excluded)
+- `generate-agent-docs`, `generate-llms-full`, production Docusaurus build, and build-artifact validation (static output + link checks)
 
 ## Tests
 

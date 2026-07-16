@@ -93,6 +93,8 @@ export function collectRegistryErrors(root = path.resolve(import.meta.dirname, '
     return errors;
   }
 
+  const archetypes = documentedArchetypes(root, errors);
+
   if (!registry || typeof registry !== 'object' || Array.isArray(registry)) {
     errors.push('registry.json: root must be an object.');
   } else {
@@ -111,12 +113,16 @@ export function collectRegistryErrors(root = path.resolve(import.meta.dirname, '
       errors.push('registry.json: products must be an array.');
     } else {
       registry.products.forEach((product, index) => {
-        validateProduct(product, `registry.json: products[${index}]`, validateSchema, errors);
+        validateProduct(
+          product,
+          `registry.json: products[${index}]`,
+          validateSchema,
+          errors,
+          archetypes,
+        );
       });
     }
   }
-
-  const archetypes = documentedArchetypes(root, errors);
   const templatesRoot = path.join(root, 'product-templates');
   if (!fs.existsSync(templatesRoot)) {
     errors.push('product-templates directory does not exist');
