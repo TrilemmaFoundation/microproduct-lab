@@ -32,7 +32,7 @@ export const humanPlaybookTree: PlaybookTreeNode[] = [
         children: [
           {
             id: 'intro',
-            title: 'Intro Section',
+            title: 'Intro',
             description:
               'Start with the shared concepts and mission behind the Build Trilemma docs.',
             children: [
@@ -56,7 +56,7 @@ export const humanPlaybookTree: PlaybookTreeNode[] = [
           },
           {
             id: 'frame-section',
-            title: 'Frame Section',
+            title: 'Frame',
             description:
               'The planning layer of the analytics development lifecycle, organizing content around defining opportunities, understanding users, scoping microproducts, and analyzing whether an idea is worth building.',
             children: [
@@ -104,7 +104,7 @@ export const humanPlaybookTree: PlaybookTreeNode[] = [
           },
           {
             id: 'build-section',
-            title: 'Build Section',
+            title: 'Build',
             description:
               'The development layer of the analytics development lifecycle, organizing content around designing, developing, testing, and deploying microproducts through iterative implementation.',
             children: [
@@ -144,7 +144,7 @@ export const humanPlaybookTree: PlaybookTreeNode[] = [
           },
           {
             id: 'operate-section',
-            title: 'Operate Section',
+            title: 'Operate',
             description:
               'The operational layer of the analytics development lifecycle, organizing content around operating, observing, learning from, and improving shipped microproducts over time.',
             children: [

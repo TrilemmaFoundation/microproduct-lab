@@ -18,7 +18,7 @@ describe('human playbook data', () => {
         items: [
           {
             type: 'category',
-            label: 'Intro Section',
+            label: 'Intro',
             items: [
               'playbook/intro/what-is-a-microproduct',
               'playbook/intro/mission',
@@ -26,7 +26,7 @@ describe('human playbook data', () => {
           },
           {
             type: 'category',
-            label: 'Frame Section',
+            label: 'Frame',
             items: [
               'playbook/frame/frame',
               'playbook/frame/ideation',
@@ -37,7 +37,7 @@ describe('human playbook data', () => {
           },
           {
             type: 'category',
-            label: 'Build Section',
+            label: 'Build',
             items: [
               'playbook/build/build',
               'playbook/build/build-module',
@@ -47,7 +47,7 @@ describe('human playbook data', () => {
           },
           {
             type: 'category',
-            label: 'Operate Section',
+            label: 'Operate',
             items: ['playbook/operate/operate'],
           },
         ],
