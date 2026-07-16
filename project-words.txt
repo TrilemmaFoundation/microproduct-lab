@@ -1,4 +1,5 @@
 agentic
+browsable
 Behaviour
 Behaviours
 Dagster

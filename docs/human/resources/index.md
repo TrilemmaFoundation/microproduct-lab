@@ -1,6 +1,7 @@
 ---
 title: Resources
 description: Curated references that help builders execute faster.
+slug: /resources
 content_kind: reference
 last_reviewed: 2026-03-05
 authors: [trilemma-foundation]

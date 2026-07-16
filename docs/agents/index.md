@@ -13,6 +13,7 @@ authors: [trilemma-foundation]
 
 - Root agent file (plain text): [`/AGENTS.md`](pathname:///AGENTS.md)
 - Full compressed context bundle: [`/llms-full.txt`](pathname:///llms-full.txt)
+- Human playbook mirror (browsable, MDX stripped): [`/agents/human`](/agents/human)
 - Product schema JSON: [`/schemas/product.schema.json`](pathname:///schemas/product.schema.json)
 - Machine-readable registry JSON: [`/registry.json`](pathname:///registry.json)
 

@@ -12,17 +12,33 @@ describe('llmsMdxUtils', () => {
     const input = `
 import Foo from '@site/x';
 
+import {
+  PlaybookTree,
+  humanPlaybookTree,
+} from '@site/src/components/PlaybookTree';
+
 # Hello
 
 <UniversityMarquee />
 
 <OtherComp prop="x" />
 
+<PlaybookTree
+  nodes={humanPlaybookTree}
+  initialSelectedId="human-overview"
+/>
+
 Text after.
 
 <UniversityMarquee>
   nested
 </UniversityMarquee>
+
+<ul>
+  {authors.map((author) => (
+    <li key={author.id}>{author.name}</li>
+  ))}
+</ul>
 
 End.
 `;
@@ -31,8 +47,45 @@ End.
     assert.match(out, /Text after/);
     assert.match(out, /End/);
     assert.doesNotMatch(out, /import Foo/);
+    assert.doesNotMatch(out, /PlaybookTree/);
     assert.doesNotMatch(out, /UniversityMarquee/);
     assert.doesNotMatch(out, /<OtherComp/);
+    assert.doesNotMatch(out, /authors\.map/);
+  });
+
+  it('stripMdxForPlainText preserves plain HTML blocks without JSX expressions', () => {
+    const input = `
+# Title
+
+<ul>
+  <li>One</li>
+  <li>Two</li>
+</ul>
+`;
+    const out = stripMdxForPlainText(input);
+    assert.match(out, /<ul>/);
+    assert.match(out, /<li>One<\/li>/);
+  });
+
+  it('stripMdxForPlainText preserves fenced code blocks containing braces', () => {
+    const input = `
+# Configure the build
+
+\`\`\`json
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist"
+}
+\`\`\`
+
+Adjust the config to match your project.
+`;
+    const out = stripMdxForPlainText(input);
+    assert.match(out, /"buildCommand": "npm run build"/);
+    assert.match(out, /"outputDirectory": "dist"/);
+    assert.match(out, /^\{$/m);
+    assert.match(out, /^\}$/m);
+    assert.match(out, /Adjust the config/);
   });
 
   it('stripFrontmatterAndMdxForLlms strips frontmatter then MDX', () => {

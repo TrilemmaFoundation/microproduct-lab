@@ -172,6 +172,9 @@ export function collectFrontmatterErrors(root = process.cwd()) {
       continue;
     }
     for (const filePath of walkMarkdownFiles(directoryPath)) {
+      if (filePath.includes(`${path.sep}docs${path.sep}agents${path.sep}human${path.sep}`)) {
+        continue;
+      }
       validateFile(filePath, authorIds, errors);
     }
   }

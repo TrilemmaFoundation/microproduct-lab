@@ -1,6 +1,7 @@
 ---
 title: Design
 description: Serves the 'planning' phase of the implementation cycle with key decisions and guidance for translating ideas into implementable changes.
+slug: /playbook/design
 tags: [playbook, implementation]
 last_reviewed: 2026-06-07
 authors: [trilemma-foundation]

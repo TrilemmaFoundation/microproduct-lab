@@ -8,6 +8,7 @@ https://build.trilemma.foundation
 Site routes:
 - / — Audience chooser (agents vs humans)
 - /agents — Web entry for AI agents
+- /agents/human — Browsable agent-first mirror of the human playbook
 - /docs/human-overview — Default human overview and playbook tree
 
 Core resources:

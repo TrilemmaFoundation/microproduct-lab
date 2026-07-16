@@ -24,7 +24,7 @@ const docsIslandPlugins = [
     id: 'agents',
     path: 'docs/agents',
     routeBasePath: 'agents',
-    sidebarPath: false as const,
+    sidebarPath: './sidebars.agents.ts' as const,
   },
   {
     id: 'templates',

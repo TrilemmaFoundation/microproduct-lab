@@ -182,6 +182,13 @@ describe('frontmatter parsing and validation', () => {
     );
   });
 
+  it('skips generated agent mirror docs under docs/agents/human', () => {
+    const errors = validate(undefined, (root) =>
+      writeFile(root, 'docs/agents/human/playbook/intro/bad.md', 'No frontmatter here'),
+    );
+    assert.equal(errors.length, 0);
+  });
+
   it('extracts frontmatter without consuming the body', () => {
     assert.equal(extractFrontmatter(frontmatter(validMission)), validMission);
     assert.equal(extractFrontmatter('Body'), null);

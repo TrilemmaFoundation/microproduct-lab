@@ -10,6 +10,7 @@ A microproduct is a focused software tool that turns data, models, workflows, or
 
 - `/` — Audience chooser (agents vs humans).
 - `/agents` — Web control plane for AI agents (start here in the browser).
+- `/agents/human` — Generated browsable mirror of the human playbook (MDX stripped, machine-readable frontmatter).
 - `/docs/human-overview` — Default human overview and playbook tree.
 
 ## Primary agent objective

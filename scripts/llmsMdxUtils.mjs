@@ -2,14 +2,35 @@
  * MDX/Markdown helpers for scripts/generate-llms-full.mjs (plain-text LLM bundles).
  */
 
+const FENCE_SPLIT_REGEX = /(^```[^\n]*\n[\s\S]*?\n```$)/gm;
+
 /** Strip MDX import lines and JSX display components for plain-text context bundles. */
 export function stripMdxForPlainText(text) {
-  let out = text
-    .replace(/^import\s+.+$/gm, '')
-    .replace(/<[A-Z][A-Za-z0-9]*(?:\s[^>]*)?\/>/g, '')
-    .replace(/<UniversityMarquee\b[\s\S]*?<\/UniversityMarquee>/g, '');
+  const segments = text.split(FENCE_SPLIT_REGEX);
 
-  return out.trim();
+  const out = segments
+    .map((segment, index) => {
+      // Odd indices are the fenced code blocks captured by the split regex; leave them untouched.
+      if (index % 2 === 1) {
+        return segment;
+      }
+      return stripJsxFromProse(segment);
+    })
+    .join('');
+
+  return out.replace(/\n{3,}/g, '\n\n').trim();
+}
+
+function stripJsxFromProse(text) {
+  return text
+    .replace(/^import\s+(?:.|\n)*?from\s+['"][^'"]+['"];?\s*\n?/gm, '')
+    .replace(/<[A-Z][\s\S]*?\/>/g, '')
+    .replace(/<[A-Z][A-Za-z0-9]*\b[\s\S]*?<\/[A-Z][A-Za-z0-9]*>/g, '')
+    .replace(/<UniversityMarquee\b[\s\S]*?<\/UniversityMarquee>/g, '')
+    .replace(
+      /<(?:ul|ol|div|span|section|article)\b[^>]*>[\s\S]*?<\/(?:ul|ol|div|span|section|article)>/gi,
+      (block) => (block.includes('{') ? '' : block),
+    );
 }
 
 export function stripYamlFrontmatter(text) {

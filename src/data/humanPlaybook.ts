@@ -1,3 +1,5 @@
+import humanPlaybookTreeData from './humanPlaybook.data.json';
+
 export type PlaybookTreeNode = {
   id: string;
   title: string;
@@ -15,215 +17,62 @@ export type GeneratedSidebarItem =
       items: GeneratedSidebarItem[];
     };
 
-export const humanPlaybookTree: PlaybookTreeNode[] = [
-  {
-    id: 'human-overview',
-    title: 'Human Overview',
-    docId: 'human-overview',
-    to: '/docs/human-overview',
-    description:
-      'The interactive guide to the knowledge hub, helping you understand its structure and explore how ideas connect across the ecosystem.',
-    children: [
-      {
-        id: 'playbook',
-        title: 'Playbook',
-        description:
-          'A living collection of contributor-built modules for building microproducts that turn data into value, moving from shared foundations into the analytics development lifecycle: frame, build, and operate.',
-        children: [
-          {
-            id: 'intro',
-            title: 'Intro',
-            description:
-              'Start with the shared concepts and mission behind the Build Trilemma docs.',
-            children: [
-              {
-                id: 'what-is-a-microproduct',
-                title: 'What Is a Microproduct?',
-                description:
-                  'The core definition: a focused product that turns data into value through an experience, workflow, or utility.',
-                docId: 'playbook/intro/what-is-a-microproduct',
-                to: '/docs/intro/what-is-a-microproduct',
-              },
-              {
-                id: 'our-approach',
-                title: 'Our Approach',
-                description:
-                  'The four-step method we use to turn a problem into a microproduct: identify the problem, identify the data, build the pipeline, build the microproduct.',
-                docId: 'playbook/intro/our-approach',
-                to: '/docs/intro/our-approach',
-              },
-              {
-                id: 'mission',
-                title: 'Mission',
-                description:
-                  'The reason this open knowledge hub exists and the outcomes it is meant to create.',
-                docId: 'playbook/intro/mission',
-                to: '/docs/intro/mission',
-              },
-            ],
-          },
-          {
-            id: 'frame-section',
-            title: 'Frame',
-            description:
-              'The planning layer of the analytics development lifecycle, organizing content around defining opportunities, understanding users, scoping microproducts, and analyzing whether an idea is worth building.',
-            children: [
-              {
-                id: 'frame',
-                title: 'Frame',
-                description:
-                  'Validate whether a microproduct is worth building and feasible to deliver before execution.',
-                docId: 'playbook/frame/frame',
-                to: '/docs/playbook/frame',
-              },
-              {
-                id: 'ideation',
-                title: 'Ideation',
-                description:
-                  'Identify demand, available data, and the minimum useful outcome before the product shape hardens.',
-                docId: 'playbook/frame/ideation',
-                to: '/docs/playbook/ideation',
-              },
-              {
-                id: 'design',
-                title: 'Design',
-                description:
-                  'Define the shape of the product and its implementation, creating a blueprint for future work.',
-                docId: 'playbook/frame/design',
-                to: '/docs/playbook/design',
-              },
-              {
-                id: 'architecture',
-                title: 'Architecture',
-                description:
-                  'Choose the pipeline, storage, serving model, and operating constraints that can support the product.',
-                docId: 'playbook/frame/architecture',
-                to: '/docs/playbook/architecture',
-              },
-              {
-                id: 'analytics-engineering',
-                title: 'Data Stack & Analytics Engineering',
-                description:
-                  'Apply software engineering discipline to data workflows so the product can be tested, refreshed, observed, and reused.',
-                docId: 'playbook/frame/data-stack-analytics-engineering',
-                to: '/docs/playbook/data-stack-analytics-engineering',
-              },
-            ],
-          },
-          {
-            id: 'build-section',
-            title: 'Build',
-            description:
-              'The development layer of the analytics development lifecycle, organizing content around designing, developing, testing, and deploying microproducts through iterative implementation.',
-            children: [
-              {
-                id: 'build',
-                title: 'Build',
-                description:
-                  'Execute, validate quality, and deliver a reliable MVP through focused delivery workflows.',
-                docId: 'playbook/build/build',
-                to: '/docs/playbook/build',
-              },
-              {
-                id: 'build-module',
-                title: 'Build Module',
-                description:
-                  'Translate architecture and acceptance criteria into focused build tasks and working product slices.',
-                docId: 'playbook/build/build-module',
-                to: '/docs/playbook/build-module',
-              },
-              {
-                id: 'qa-methodology',
-                title: 'QA Methodology',
-                description:
-                  'Use quality gates, behavior-driven checks, and review norms to keep AI-assisted builds reliable.',
-                docId: 'playbook/build/qa-methodology',
-                to: '/docs/playbook/qa-methodology',
-              },
-              {
-                id: 'release',
-                title: 'Release',
-                description:
-                  'Key release-readiness criteria, including a graph of how these relate to other components of the playbook.',
-                docId: 'playbook/build/release',
-                to: '/docs/playbook/release',
-              },
-              {
-                id: 'deploy-quickstart',
-                title: 'Deploy Quickstart',
-                description:
-                  'Ship your microproduct for free using only GitHub and the Vercel Hobby plan.',
-                docId: 'playbook/build/deploy-quickstart',
-                to: '/docs/playbook/deploy-quickstart',
-              },
-            ],
-          },
-          {
-            id: 'operate-section',
-            title: 'Operate',
-            description:
-              'The operational layer of the analytics development lifecycle, organizing content around operating, observing, learning from, and improving shipped microproducts over time.',
-            children: [
-              {
-                id: 'operate',
-                title: 'Operate',
-                description:
-                  'Own distribution, learning, and iteration after launch so the product keeps improving.',
-                docId: 'playbook/operate/operate',
-                to: '/docs/playbook/operate',
-              },
-            ],
-          },
-        ],
-      },
-      {
-        id: 'resources',
-        title: 'Resources',
-        description:
-          'Curated references that help builders execute faster without changing the playbook hierarchy.',
-        docId: 'resources/index',
-        to: '/docs/resources',
-      },
-      {
-        id: 'authors',
-        title: 'Authors',
-        description:
-          'The people and organizations listed in the shared author registry for the docs.',
-        docId: 'authors/index',
-        to: '/docs/authors',
-      },
-    ],
-  },
-];
+export const humanPlaybookTree: PlaybookTreeNode[] = humanPlaybookTreeData;
 
-function nestedSidebarItem(node: PlaybookTreeNode): GeneratedSidebarItem {
+function nestedSidebarItem(
+  node: PlaybookTreeNode,
+  mapDocId: (docId: string) => string,
+): GeneratedSidebarItem {
   if (node.children?.length) {
     return {
       type: 'category',
       label: node.title,
-      items: node.children.map(nestedSidebarItem),
+      items: node.children.map((child) => nestedSidebarItem(child, mapDocId)),
     };
   }
   if (!node.docId) {
     throw new Error(`Playbook leaf '${node.id}' is missing docId`);
   }
-  return node.docId;
+  return mapDocId(node.docId);
+}
+
+function buildPlaybookSidebar(
+  root: PlaybookTreeNode,
+  options: {
+    leadingItems?: GeneratedSidebarItem[];
+    mapDocId?: (docId: string) => string;
+  } = {},
+): GeneratedSidebarItem[] {
+  const mapDocId = options.mapDocId ?? ((docId: string) => docId);
+
+  if (!root.docId) {
+    throw new Error('Playbook root is missing docId');
+  }
+
+  return [
+    ...(options.leadingItems ?? []),
+    mapDocId(root.docId),
+    ...(root.children ?? []).map((node) => ({
+      type: 'category' as const,
+      label: node.title,
+      items: node.children?.length
+        ? node.children.map((child) => nestedSidebarItem(child, mapDocId))
+        : [nestedSidebarItem(node, mapDocId)],
+    })),
+  ];
 }
 
 export function buildHumanPlaybookSidebar(
   root = humanPlaybookTree[0],
 ): GeneratedSidebarItem[] {
-  if (!root.docId) {
-    throw new Error('Playbook root is missing docId');
-  }
-  return [
-    root.docId,
-    ...(root.children ?? []).map((node) => ({
-      type: 'category' as const,
-      label: node.title,
-      items: node.children?.length
-        ? node.children.map(nestedSidebarItem)
-        : [nestedSidebarItem(node)],
-    })),
-  ];
+  return buildPlaybookSidebar(root);
+}
+
+export function buildAgentPlaybookSidebar(
+  root = humanPlaybookTree[0],
+): GeneratedSidebarItem[] {
+  return buildPlaybookSidebar(root, {
+    leadingItems: ['index', 'human/index'],
+    mapDocId: (docId) => `human/${docId}`,
+  });
 }
