@@ -1,19 +1,12 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
+import {stripFrontmatter as stripFrontmatterBody} from './frontmatterUtils.mjs';
+
 const WORDS_PER_MINUTE = 225;
 
 export function stripFrontmatter(content) {
-  if (!content.startsWith('---\n')) {
-    return content;
-  }
-
-  const endIndex = content.indexOf('\n---\n', 4);
-  if (endIndex === -1) {
-    return content;
-  }
-
-  return content.slice(endIndex + 5);
+  return stripFrontmatterBody(content);
 }
 
 export function stripMdxBoilerplate(content) {

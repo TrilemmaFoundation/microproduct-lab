@@ -15,7 +15,7 @@ export default defineConfig({
         },
     ],
     dictionaries: ['project-words'],
-    ignorePaths: ['node_modules', '/project-words.txt', 'docs/agents/human/**'],
+    ignorePaths: ['node_modules', '/project-words.txt', 'docs/agents/human/**'], // keep in sync with scripts/generatedContentRoots.mjs
     patterns: [
         /**
          * cspell is not ignoring domain names (URLs without the prefix)

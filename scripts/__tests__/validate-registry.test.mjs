@@ -35,7 +35,7 @@ function product(archetype = 'known-archetype') {
   };
 }
 
-function registry(products = [product('external-custom-archetype')]) {
+function registry(products = [product('known-archetype')]) {
   return {
     version: '1.0.0',
     canonical_url: 'https://build.trilemma.foundation/registry.json',
@@ -61,13 +61,26 @@ describe('registry and starter validation', () => {
     fs.rmSync(root, {recursive: true, force: true});
   });
 
-  it('accepts catalog starters and external custom archetypes', () => {
+  it('accepts catalog starters and documented registry archetypes', () => {
     writeFile(
       root,
       'static/registry.json',
-      JSON.stringify(registry([{...product('external-custom-archetype'), site: 'https://example.com'}])),
+      JSON.stringify(registry([{...product('known-archetype'), site: 'https://example.com'}])),
     );
     assert.deepEqual(collectRegistryErrors(root), []);
+  });
+
+  it('reports undocumented archetypes in registry products', () => {
+    writeFile(
+      root,
+      'static/registry.json',
+      JSON.stringify(registry([product('unknown-archetype')])),
+    );
+    assert.ok(
+      collectRegistryErrors(root).some((error) =>
+        error.includes("registry.json: products[0].archetype 'unknown-archetype' is not a documented archetype"),
+      ),
+    );
   });
 
   it('reports schema, URL, and starter-catalog failures', () => {

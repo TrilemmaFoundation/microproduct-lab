@@ -2,12 +2,8 @@ import {
   buildAgentPlaybookSidebar,
   buildHumanPlaybookSidebar,
   humanPlaybookTree,
-  type PlaybookTreeNode,
 } from '../humanPlaybook';
-
-function flatten(nodes: PlaybookTreeNode[]): PlaybookTreeNode[] {
-  return nodes.flatMap((node) => [node, ...flatten(node.children ?? [])]);
-}
+import {flattenPlaybookNodes} from '../../utils/playbookTree';
 
 describe('human playbook data', () => {
   it('generates the canonical sidebar hierarchy', () => {
@@ -129,7 +125,7 @@ describe('human playbook data', () => {
   });
 
   it('keeps node IDs, document IDs, and routes unique', () => {
-    const nodes = flatten(humanPlaybookTree);
+    const nodes = flattenPlaybookNodes(humanPlaybookTree);
     for (const field of ['id', 'docId', 'to'] as const) {
       const values = nodes.map((node) => node[field]).filter(Boolean);
       expect(new Set(values).size).toBe(values.length);

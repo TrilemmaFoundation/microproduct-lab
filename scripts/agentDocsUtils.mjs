@@ -7,31 +7,16 @@ import path from 'node:path';
 
 import {JSON_SCHEMA, dump, load} from 'js-yaml';
 
+import {extractFrontmatter} from './frontmatterUtils.mjs';
 import {
   stripFrontmatterAndMdxForLlms,
-  stripYamlFrontmatter,
 } from './llmsMdxUtils.mjs';
-import {extractFrontmatter} from './validate-frontmatter.mjs';
+import {flattenPlaybookNodes} from './playbookTreeUtils.mjs';
 
-/** @param {import('../src/data/humanPlaybook').PlaybookTreeNode[]} nodes */
-export function flattenPlaybookNodes(nodes) {
-  return nodes.flatMap((node) => [node, ...flattenPlaybookNodes(node.children ?? [])]);
-}
+export {flattenPlaybookNodes};
 
 /** @param {string} docId */
 export function sectionFromDocId(docId) {
-  if (docId.startsWith('playbook/intro/')) {
-    return 'intro';
-  }
-  if (docId.startsWith('playbook/frame/')) {
-    return 'frame';
-  }
-  if (docId.startsWith('playbook/build/')) {
-    return 'build';
-  }
-  if (docId.startsWith('playbook/operate/')) {
-    return 'operate';
-  }
   if (docId === 'resources/index') {
     return 'resources';
   }
@@ -41,6 +26,12 @@ export function sectionFromDocId(docId) {
   if (docId === 'human-overview') {
     return 'overview';
   }
+
+  const playbookMatch = docId.match(/^playbook\/([^/]+)\//);
+  if (playbookMatch) {
+    return playbookMatch[1];
+  }
+
   return 'other';
 }
 
@@ -191,12 +182,4 @@ function appendOverviewNode(lines, node, depth) {
       appendOverviewNode(lines, child, node.docId ? depth + 1 : depth);
     }
   }
-}
-
-export function stripAgentMirrorBody(sourceText) {
-  return stripFrontmatterAndMdxForLlms(sourceText);
-}
-
-export function stripAgentMirrorFrontmatter(sourceText) {
-  return stripYamlFrontmatter(sourceText);
 }

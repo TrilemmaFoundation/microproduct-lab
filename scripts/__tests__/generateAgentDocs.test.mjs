@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {describe, it} from 'node:test';
+import {afterEach, describe, it} from 'node:test';
 
 import {
   agentSlugFromHumanTo,
@@ -14,14 +14,20 @@ import {
   renderAgentMirrorOverview,
   resolveHumanSourceFile,
   sectionFromDocId,
-  stripAgentMirrorBody,
-  stripAgentMirrorFrontmatter,
 } from '../agentDocsUtils.mjs';
+import {generateAgentDocs} from '../generate-agent-docs.mjs';
+import {stripFrontmatterAndMdxForLlms} from '../llmsMdxUtils.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const humanPlaybookTree = JSON.parse(
   fs.readFileSync(path.join(ROOT, 'src', 'data', 'humanPlaybook.data.json'), 'utf8'),
 );
+
+function writeFile(root, filePath, content) {
+  const fullPath = path.join(root, filePath);
+  fs.mkdirSync(path.dirname(fullPath), {recursive: true});
+  fs.writeFileSync(fullPath, content, 'utf8');
+}
 
 describe('agentDocsUtils', () => {
   it('derives sections and agent slugs from human routes', () => {
@@ -29,6 +35,7 @@ describe('agentDocsUtils', () => {
     assert.equal(sectionFromDocId('playbook/frame/design'), 'frame');
     assert.equal(sectionFromDocId('playbook/build/build'), 'build');
     assert.equal(sectionFromDocId('playbook/operate/operate'), 'operate');
+    assert.equal(sectionFromDocId('playbook/grow/scale'), 'grow');
     assert.equal(sectionFromDocId('resources/index'), 'resources');
     assert.equal(sectionFromDocId('authors/index'), 'authors');
     assert.equal(sectionFromDocId('human-overview'), 'overview');
@@ -176,7 +183,7 @@ Body
     assert.match(customOverview, /  - \[Leaf\]/);
   });
 
-  it('exposes mirror stripping helpers', () => {
+  it('strips mirror source text through the shared llms helper', () => {
     const input = `---
 title: T
 ---
@@ -185,18 +192,51 @@ import X from 'y';
 
 Body <Foo /> tail.
 `;
-    assert.match(stripAgentMirrorFrontmatter(input), /import X/);
-    assert.match(stripAgentMirrorBody(input), /Body/);
-    assert.doesNotMatch(stripAgentMirrorBody(input), /import X/);
+    const out = stripFrontmatterAndMdxForLlms(input);
+    assert.match(out, /Body/);
+    assert.match(out, /tail/);
+    assert.doesNotMatch(out, /import X/);
+    assert.doesNotMatch(out, /<Foo/);
+  });
+});
+
+describe('generateAgentDocs', () => {
+  let tempRoot;
+
+  afterEach(() => {
+    if (tempRoot) {
+      fs.rmSync(tempRoot, {recursive: true, force: true});
+      tempRoot = undefined;
+    }
   });
 
-  it('generates deterministic mirror docs in a temp directory', () => {
-    const tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-docs-'));
-    const humanDocsRoot = path.join(tempRoot, 'docs', 'human');
-    const mirrorRoot = path.join(tempRoot, 'docs', 'agents', 'human');
-    fs.mkdirSync(path.join(humanDocsRoot, 'playbook', 'intro'), {recursive: true});
-    fs.writeFileSync(
-      path.join(humanDocsRoot, 'playbook', 'intro', 'sample.md'),
+  it('generates mirror docs, overview index, and removes stale output', () => {
+    tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-docs-'));
+    writeFile(
+      tempRoot,
+      'src/data/humanPlaybook.data.json',
+      JSON.stringify([
+        {
+          id: 'sample',
+          title: 'Sample',
+          description: 'Sample description',
+          docId: 'playbook/intro/sample',
+          to: '/docs/intro/sample',
+          children: [
+            {
+              id: 'another',
+              title: 'Another',
+              description: 'Another description',
+              docId: 'playbook/intro/another',
+              to: '/docs/intro/another',
+            },
+          ],
+        },
+      ]),
+    );
+    writeFile(
+      tempRoot,
+      'docs/human/playbook/intro/sample.md',
       `---
 title: Sample
 description: Sample description
@@ -205,30 +245,35 @@ slug: /intro/sample
 
 # Sample body
 `,
-      'utf8',
     );
+    writeFile(
+      tempRoot,
+      'docs/human/playbook/intro/another.md',
+      `---
+title: Another
+description: Another description
+slug: /intro/another
+---
 
-    const node = {
-      id: 'sample',
-      title: 'Sample',
-      description: 'Sample description',
-      docId: 'playbook/intro/sample',
-      to: '/docs/intro/sample',
-    };
-    const sourcePath = resolveHumanSourceFile(humanDocsRoot, node.docId);
-    const output = buildAgentMirrorDocument(
-      fs.readFileSync(sourcePath, 'utf8'),
-      metadataFromNode(fs.readFileSync(sourcePath, 'utf8'), node),
+# Another body
+`,
     );
-    const outputPath = path.join(mirrorRoot, 'playbook', 'intro', 'sample.md');
-    fs.mkdirSync(path.dirname(outputPath), {recursive: true});
-    fs.writeFileSync(outputPath, output, 'utf8');
+    writeFile(tempRoot, 'docs/agents/human/stale.md', '# stale mirror output\n');
 
-    const written = fs.readFileSync(
+    const {written, mirrorRoot} = generateAgentDocs({root: tempRoot});
+    assert.deepEqual(written, ['playbook/intro/another', 'playbook/intro/sample']);
+    assert.equal(mirrorRoot, path.join(tempRoot, 'docs', 'agents', 'human'));
+    assert.equal(fs.existsSync(path.join(mirrorRoot, 'stale.md')), false);
+
+    const sample = fs.readFileSync(
       path.join(mirrorRoot, 'playbook', 'intro', 'sample.md'),
       'utf8',
     );
-    assert.match(written, /source_doc_id: playbook\/intro\/sample/);
-    assert.match(written, /# Sample body/);
+    assert.match(sample, /source_doc_id: playbook\/intro\/sample/);
+    assert.match(sample, /# Sample body/);
+
+    const overview = fs.readFileSync(path.join(mirrorRoot, 'index.md'), 'utf8');
+    assert.match(overview, /Human Docs Mirror/);
+    assert.match(overview, /\/agents\/intro\/sample/);
   });
 });

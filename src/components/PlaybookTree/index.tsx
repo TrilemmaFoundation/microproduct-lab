@@ -6,6 +6,7 @@ import {
   humanPlaybookTree,
   type PlaybookTreeNode,
 } from '../../data/humanPlaybook';
+import {flattenPlaybookNodes} from '../../utils/playbookTree';
 import styles from './styles.module.css';
 
 export {humanPlaybookTree};
@@ -17,12 +18,8 @@ export type PlaybookTreeProps = {
   initialSelectedId?: string;
 };
 
-function flattenNodes(nodes: PlaybookTreeNode[]): PlaybookTreeNode[] {
-  return nodes.flatMap((node) => [node, ...flattenNodes(node.children ?? [])]);
-}
-
 function findNode(nodes: PlaybookTreeNode[], id?: string): PlaybookTreeNode {
-  const flatNodes = flattenNodes(nodes);
+  const flatNodes = flattenPlaybookNodes(nodes);
   return flatNodes.find((node) => node.id === id) ?? flatNodes[0];
 }
 

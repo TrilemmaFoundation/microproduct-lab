@@ -8,7 +8,21 @@ import {
 } from '../llmsMdxUtils.mjs';
 
 describe('llmsMdxUtils', () => {
-  it('stripMdxForPlainText removes imports, self-closing JSX, and UniversityMarquee blocks', () => {
+  it('stripMdxForPlainText preserves prose between separated components', () => {
+    const input = `
+<FirstComponent prop="a" />
+
+Important prose between components must survive.
+
+<SecondComponent prop="b" />
+`;
+    const out = stripMdxForPlainText(input);
+    assert.match(out, /Important prose between components must survive/);
+    assert.doesNotMatch(out, /FirstComponent/);
+    assert.doesNotMatch(out, /SecondComponent/);
+  });
+
+  it('stripMdxForPlainText removes imports, self-closing JSX, and paired component blocks', () => {
     const input = `
 import Foo from '@site/x';
 
