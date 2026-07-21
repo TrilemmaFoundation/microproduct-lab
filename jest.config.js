@@ -9,13 +9,13 @@ module.exports = {
   },
   transform: {
     '^.+\\.[jt]sx?$': [
-      'ts-jest',
+      'babel-jest',
       {
-        tsconfig: {
-          jsx: 'react-jsx',
-          esModuleInterop: true,
-          resolveJsonModule: true,
-        },
+        presets: [
+          ['@babel/preset-env', {targets: {node: 'current'}}],
+          ['@babel/preset-react', {runtime: 'automatic'}],
+          '@babel/preset-typescript',
+        ],
       },
     ],
   },
