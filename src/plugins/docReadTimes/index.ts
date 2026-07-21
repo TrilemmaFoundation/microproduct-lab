@@ -10,9 +10,9 @@ type DocReadTimesOptions = {
 
 export default function docReadTimesPlugin(
   context: LoadContext,
-  options: DocReadTimesOptions,
-): Plugin<ReadTimes> {
-  const {docRoots} = options;
+  options: unknown,
+): Plugin {
+  const {docRoots} = options as DocReadTimesOptions;
 
   return {
     name: 'doc-read-times',
@@ -20,7 +20,7 @@ export default function docReadTimesPlugin(
       return buildDocReadTimes({siteDir: context.siteDir, docRoots});
     },
     contentLoaded({content, actions}) {
-      actions.setGlobalData({readTimes: content});
+      actions.setGlobalData({readTimes: content as ReadTimes});
     },
   };
 }

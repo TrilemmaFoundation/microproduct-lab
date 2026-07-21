@@ -50,7 +50,7 @@ function DocByline(): ReactNode {
       : authorIds;
   const pageAuthors = bylineAuthorIds
     .map((authorId) => authorsById.get(authorId))
-    .filter(Boolean);
+    .filter((author) => author !== undefined);
   const readMinutes = readTimeData?.readTimes?.[metadata.source];
 
   if (pageAuthors.length === 0 && !readMinutes) {
