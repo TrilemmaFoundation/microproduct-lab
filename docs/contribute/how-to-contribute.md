@@ -3,7 +3,7 @@ title: How to Contribute
 description: Exact process for proposing and publishing new hub content.
 content_kind: reference
 slug: /
-last_reviewed: 2026-07-13
+last_reviewed: 2026-07-24
 authors: [trilemma-foundation]
 ---
 
@@ -27,6 +27,10 @@ duplicate keys fail validation.
 Registry link fields (`repo`, `site`, `docs`, and `agent_entrypoint`) must use
 public HTTPS domains. Localhost, local or internal domains, credentials, and
 IP-address destinations are rejected by registry validation.
+
+Optional profile URLs in `src/data/authors.json` use the same public HTTPS
+rules. Unsafe schemes (including `javascript:` and `http:`) fail frontmatter
+validation and are stripped at render time.
 
 Starter `product.yaml` files are validated against the public product schema
 and must select an archetype documented in the catalog. External registry
