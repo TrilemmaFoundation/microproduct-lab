@@ -8,6 +8,7 @@ import path from 'node:path';
 import {pathToFileURL} from 'node:url';
 
 import {
+  assertPathInside,
   buildAgentMirrorDocument,
   flattenPlaybookNodes,
   metadataFromNode,
@@ -36,7 +37,10 @@ export function generateAgentDocs({root = path.resolve(import.meta.dirname, '..'
     const sourceText = fs.readFileSync(sourcePath, 'utf8');
     const metadata = metadataFromNode(sourceText, node);
     const output = buildAgentMirrorDocument(sourceText, metadata);
-    const outputPath = path.join(agentMirrorRoot, `${node.docId}.md`);
+    const outputPath = assertPathInside(
+      agentMirrorRoot,
+      path.join(agentMirrorRoot, `${node.docId}.md`),
+    );
     fs.mkdirSync(path.dirname(outputPath), {recursive: true});
     fs.writeFileSync(outputPath, output, 'utf8');
     written.push(node.docId);

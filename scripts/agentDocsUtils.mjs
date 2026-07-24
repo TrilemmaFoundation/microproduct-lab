@@ -15,6 +15,19 @@ import {flattenPlaybookNodes} from './playbookTreeUtils.mjs';
 
 export {flattenPlaybookNodes};
 
+/**
+ * @param {string} rootDir
+ * @param {string} candidatePath
+ */
+export function assertPathInside(rootDir, candidatePath) {
+  const root = path.resolve(rootDir);
+  const candidate = path.resolve(candidatePath);
+  if (candidate === root || candidate.startsWith(`${root}${path.sep}`)) {
+    return candidate;
+  }
+  throw new Error(`Path escapes root '${root}': ${candidate}`);
+}
+
 /** @param {string} docId */
 export function sectionFromDocId(docId) {
   if (docId === 'resources/index') {
@@ -50,7 +63,10 @@ export function agentSlugFromHumanTo(humanTo) {
  */
 export function resolveHumanSourceFile(humanDocsRoot, docId) {
   for (const extension of ['.md', '.mdx']) {
-    const filePath = path.join(humanDocsRoot, `${docId}${extension}`);
+    const filePath = assertPathInside(
+      humanDocsRoot,
+      path.join(humanDocsRoot, `${docId}${extension}`),
+    );
     if (fs.existsSync(filePath)) {
       return filePath;
     }

@@ -7,6 +7,7 @@ import {afterEach, describe, it} from 'node:test';
 
 import {
   agentSlugFromHumanTo,
+  assertPathInside,
   buildAgentMirrorDocument,
   flattenPlaybookNodes,
   metadataFromNode,
@@ -57,6 +58,22 @@ describe('agentDocsUtils', () => {
     assert.throws(
       () => resolveHumanSourceFile(humanDocsRoot, 'missing/doc'),
       /Source not found/,
+    );
+    assert.throws(
+      () => resolveHumanSourceFile(humanDocsRoot, '../outside'),
+      /Path escapes root/,
+    );
+    assert.equal(
+      assertPathInside(humanDocsRoot, humanDocsRoot),
+      path.resolve(humanDocsRoot),
+    );
+    assert.equal(
+      assertPathInside(humanDocsRoot, path.join(humanDocsRoot, 'playbook')),
+      path.resolve(humanDocsRoot, 'playbook'),
+    );
+    assert.throws(
+      () => assertPathInside(humanDocsRoot, path.join(humanDocsRoot, '..', 'secrets')),
+      /Path escapes root/,
     );
   });
 
@@ -275,5 +292,40 @@ slug: /intro/another
     const overview = fs.readFileSync(path.join(mirrorRoot, 'index.md'), 'utf8');
     assert.match(overview, /Human Docs Mirror/);
     assert.match(overview, /\/agents\/intro\/sample/);
+  });
+
+  it('rejects docIds that escape the agent mirror root', () => {
+    tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-docs-escape-'));
+    writeFile(
+      tempRoot,
+      'src/data/humanPlaybook.data.json',
+      JSON.stringify([
+        {
+          id: 'escape',
+          title: 'Escape',
+          description: 'Escape description',
+          docId: '../escape',
+          to: '/docs/escape',
+        },
+      ]),
+    );
+    writeFile(
+      tempRoot,
+      'docs/human/escape.md',
+      `---
+title: Escape
+description: Escape description
+slug: /escape
+---
+
+# Escape body
+`,
+    );
+
+    assert.throws(() => generateAgentDocs({root: tempRoot}), /Path escapes root/);
+    assert.equal(
+      fs.existsSync(path.join(tempRoot, 'docs', 'agents', 'escape.md')),
+      false,
+    );
   });
 });

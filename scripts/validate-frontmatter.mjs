@@ -6,6 +6,7 @@ import {JSON_SCHEMA, load} from 'js-yaml';
 
 import {isUnderGeneratedContentRoot} from './generatedContentRoots.mjs';
 import {extractFrontmatter} from './frontmatterUtils.mjs';
+import {validatePublicHttpsUrl} from './publicUrl.mjs';
 
 export {extractFrontmatter};
 
@@ -92,9 +93,28 @@ function loadAuthorIds(root, errors) {
     if (!Array.isArray(authors)) {
       throw new TypeError('author registry must be an array');
     }
-    const ids = authors
-      .map((author) => author?.id)
-      .filter((id) => typeof id === 'string' && id.length > 0);
+    const ids = [];
+    for (const author of authors) {
+      if (typeof author?.id !== 'string' || author.id.length === 0) {
+        continue;
+      }
+      ids.push(author.id);
+      if (typeof author.url === 'undefined') {
+        continue;
+      }
+      if (typeof author.url !== 'string') {
+        errors.push(
+          `${authorsPath}: author '${author.id}' url must be a string value`,
+        );
+        continue;
+      }
+      const urlError = validatePublicHttpsUrl(author.url);
+      if (urlError) {
+        errors.push(
+          `${authorsPath}: author '${author.id}' url ${urlError}`,
+        );
+      }
+    }
     if (ids.length === 0) {
       errors.push(`${authorsPath}: author registry must define at least one author ID`);
     }

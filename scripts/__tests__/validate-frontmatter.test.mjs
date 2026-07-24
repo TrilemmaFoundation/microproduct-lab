@@ -165,6 +165,57 @@ describe('frontmatter parsing and validation', () => {
     );
   });
 
+  it('rejects unsafe author profile URLs', () => {
+    hasError(
+      validate(undefined, (root) =>
+        writeFile(
+          root,
+          'src/data/authors.json',
+          JSON.stringify([
+            {
+              id: 'trilemma-foundation',
+              name: 'Trilemma Foundation',
+              url: 'javascript:alert(1)',
+            },
+          ]),
+        ),
+      ),
+      "author 'trilemma-foundation' url must use HTTPS",
+    );
+    hasError(
+      validate(undefined, (root) =>
+        writeFile(
+          root,
+          'src/data/authors.json',
+          JSON.stringify([
+            {
+              id: 'trilemma-foundation',
+              name: 'Trilemma Foundation',
+              url: 'http://example.com',
+            },
+          ]),
+        ),
+      ),
+      "author 'trilemma-foundation' url must use HTTPS",
+    );
+    hasError(
+      validate(undefined, (root) =>
+        writeFile(
+          root,
+          'src/data/authors.json',
+          JSON.stringify([
+            {
+              id: 'trilemma-foundation',
+              name: 'Trilemma Foundation',
+              url: 123,
+            },
+          ]),
+        ),
+      ),
+      "author 'trilemma-foundation' url must be a string value",
+    );
+  });
+
   it('reports missing content roots and showcase contract drift', () => {
     hasError(
       validate(undefined, (root) => fs.rmSync(path.join(root, 'templates'), {recursive: true})),
