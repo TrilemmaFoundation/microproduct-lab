@@ -22,21 +22,29 @@ function walkFiles(directory) {
 }
 
 /**
+ * @param {string} tag
+ * @param {string} attrName
+ * @returns {string | null}
+ */
+function attrFromTag(tag, attrName) {
+  const match = tag.match(
+    new RegExp(`\\b${attrName}=(?:"([^"]+)"|([^\\s>]+))`, 'i'),
+  );
+  return match?.[1] ?? match?.[2] ?? null;
+}
+
+/**
  * Extract og:url and canonical href from minified Docusaurus HTML.
- * Supports quoted and unquoted attribute values.
+ * Supports quoted/unquoted values and either attribute order inside the tag.
  * @param {string} html
  * @returns {{ogUrl: string | null, canonical: string | null}}
  */
 export function extractOgUrlAndCanonical(html) {
-  const ogMatch = html.match(
-    /property=(?:og:url|"og:url")\s+content=(?:"([^"]+)"|([^\s>]+))/i,
-  );
-  const canonicalMatch = html.match(
-    /rel=(?:canonical|"canonical")\s+href=(?:"([^"]+)"|([^\s>]+))/i,
-  );
+  const ogTag = html.match(/<meta\b[^>]*\bog:url\b[^>]*>/i)?.[0] ?? '';
+  const canonicalTag = html.match(/<link\b[^>]*\bcanonical\b[^>]*>/i)?.[0] ?? '';
   return {
-    ogUrl: ogMatch?.[1] ?? ogMatch?.[2] ?? null,
-    canonical: canonicalMatch?.[1] ?? canonicalMatch?.[2] ?? null,
+    ogUrl: attrFromTag(ogTag, 'content'),
+    canonical: attrFromTag(canonicalTag, 'href'),
   };
 }
 

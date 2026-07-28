@@ -69,6 +69,12 @@ describe('build artifact validation', () => {
       ),
       {ogUrl: 'https://example.com/b', canonical: 'https://example.com/b'},
     );
+    assert.deepEqual(
+      extractOgUrlAndCanonical(
+        '<meta content=https://example.com/c property=og:url /><link href=https://example.com/c rel=canonical />',
+      ),
+      {ogUrl: 'https://example.com/c', canonical: 'https://example.com/c'},
+    );
   });
 
   it('rejects mismatched og:url and canonical on the sample deep page', () => {
