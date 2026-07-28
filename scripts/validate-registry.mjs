@@ -25,7 +25,8 @@ function validateSameOriginStaticPath(root, value, label, field, errors) {
   // Caller already ran validatePublicHttpsUrl, so URL parsing succeeds.
   const url = new URL(value);
 
-  if (url.hostname.toLowerCase() !== SITE_HOST) {
+  const hostname = url.hostname.toLowerCase().replace(/\.$/, '');
+  if (hostname !== SITE_HOST) {
     return;
   }
 

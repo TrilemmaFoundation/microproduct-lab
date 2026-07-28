@@ -93,6 +93,13 @@ End.
     assert.match(out, /Keep/);
   });
 
+  it('stripMdxForPlainText preserves fenced JSX-like tokens when the closer has trailing spaces', () => {
+    const dirty = '# C\n\n```json\n{\n  "a": "<Foo />"\n}\n```  \n\nAfter';
+    const clean = '# C\n\n```json\n{\n  "a": "<Foo />"\n}\n```\n\nAfter';
+    assert.match(stripMdxForPlainText(dirty), /"a": "<Foo \/>"/);
+    assert.match(stripMdxForPlainText(clean), /"a": "<Foo \/>"/);
+  });
+
   it('stripMdxForPlainText preserves fenced code blocks containing braces', () => {
     const input = `
 # Configure the build

@@ -177,7 +177,7 @@ const config: Config = {
         content:
           'Canonical place to discover microproduct patterns, templates, build instructions, and a machine-readable product registry—for humans and AI agents.',
       },
-      { property: 'og:url', content: SITE_URL },
+      // Do not set og:url here — Docusaurus emits the per-page canonical URL.
       { name: 'twitter:card', content: 'summary_large_image' },
     ],
     navbar: {

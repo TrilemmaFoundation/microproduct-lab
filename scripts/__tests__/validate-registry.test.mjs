@@ -97,6 +97,18 @@ describe('registry and starter validation', () => {
     );
   });
 
+  it('rejects trailing-dot same-origin hosts that miss static files', () => {
+    writeFile(root, 'static/registry.json', JSON.stringify(registry([{
+      ...product('known-archetype'),
+      agent_entrypoint: 'https://build.trilemma.foundation./does-not-exist.md',
+    }])));
+    assert.ok(
+      collectRegistryErrors(root).some((error) =>
+        error.includes('does not exist under static/ (does-not-exist.md)'),
+      ),
+    );
+  });
+
   it('rejects same-origin URLs whose decoded path escapes static/', () => {
     // Encoded slashes + `..` survive URL parsing and escape after decodeURIComponent.
     writeFile(root, 'static/registry.json', JSON.stringify(registry([{

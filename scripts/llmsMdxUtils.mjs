@@ -4,7 +4,7 @@
 
 import {stripFrontmatter as stripFrontmatterBody} from './frontmatterUtils.mjs';
 
-const FENCE_SPLIT_REGEX = /(^```[^\n]*\n[\s\S]*?\n```$)/gm;
+const FENCE_SPLIT_REGEX = /(^```[^\n]*\n[\s\S]*?\n```[ \t]*$)/gm;
 
 /** Strip MDX import lines and JSX display components for plain-text context bundles. */
 export function stripMdxForPlainText(text) {
