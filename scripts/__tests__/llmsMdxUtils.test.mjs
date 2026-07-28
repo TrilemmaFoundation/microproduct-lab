@@ -81,6 +81,18 @@ End.
     assert.match(out, /<li>One<\/li>/);
   });
 
+  it('stripMdxForPlainText removes nested same-name JSX components', () => {
+    const out = stripMdxForPlainText('<List><List>a</List></List>\nProse');
+    assert.equal(out, 'Prose');
+    assert.doesNotMatch(out, /<\/List>/);
+  });
+
+  it('stripMdxForPlainText preserves instructional import-shaped prose', () => {
+    const out = stripMdxForPlainText("import values from 'config' carefully\nKeep");
+    assert.match(out, /import values from 'config' carefully/);
+    assert.match(out, /Keep/);
+  });
+
   it('stripMdxForPlainText preserves fenced code blocks containing braces', () => {
     const input = `
 # Configure the build

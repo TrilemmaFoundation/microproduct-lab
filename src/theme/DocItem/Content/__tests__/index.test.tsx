@@ -1,5 +1,5 @@
 import React from 'react';
-import {render, screen} from '@testing-library/react';
+import {cleanup, render, screen} from '@testing-library/react';
 import {useDoc} from '@docusaurus/plugin-content-docs/client';
 import {usePluginData} from '@docusaurus/useGlobalData';
 import {authorsById} from '@site/src/data/authors';
@@ -43,6 +43,10 @@ describe('DocItemContent byline', () => {
     jest.clearAllMocks();
   });
 
+  afterEach(() => {
+    cleanup();
+  });
+
   it('renders foundation pages as institutionally maintained', () => {
     renderDoc(
       {
@@ -72,6 +76,20 @@ describe('DocItemContent byline', () => {
     expect(
       screen.getByRole('link', {name: 'Trilemma Foundation'}),
     ).toBeInTheDocument();
+  });
+
+  it('renders foundation pages with personal authors using By', () => {
+    renderDoc(
+      {
+        content_kind: 'foundation',
+        authors: ['mohammad-ashkani'],
+      },
+      '@site/docs/human/playbook/intro/what-is-a-microproduct.mdx',
+    );
+
+    expect(screen.getByText(/^By/i)).toBeInTheDocument();
+    expect(screen.getByRole('link', {name: 'Mohammad Ashkani'})).toBeInTheDocument();
+    expect(screen.queryByText(/Maintained by/i)).not.toBeInTheDocument();
   });
 
   it('renders module pages with normal author bylines', () => {
@@ -122,20 +140,30 @@ describe('DocItemContent byline', () => {
     ).toHaveTextContent('By Mohammad Ashkani, Trilemma Foundation');
   });
 
-  it('omits an empty byline and respects explicit or hidden titles', () => {
+  it('keeps the byline when the markdown title is explicit or hidden', () => {
+    renderDoc(
+      {authors: ['mohammad-ashkani']},
+      '@site/docs/human/explicit.md',
+      {contentTitle: 'Explicit title'},
+    );
+    expect(screen.queryByRole('heading', {name: 'Doc Title'})).not.toBeInTheDocument();
+    expect(screen.getByText(/^By/i)).toBeInTheDocument();
+    expect(screen.getByText('1 min read')).toBeInTheDocument();
+
+    cleanup();
+
+    renderDoc(
+      {authors: ['mohammad-ashkani'], hide_title: true},
+      '@site/docs/human/hidden.md',
+    );
+    expect(screen.queryByRole('heading', {name: 'Doc Title'})).not.toBeInTheDocument();
+    expect(screen.getByText(/^By/i)).toBeInTheDocument();
+    expect(screen.getByText('1 min read')).toBeInTheDocument();
+  });
+
+  it('omits an empty byline and still synthesizes the title when needed', () => {
     renderDoc({}, '@site/docs/human/no-metadata.md', {includeReadTime: false});
     expect(screen.getByRole('heading', {name: 'Doc Title'})).toBeInTheDocument();
     expect(screen.queryByText(/min read/)).not.toBeInTheDocument();
-
-    renderDoc({}, '@site/docs/human/explicit.md', {
-      contentTitle: 'Explicit title',
-      includeReadTime: false,
-    });
-    expect(screen.getAllByRole('heading', {name: 'Doc Title'})).toHaveLength(1);
-
-    renderDoc({hide_title: true}, '@site/docs/human/hidden.md', {
-      includeReadTime: false,
-    });
-    expect(screen.getAllByRole('heading', {name: 'Doc Title'})).toHaveLength(1);
   });
 });

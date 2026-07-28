@@ -23,7 +23,7 @@ npm install
 npm run dev
 ```
 
-`npm run dev` runs a short pre-step that removes `.docusaurus` and `node_modules/.cache`, then regenerates the agent mirror under `docs/agents/human/` from `docs/human/`. Do not edit generated mirror files directly. Use `npm run clear` for a full Docusaurus clean (including `build/`).
+`npm run dev` runs a short pre-step that removes `.docusaurus` and `node_modules/.cache`, then regenerates the agent mirror under `docs/agents/human/` from `docs/human/`. Do not edit generated mirror files directly. Use `npm run clear` to clear the Docusaurus cache, or `npm run clean` to also remove `build/` and `coverage/`.
 
 ## Validation
 

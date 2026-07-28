@@ -3,7 +3,7 @@ title: How to Contribute
 description: Exact process for proposing and publishing new hub content.
 content_kind: reference
 slug: /
-last_reviewed: 2026-07-24
+last_reviewed: 2026-07-28
 authors: [trilemma-foundation]
 ---
 
@@ -26,15 +26,17 @@ duplicate keys fail validation.
 
 Registry link fields (`repo`, `site`, `docs`, and `agent_entrypoint`) must use
 public HTTPS domains. Localhost, local or internal domains, credentials, and
-IP-address destinations are rejected by registry validation.
+IP-address destinations are rejected by registry validation. URLs on
+`build.trilemma.foundation` must also resolve to an existing file under
+`static/` (directory paths and missing files fail validation).
 
 Optional profile URLs in `src/data/authors.json` use the same public HTTPS
 rules. Unsafe schemes (including `javascript:` and `http:`) fail frontmatter
 validation and are stripped at render time.
 
 Starter `product.yaml` files are validated against the public product schema
-and must select an archetype documented in the catalog. External registry
-products may use additional archetype names.
+and must select an archetype documented in the catalog. Every registry product
+archetype must also exist as a page under `docs/archetypes/`.
 
 `npm run test:coverage` runs Jest for React code and Node's built-in test
 runner for scripts. The critical validation, read-time, and LLM transformation

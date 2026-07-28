@@ -9,11 +9,49 @@ import addFormats from 'ajv-formats';
 import {JSON_SCHEMA, load} from 'js-yaml';
 
 import {validatePublicHttpsUrl} from './publicUrl.mjs';
-import {EXPECTED_REGISTRY_ROOT} from './registryRootExpectations.mjs';
+import {EXPECTED_REGISTRY_ROOT, SITE_HOST} from './registryRootExpectations.mjs';
 
 const publicUrlFields = ['repo', 'site', 'docs', 'agent_entrypoint'];
 
-function validateProduct(product, label, validateSchema, errors, archetypes) {
+/**
+ * Same-origin build.trilemma.foundation URLs must resolve to a real file under static/.
+ * @param {string} root
+ * @param {string} value
+ * @param {string} label
+ * @param {string} field
+ * @param {string[]} errors
+ */
+function validateSameOriginStaticPath(root, value, label, field, errors) {
+  // Caller already ran validatePublicHttpsUrl, so URL parsing succeeds.
+  const url = new URL(value);
+
+  if (url.hostname.toLowerCase() !== SITE_HOST) {
+    return;
+  }
+
+  const relative = decodeURIComponent(url.pathname).replace(/^\/+/, '');
+  if (!relative || relative.endsWith('/')) {
+    errors.push(
+      `${label}.${field} must point to an existing file under static/ on ${SITE_HOST}`,
+    );
+    return;
+  }
+
+  const staticRoot = path.resolve(root, 'static');
+  const candidate = path.resolve(staticRoot, relative);
+  if (candidate !== staticRoot && !candidate.startsWith(`${staticRoot}${path.sep}`)) {
+    errors.push(`${label}.${field} path escapes static/`);
+    return;
+  }
+
+  if (!fs.existsSync(candidate) || !fs.statSync(candidate).isFile()) {
+    errors.push(
+      `${label}.${field} does not exist under static/ (${relative})`,
+    );
+  }
+}
+
+function validateProduct(product, label, validateSchema, errors, archetypes, root) {
   if (!validateSchema(product)) {
     const message = validateSchema.errors
       ?.map((error) => `${error.instancePath || '/'} ${error.message}`)
@@ -28,7 +66,9 @@ function validateProduct(product, label, validateSchema, errors, archetypes) {
     const urlError = validatePublicHttpsUrl(product[field]);
     if (urlError) {
       errors.push(`${label}.${field} ${urlError}`);
+      continue;
     }
+    validateSameOriginStaticPath(root, product[field], label, field, errors);
   }
 
   if (
@@ -119,6 +159,7 @@ export function collectRegistryErrors(root = path.resolve(import.meta.dirname, '
           validateSchema,
           errors,
           archetypes,
+          root,
         );
       });
     }
@@ -135,7 +176,7 @@ export function collectRegistryErrors(root = path.resolve(import.meta.dirname, '
     const relativePath = `product-templates/${entry.name}/product.yaml`;
     const product = loadYaml(path.join(root, relativePath), relativePath, errors);
     if (typeof product !== 'undefined') {
-      validateProduct(product, relativePath, validateSchema, errors, archetypes);
+      validateProduct(product, relativePath, validateSchema, errors, archetypes, root);
     }
   }
 

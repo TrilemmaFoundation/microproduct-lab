@@ -24,14 +24,26 @@ export function stripMdxForPlainText(text) {
 }
 
 function stripJsxFromProse(text) {
-  return text
-    .replace(/^import\s+(?:.|\n)*?from\s+['"][^'"]+['"];?\s*\n?/gm, '')
-    .replace(/<[A-Z][A-Za-z0-9]*\b[^<>]*\/>/g, '')
-    .replace(/<([A-Z][A-Za-z0-9]*)\b[\s\S]*?<\/\1>/g, '')
-    .replace(
-      /<(?:ul|ol|div|span|section|article)\b[^>]*>[\s\S]*?<\/(?:ul|ol|div|span|section|article)>/gi,
-      (block) => (block.includes('{') ? '' : block),
-    );
+  let out = text
+    // Whole-line MDX imports only (do not eat instructional prose after the specifier).
+    .replace(/^import\s[\s\S]*?\sfrom\s+['"][^'"]+['"];?\s*$/gm, '')
+    .replace(/<[A-Z][A-Za-z0-9]*\b[^<>]*\/>/g, '');
+
+  // Remove innermost paired components first so nested same-name tags fully clear.
+  const innermostPaired =
+    /<([A-Z][A-Za-z0-9]*)\b[^>]*>(?:(?!<[A-Z][A-Za-z0-9]*\b)[\s\S])*?<\/\1>/g;
+  for (let i = 0; i < 32; i += 1) {
+    const next = out.replace(innermostPaired, '');
+    if (next === out) {
+      break;
+    }
+    out = next;
+  }
+
+  return out.replace(
+    /<(?:ul|ol|div|span|section|article)\b[^>]*>[\s\S]*?<\/(?:ul|ol|div|span|section|article)>/gi,
+    (block) => (block.includes('{') ? '' : block),
+  );
 }
 
 export function stripYamlFrontmatter(text) {

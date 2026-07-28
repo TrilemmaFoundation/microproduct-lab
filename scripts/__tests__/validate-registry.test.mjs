@@ -70,6 +70,47 @@ describe('registry and starter validation', () => {
     assert.deepEqual(collectRegistryErrors(root), []);
   });
 
+  it('accepts same-origin URLs that resolve to files under static/', () => {
+    writeFile(root, 'static/registry.json', JSON.stringify(registry([{
+      ...product('known-archetype'),
+      agent_entrypoint: 'https://build.trilemma.foundation/registry.json',
+    }])));
+    assert.deepEqual(collectRegistryErrors(root), []);
+  });
+
+  it('rejects missing same-origin static paths and directory URLs', () => {
+    writeFile(root, 'static/registry.json', JSON.stringify(registry([{
+      ...product('known-archetype'),
+      agent_entrypoint: 'https://build.trilemma.foundation/products/missing/AGENTS.md',
+      docs: 'https://build.trilemma.foundation/schemas/',
+    }])));
+    const errors = collectRegistryErrors(root);
+    assert.ok(
+      errors.some((error) =>
+        error.includes('does not exist under static/ (products/missing/AGENTS.md)'),
+      ),
+    );
+    assert.ok(
+      errors.some((error) =>
+        error.includes('must point to an existing file under static/'),
+      ),
+    );
+  });
+
+  it('rejects same-origin URLs whose decoded path escapes static/', () => {
+    // Encoded slashes + `..` survive URL parsing and escape after decodeURIComponent.
+    writeFile(root, 'static/registry.json', JSON.stringify(registry([{
+      ...product('known-archetype'),
+      agent_entrypoint:
+        'https://build.trilemma.foundation/a/b%2f%2e%2e%2f%2e%2e%2f%2e%2e%2foutside.md',
+    }])));
+    assert.ok(
+      collectRegistryErrors(root).some((error) =>
+        error.includes('path escapes static/'),
+      ),
+    );
+  });
+
   it('reports undocumented archetypes in registry products', () => {
     writeFile(
       root,

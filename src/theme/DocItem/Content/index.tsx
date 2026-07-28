@@ -52,6 +52,9 @@ function DocByline(): ReactNode {
     .map((authorId) => authorsById.get(authorId))
     .filter((author) => author !== undefined);
   const readMinutes = readTimeData?.readTimes?.[metadata.source];
+  const usesInstitutionalByline =
+    pageAuthors.length > 0 &&
+    pageAuthors.every((author) => author.id === INSTITUTIONAL_AUTHOR_ID);
 
   if (pageAuthors.length === 0 && !readMinutes) {
     return null;
@@ -61,7 +64,7 @@ function DocByline(): ReactNode {
     <p className={styles.docByline}>
       {pageAuthors.length > 0 && (
         <span>
-          {isInstitutional ? 'Maintained by ' : 'By '}
+          {usesInstitutionalByline ? 'Maintained by ' : 'By '}
           {pageAuthors.map((author, index) => (
             <React.Fragment key={author.id}>
               {index > 0 && ', '}
@@ -95,9 +98,9 @@ export default function DocItemContent({children}: Props): ReactNode {
       {syntheticTitle && (
         <header>
           <Heading as="h1">{syntheticTitle}</Heading>
-          <DocByline />
         </header>
       )}
+      <DocByline />
       <MDXContent>{children}</MDXContent>
     </div>
   );

@@ -31,6 +31,7 @@ export function validatePublicHttpsUrl(value: string): string | null {
 
   const hostname = url.hostname.toLowerCase().replace(/\.$/, '');
   if (
+    !hostname ||
     hostname === 'localhost' ||
     LOCAL_HOST_SUFFIXES.some((suffix) => hostname.endsWith(suffix)) ||
     looksLikeIpHostname(hostname)

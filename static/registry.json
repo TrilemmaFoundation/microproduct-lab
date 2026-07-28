@@ -30,9 +30,8 @@
         "accumulation metrics"
       ],
       "repo": "https://github.com/TrilemmaFoundation/Bitcoin-Analytics-Initiative",
-      "site": "https://stackingsats.org",
-      "docs": "https://stackingsats.org/docs",
-      "agent_entrypoint": "https://build.trilemma.foundation/products/stackingsats/AGENTS.md",
+      "site": "https://www.stackingsats.org/",
+      "docs": "https://www.stackingsats.org/",
       "tags": ["bitcoin", "backtesting", "analytics", "dca"]
     }
   ]
