@@ -3,7 +3,7 @@ title: How to Contribute
 description: Exact process for proposing and publishing new hub content.
 content_kind: reference
 slug: /
-last_reviewed: 2026-07-24
+last_reviewed: 2026-07-28
 authors: [trilemma-foundation]
 ---
 
@@ -33,8 +33,8 @@ rules. Unsafe schemes (including `javascript:` and `http:`) fail frontmatter
 validation and are stripped at render time.
 
 Starter `product.yaml` files are validated against the public product schema
-and must select an archetype documented in the catalog. External registry
-products may use additional archetype names.
+and must select an archetype documented in the catalog. Every registry product
+archetype must also exist as a page under `docs/archetypes/`.
 
 `npm run test:coverage` runs Jest for React code and Node's built-in test
 runner for scripts. The critical validation, read-time, and LLM transformation

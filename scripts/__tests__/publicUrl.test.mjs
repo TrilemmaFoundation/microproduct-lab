@@ -18,6 +18,7 @@ test('rejects unsafe or non-public URLs', () => {
     'javascript:alert(1)',
     'file:///etc/passwd',
     'https://user:password@example.com',
+    'https://.',
     'https://localhost',
     'https://docs.localhost',
     'https://service.local',
