@@ -26,7 +26,9 @@ duplicate keys fail validation.
 
 Registry link fields (`repo`, `site`, `docs`, and `agent_entrypoint`) must use
 public HTTPS domains. Localhost, local or internal domains, credentials, and
-IP-address destinations are rejected by registry validation.
+IP-address destinations are rejected by registry validation. URLs on
+`build.trilemma.foundation` must also resolve to an existing file under
+`static/` (directory paths and missing files fail validation).
 
 Optional profile URLs in `src/data/authors.json` use the same public HTTPS
 rules. Unsafe schemes (including `javascript:` and `http:`) fail frontmatter
