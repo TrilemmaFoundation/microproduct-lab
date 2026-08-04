@@ -15,7 +15,7 @@
 │   └── agents/human/    # Generated agent mirror of docs/human (do not edit; see scripts/generate-agent-docs.mjs)
 ├── src/
 │   ├── pages/           # React pages (e.g. audience chooser)
-│   ├── components/      # Shared React (e.g. ControlSurface, UniversityMarquee)
+│   ├── components/      # Shared React (e.g. ControlSurface, PlaybookTree)
 │   ├── theme/           # Swizzled theme pieces (e.g. Navbar)
 │   ├── css/             # Global styles
 │   ├── utils/           # Helpers
@@ -60,7 +60,7 @@ Navbar/footer grouping for Humans vs Agents is configured in `themeConfig` in [`
 ### Testing
 
 - Jest `moduleNameMapper`: `@site/*` → repo root, `@docusaurus/*` and `@theme/*` → `src/__mocks__/`.
-- Coverage collectors and **100% global thresholds** are defined in [`jest.config.js`](jest.config.js) (some paths are excluded there intentionally, e.g. swizzled theme, UniversityMarquee).
+- Coverage collectors and **100% global thresholds** are defined in [`jest.config.js`](jest.config.js) (some paths are excluded there intentionally, e.g. swizzled theme).
 
 ### Content & agent surfaces
 

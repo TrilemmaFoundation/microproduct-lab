@@ -4,6 +4,16 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    # Babel 8 requires @babel/core@^8 plus ecosystem support (e.g. Docusaurus); defer coordinated migration.
+    ignore:
+      - dependency-name: "@babel/core"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@babel/preset-env"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@babel/preset-react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@babel/preset-typescript"
+        update-types: ["version-update:semver-major"]
   - package-ecosystem: github-actions
     directory: /
     schedule:

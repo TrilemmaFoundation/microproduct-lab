@@ -33,7 +33,7 @@ import {
 
 # Hello
 
-<UniversityMarquee />
+<ExampleWidget />
 
 <OtherComp prop="x" />
 
@@ -44,9 +44,9 @@ import {
 
 Text after.
 
-<UniversityMarquee>
+<ExampleWidget>
   nested
-</UniversityMarquee>
+</ExampleWidget>
 
 <ul>
   {authors.map((author) => (
@@ -62,7 +62,7 @@ End.
     assert.match(out, /End/);
     assert.doesNotMatch(out, /import Foo/);
     assert.doesNotMatch(out, /PlaybookTree/);
-    assert.doesNotMatch(out, /UniversityMarquee/);
+    assert.doesNotMatch(out, /ExampleWidget/);
     assert.doesNotMatch(out, /<OtherComp/);
     assert.doesNotMatch(out, /authors\.map/);
   });
