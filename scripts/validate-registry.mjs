@@ -30,7 +30,14 @@ function validateSameOriginStaticPath(root, value, label, field, errors) {
     return;
   }
 
-  const relative = decodeURIComponent(url.pathname).replace(/^\/+/, '');
+  let relative;
+  try {
+    relative = decodeURIComponent(url.pathname).replace(/^\/+/, '');
+  } catch {
+    errors.push(`${label}.${field} path is not valid percent-encoding`);
+    return;
+  }
+
   if (!relative || relative.endsWith('/')) {
     errors.push(
       `${label}.${field} must point to an existing file under static/ on ${SITE_HOST}`,

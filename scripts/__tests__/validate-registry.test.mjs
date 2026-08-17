@@ -123,6 +123,159 @@ describe('registry and starter validation', () => {
     );
   });
 
+  it('reports invalid percent-encoding on same-origin URLs instead of throwing', () => {
+    writeFile(root, 'static/registry.json', JSON.stringify(registry([{
+      ...product('known-archetype'),
+      agent_entrypoint: 'https://build.trilemma.foundation/%80',
+      docs: 'https://build.trilemma.foundation/%E0%A4%A',
+    }])));
+    let errors;
+    assert.doesNotThrow(() => {
+      errors = collectRegistryErrors(root);
+    });
+    assert.ok(
+      errors.some((error) =>
+        error.includes('products[0].agent_entrypoint path is not valid percent-encoding'),
+      ),
+      errors.join('\n'),
+    );
+    assert.ok(
+      errors.some((error) =>
+        error.includes('products[0].docs path is not valid percent-encoding'),
+      ),
+      errors.join('\n'),
+    );
+  });
+
+  it('reports schema-valid non-UTF-8 percent sequences instead of throwing', () => {
+    // %FF and overlong %C0%AF pass format "uri" but are not UTF-8.
+    writeFile(root, 'static/registry.json', JSON.stringify(registry([{
+      ...product('known-archetype'),
+      site: 'https://build.trilemma.foundation/%FF',
+      repo: 'https://build.trilemma.foundation/%C0%AF',
+    }])));
+    let errors;
+    assert.doesNotThrow(() => {
+      errors = collectRegistryErrors(root);
+    });
+    assert.ok(
+      errors.some((error) =>
+        error.includes('products[0].site path is not valid percent-encoding'),
+      ),
+      errors.join('\n'),
+    );
+    assert.ok(
+      errors.some((error) =>
+        error.includes('products[0].repo path is not valid percent-encoding'),
+      ),
+      errors.join('\n'),
+    );
+    assert.equal(
+      errors.filter((error) => error.includes('does not exist under static/')).length,
+      0,
+      errors.join('\n'),
+    );
+  });
+
+  it('reports incomplete percent sequences on same-origin URLs instead of throwing', () => {
+    writeFile(root, 'static/registry.json', JSON.stringify(registry([{
+      ...product('known-archetype'),
+      agent_entrypoint: 'https://build.trilemma.foundation/%',
+      docs: 'https://build.trilemma.foundation/%2',
+    }])));
+    let errors;
+    assert.doesNotThrow(() => {
+      errors = collectRegistryErrors(root);
+    });
+    assert.ok(
+      errors.some((error) =>
+        error.includes('products[0].agent_entrypoint path is not valid percent-encoding'),
+      ),
+      errors.join('\n'),
+    );
+    assert.ok(
+      errors.some((error) =>
+        error.includes('products[0].docs path is not valid percent-encoding'),
+      ),
+      errors.join('\n'),
+    );
+  });
+
+  it('accepts same-origin URLs whose percent-encoded path decodes to an existing static file', () => {
+    writeFile(root, 'static/hello world.md', 'ok\n');
+    writeFile(root, 'static/registry.json', JSON.stringify(registry([{
+      ...product('known-archetype'),
+      agent_entrypoint: 'https://build.trilemma.foundation/registry%2ejson',
+      docs: 'https://build.trilemma.foundation/hello%20world.md',
+      site: 'https://build.trilemma.foundation/registry.json?x=%80',
+    }])));
+    let errors;
+    assert.doesNotThrow(() => {
+      errors = collectRegistryErrors(root);
+    });
+    assert.deepEqual(errors, []);
+  });
+
+  it('does not treat off-origin invalid percent-encoding as a same-origin path error', () => {
+    writeFile(root, 'static/registry.json', JSON.stringify(registry([{
+      ...product('known-archetype'),
+      site: 'https://example.com/%FF',
+      docs: 'https://example.com/%',
+    }])));
+    let errors;
+    assert.doesNotThrow(() => {
+      errors = collectRegistryErrors(root);
+    });
+    assert.equal(
+      errors.filter((error) => error.includes('not valid percent-encoding')).length,
+      0,
+      errors.join('\n'),
+    );
+  });
+
+  it('keeps collecting errors after a malformed percent-encoded same-origin URL', () => {
+    writeFile(
+      root,
+      'product-templates/starter/product.yaml',
+      JSON.stringify({
+        ...product(),
+        agent_entrypoint: 'https://build.trilemma.foundation/%FF',
+      }),
+    );
+    writeFile(root, 'static/registry.json', JSON.stringify(registry([
+      {
+        ...product('known-archetype'),
+        id: 'bad-encoding',
+        agent_entrypoint: 'https://build.trilemma.foundation/%C0%AF',
+      },
+      product('unknown-archetype'),
+    ])));
+    let errors;
+    assert.doesNotThrow(() => {
+      errors = collectRegistryErrors(root);
+    });
+    assert.ok(
+      errors.some((error) =>
+        error.includes('products[0].agent_entrypoint path is not valid percent-encoding'),
+      ),
+      errors.join('\n'),
+    );
+    assert.ok(
+      errors.some((error) =>
+        error.includes("products[1].archetype 'unknown-archetype' is not a documented archetype"),
+      ),
+      errors.join('\n'),
+    );
+    assert.ok(
+      errors.some((error) =>
+        error.includes(
+          'product-templates/starter/product.yaml.agent_entrypoint path is not valid percent-encoding',
+        ),
+      ),
+      errors.join('\n'),
+    );
+  });
+
   it('reports undocumented archetypes in registry products', () => {
     writeFile(
       root,
