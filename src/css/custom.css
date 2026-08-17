@@ -82,6 +82,16 @@ html[data-theme='light'] {
   --ifm-navbar-search-input-color: var(--color-text-primary);
   --ifm-navbar-search-input-placeholder-color: var(--color-text-secondary);
 
+  --search-local-modal-background: var(--color-surface-elevated);
+  --search-local-modal-shadow: 0 8px 28px var(--color-shadow-soft);
+  --search-local-hit-background: var(--ifm-color-emphasis-100);
+  --search-local-hit-shadow: none;
+  --search-local-hit-color: var(--color-text-primary);
+  --search-local-hit-active-color: var(--ifm-color-white);
+  --search-local-highlight-color: var(--ifm-color-primary);
+  --search-local-muted-color: var(--color-text-secondary);
+  --search-local-input-active-border-color: var(--ifm-color-primary);
+
   --ifm-footer-background-color: transparent;
   --ifm-footer-color: var(--color-text-primary);
   --ifm-footer-link-color: var(--ifm-navbar-link-color);
@@ -232,6 +242,16 @@ textarea:focus-visible {
 
 .navbar__items--right > :last-child {
   padding-right: 0;
+}
+
+.navbar__search {
+  padding: 0;
+}
+
+@media (max-width: 576px) {
+  .navbar .navbar__search-input:not(:focus) {
+    width: 8.5rem;
+  }
 }
 
 .navbar-sidebar {

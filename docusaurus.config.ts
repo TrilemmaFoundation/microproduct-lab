@@ -1,7 +1,10 @@
 import type {Config, PluginConfig} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
+import type {PluginOptions as LocalSearchOptions} from '@easyops-cn/docusaurus-search-local';
 import { SITE_URL } from './siteUrl';
+import {humanPlaybookTree} from './src/data/humanPlaybook';
 import docReadTimesPlugin from './src/plugins/docReadTimes';
+import {agentMirrorSearchIgnoreFiles} from './src/utils/agentMirrorSearchIgnore';
 
 const REPO_URL = 'https://github.com/TrilemmaFoundation/microproduct-lab';
 
@@ -127,7 +130,30 @@ const config: Config = {
     },
     mermaid: true,
   },
-  themes: ['@docusaurus/theme-mermaid'],
+  themes: [
+    '@docusaurus/theme-mermaid',
+    [
+      '@easyops-cn/docusaurus-search-local',
+      {
+        hashed: true,
+        indexDocs: true,
+        indexBlog: false,
+        indexPages: false,
+        language: 'en',
+        docsRouteBasePath: [
+          'docs',
+          ...docsIslandPlugins.map((spec) => spec.routeBasePath),
+        ],
+        ignoreFiles: agentMirrorSearchIgnoreFiles(humanPlaybookTree),
+        ignoreCssSelectors: ['.docusaurus-mermaid-container'],
+        searchBarShortcut: true,
+        searchBarShortcutKeymap: 'mod+k',
+        searchBarPosition: 'right',
+        highlightSearchTermsOnTargetPage: true,
+        explicitSearchResultPath: true,
+      } satisfies LocalSearchOptions,
+    ],
+  ],
 
   i18n: {
     defaultLocale: 'en',

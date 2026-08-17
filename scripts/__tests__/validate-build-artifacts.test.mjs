@@ -6,6 +6,7 @@ import {afterEach, beforeEach, describe, it} from 'node:test';
 
 import {
   OG_URL_SAMPLE_PAGE,
+  SEARCH_INDEX_BASENAME,
   collectBuildArtifactErrors,
   extractOgUrlAndCanonical,
 } from '../validate-build-artifacts.mjs';
@@ -36,6 +37,7 @@ describe('build artifact validation', () => {
   it('accepts clean nested build output', () => {
     writeFile(root, 'build/assets/app.js', 'console.log("clean")');
     writeFile(root, 'build/index.html', '<main>clean</main>');
+    writeFile(root, 'build/search-index-abc123.json', '{}');
     writeFile(root, `build/${OG_URL_SAMPLE_PAGE}`, matchingDeepPageHtml());
     assert.deepEqual(collectBuildArtifactErrors(root), []);
   });
@@ -85,6 +87,22 @@ describe('build artifact validation', () => {
     );
     const errors = collectBuildArtifactErrors(root);
     assert.ok(errors.some((error) => error.includes('og:url does not match canonical')));
+  });
+
+  it('rejects a missing local search index', () => {
+    writeFile(root, 'build/assets/app.js', 'console.log("clean")');
+    writeFile(root, `build/${OG_URL_SAMPLE_PAGE}`, matchingDeepPageHtml());
+    assert.ok(
+      collectBuildArtifactErrors(root).some((error) =>
+        error.includes('Missing local search index'),
+      ),
+    );
+  });
+
+  it('matches hashed and unhashed search-index basenames', () => {
+    assert.equal(SEARCH_INDEX_BASENAME.test('search-index.json'), true);
+    assert.equal(SEARCH_INDEX_BASENAME.test('search-index-abc123.json'), true);
+    assert.equal(SEARCH_INDEX_BASENAME.test('other-index.json'), false);
   });
 
   it('rejects a missing Open Graph sample page', () => {

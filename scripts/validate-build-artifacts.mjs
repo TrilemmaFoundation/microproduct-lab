@@ -8,6 +8,9 @@ import {pathToFileURL} from 'node:url';
 export const OG_URL_SAMPLE_PAGE =
   'docs/intro/what-is-a-microproduct/index.html';
 
+/** Hashed or unhashed local-search index emitted into `build/`. */
+export const SEARCH_INDEX_BASENAME = /^search-index.*\.json$/;
+
 function walkFiles(directory) {
   const files = [];
   for (const entry of fs.readdirSync(directory, {withFileTypes: true})) {
@@ -70,6 +73,15 @@ function collectOgUrlErrors(buildRoot, errors) {
   }
 }
 
+function collectSearchIndexErrors(files, errors) {
+  const hasSearchIndex = files.some((filePath) =>
+    SEARCH_INDEX_BASENAME.test(path.basename(filePath)),
+  );
+  if (!hasSearchIndex) {
+    errors.push('Missing local search index: build/**/search-index*.json');
+  }
+}
+
 export function collectBuildArtifactErrors(
   root = path.resolve(import.meta.dirname, '..'),
   forbiddenPaths = [root, '/vercel/path0'],
@@ -79,8 +91,9 @@ export function collectBuildArtifactErrors(
     return ['Build directory missing: build'];
   }
 
+  const files = walkFiles(buildRoot);
   const errors = [];
-  for (const filePath of walkFiles(buildRoot)) {
+  for (const filePath of files) {
     const relativePath = path.relative(root, filePath);
     if (filePath.endsWith('.map')) {
       errors.push(`Source map emitted: ${relativePath}`);
@@ -96,6 +109,7 @@ export function collectBuildArtifactErrors(
   }
 
   collectOgUrlErrors(buildRoot, errors);
+  collectSearchIndexErrors(files, errors);
   return errors;
 }
 
