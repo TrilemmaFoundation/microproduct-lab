@@ -8,7 +8,6 @@
 
   --color-accent-orange: #ff993f;
   --color-accent-blue: #6ca8e4;
-  --color-flow-line: rgba(255, 255, 255, 0.9);
 
   --color-border-subtle: rgba(255, 255, 255, 0.08);
   --color-border-subtle-strong: rgba(255, 255, 255, 0.16);
@@ -16,11 +15,6 @@
   --color-surface-elevated: rgba(12, 14, 36, 0.76);
   --color-shadow-soft: rgba(0, 0, 0, 0.32);
   --color-focus-ring: rgba(107, 167, 222, 0.88);
-
-  --space-sm: 0.5rem;
-  --space-md: 1rem;
-  --space-lg: 2rem;
-  --space-xl: 3rem;
 }
 
 /* Single palette: Infima bridged to Trilemma tokens (dark + light attribute forced identical). */
@@ -471,51 +465,6 @@ textarea:focus-visible {
   gap: 4rem;
 }
 
-.bt-hero-grid,
-.bt-summary-grid,
-.bt-link-grid,
-.bt-two-column-grid {
-  display: grid;
-  gap: 1.25rem;
-}
-
-.bt-hero-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  align-items: start;
-}
-
-.bt-summary-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.bt-summary-card {
-  border: 1px solid var(--color-border-subtle);
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.03);
-  padding: 1.25rem;
-}
-
-.bt-summary-card h3 {
-  margin-bottom: 0.65rem;
-  font-size: 1.1rem;
-}
-
-.bt-summary-card p {
-  margin: 0;
-  color: var(--color-text-secondary);
-  line-height: 1.6;
-}
-
-.bt-inline-pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-}
-
-.bt-inline-pillsCompact {
-  gap: 0.45rem;
-}
-
 .bt-hero-actions {
   display: flex;
   flex-wrap: wrap;
@@ -573,52 +522,9 @@ textarea:focus-visible {
   color: var(--color-bg-dark);
 }
 
-.bt-steps-grid {
-  display: grid;
-  gap: 1.5rem;
-}
-
-.bt-link-grid,
-.bt-two-column-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-items: start;
-}
-
-.bt-link-card {
-  display: grid;
-  gap: 0.35rem;
-  border: 1px solid var(--color-border-subtle);
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.03);
-  color: inherit;
-  text-decoration: none;
-  padding: 1.15rem 1.2rem;
-}
-
-.bt-link-card strong {
-  font-size: 1rem;
-}
-
-.bt-link-card span {
-  color: var(--color-text-secondary);
-  line-height: 1.55;
-}
-
-.bt-link-card:hover {
-  text-decoration: none;
-  border-color: rgba(255, 148, 56, 0.28);
-}
-
 @media (max-width: 996px) {
   .bt-page {
     gap: 3rem;
-  }
-
-  .bt-hero-grid,
-  .bt-summary-grid,
-  .bt-link-grid,
-  .bt-two-column-grid {
-    grid-template-columns: 1fr;
   }
 
   .bt-hero-actions {
