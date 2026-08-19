@@ -68,6 +68,12 @@ const plugins: PluginConfig[] = [
       docRoots: ['docs/human', ...docsIslandPlugins.map((spec) => spec.path)],
     },
   ],
+  [
+    '@docusaurus/plugin-vercel-analytics',
+    {
+      mode: 'auto',
+    },
+  ],
 ];
 
 const config: Config = {

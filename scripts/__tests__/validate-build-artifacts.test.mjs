@@ -7,6 +7,7 @@ import {afterEach, beforeEach, describe, it} from 'node:test';
 import {
   OG_URL_SAMPLE_PAGE,
   SEARCH_INDEX_BASENAME,
+  VERCEL_ANALYTICS_SCRIPT_SRC,
   collectBuildArtifactErrors,
   extractOgUrlAndCanonical,
 } from '../validate-build-artifacts.mjs';
@@ -35,7 +36,11 @@ describe('build artifact validation', () => {
   });
 
   it('accepts clean nested build output', () => {
-    writeFile(root, 'build/assets/app.js', 'console.log("clean")');
+    writeFile(
+      root,
+      'build/assets/app.js',
+      `console.log("clean"); "${VERCEL_ANALYTICS_SCRIPT_SRC}"`,
+    );
     writeFile(root, 'build/index.html', '<main>clean</main>');
     writeFile(root, 'build/search-index-abc123.json', '{}');
     writeFile(root, `build/${OG_URL_SAMPLE_PAGE}`, matchingDeepPageHtml());
@@ -95,6 +100,17 @@ describe('build artifact validation', () => {
     assert.ok(
       collectBuildArtifactErrors(root).some((error) =>
         error.includes('Missing local search index'),
+      ),
+    );
+  });
+
+  it('rejects a missing Vercel Web Analytics script', () => {
+    writeFile(root, 'build/assets/app.js', 'console.log("clean")');
+    writeFile(root, 'build/search-index-abc123.json', '{}');
+    writeFile(root, `build/${OG_URL_SAMPLE_PAGE}`, matchingDeepPageHtml());
+    assert.ok(
+      collectBuildArtifactErrors(root).some((error) =>
+        error.includes('Missing Vercel Web Analytics script'),
       ),
     );
   });

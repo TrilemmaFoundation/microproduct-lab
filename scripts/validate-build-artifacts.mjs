@@ -11,6 +11,9 @@ export const OG_URL_SAMPLE_PAGE =
 /** Hashed or unhashed local-search index emitted into `build/`. */
 export const SEARCH_INDEX_BASENAME = /^search-index.*\.json$/;
 
+/** Production script path injected by `@docusaurus/plugin-vercel-analytics`. */
+export const VERCEL_ANALYTICS_SCRIPT_SRC = '/_vercel/insights/script.js';
+
 function walkFiles(directory) {
   const files = [];
   for (const entry of fs.readdirSync(directory, {withFileTypes: true})) {
@@ -82,6 +85,14 @@ function collectSearchIndexErrors(files, errors) {
   }
 }
 
+function collectVercelAnalyticsErrors(hasAnalyticsScript, errors) {
+  if (!hasAnalyticsScript) {
+    errors.push(
+      `Missing Vercel Web Analytics script (${VERCEL_ANALYTICS_SCRIPT_SRC}) in production JavaScript`,
+    );
+  }
+}
+
 export function collectBuildArtifactErrors(
   root = path.resolve(import.meta.dirname, '..'),
   forbiddenPaths = [root, '/vercel/path0'],
@@ -93,23 +104,28 @@ export function collectBuildArtifactErrors(
 
   const files = walkFiles(buildRoot);
   const errors = [];
+  let hasAnalyticsScript = false;
   for (const filePath of files) {
     const relativePath = path.relative(root, filePath);
     if (filePath.endsWith('.map')) {
       errors.push(`Source map emitted: ${relativePath}`);
     }
-    if (
-      filePath.endsWith('.js') &&
-      forbiddenPaths.some((forbiddenPath) =>
-        fs.readFileSync(filePath, 'utf8').includes(forbiddenPath),
-      )
-    ) {
-      errors.push(`Build path leaked: ${relativePath}`);
+    if (filePath.endsWith('.js')) {
+      const source = fs.readFileSync(filePath, 'utf8');
+      if (source.includes(VERCEL_ANALYTICS_SCRIPT_SRC)) {
+        hasAnalyticsScript = true;
+      }
+      if (
+        forbiddenPaths.some((forbiddenPath) => source.includes(forbiddenPath))
+      ) {
+        errors.push(`Build path leaked: ${relativePath}`);
+      }
     }
   }
 
   collectOgUrlErrors(buildRoot, errors);
   collectSearchIndexErrors(files, errors);
+  collectVercelAnalyticsErrors(hasAnalyticsScript, errors);
   return errors;
 }
 
