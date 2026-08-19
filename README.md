@@ -35,7 +35,7 @@ This runs:
 
 - TypeScript checking (`tsc --noEmit`)
 - spelling check (`cspell` on `docs/`, `product-templates/`, `templates/`)
-- full YAML frontmatter validation, including real `YYYY-MM-DD` review dates and mirror-specific rules for generated agent docs when present
+- full YAML frontmatter validation, including real `YYYY-MM-DD` review dates, mirror-specific rules for generated agent docs when present, and deploy-quickstart Hobby quota copy against current Vercel terms
 - registry JSON and starter `product.yaml` validation against
   `static/schemas/product.schema.json`; product and starter archetypes must match the catalog
 - playbook tree sync check (`humanPlaybook.data.json` must match every file under `docs/human/`)

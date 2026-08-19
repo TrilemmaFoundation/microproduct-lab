@@ -3,7 +3,7 @@ title: How to Contribute
 description: Exact process for proposing and publishing new hub content.
 content_kind: reference
 slug: /
-last_reviewed: 2026-08-17
+last_reviewed: 2026-08-19
 authors: [trilemma-foundation]
 ---
 
@@ -22,7 +22,10 @@ version pinned in `.nvmrc`, then install the locked dependency tree with
 
 Frontmatter is parsed as full YAML, so quoted and multiline values, lists,
 mappings, numbers, and booleans use normal YAML syntax. Malformed YAML and
-duplicate keys fail validation.
+duplicate keys fail validation. The deploy-quickstart Hobby limits section must
+use current Vercel Hobby terms (Fast Data Transfer, Active CPU, Provisioned
+Memory) and must not claim retired monthly quotas such as build minutes or
+serverless GB-hours.
 
 Registry link fields (`repo`, `site`, `docs`, and `agent_entrypoint`) must use
 public HTTPS domains. Localhost, local or internal domains, credentials, and

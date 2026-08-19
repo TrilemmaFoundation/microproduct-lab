@@ -3,7 +3,7 @@ title: Deploy Quickstart
 description: Ship your microproduct for free using GitHub and the Vercel Hobby plan.
 slug: /playbook/deploy-quickstart
 tags: [playbook, build, deploy]
-last_reviewed: 2026-07-16
+last_reviewed: 2026-08-19
 authors: [trilemma-foundation]
 ---
 
@@ -82,11 +82,16 @@ branch. Share the preview link for review before merging to `main`.
 ## Hobby Plan Limits
 
 The Vercel Hobby plan is free and suitable for personal and non-commercial
-microproducts. Be aware of these constraints:
+microproducts. Confirm current figures on the [Hobby plan](https://vercel.com/docs/plans/hobby)
+and [fair use guidelines](https://vercel.com/docs/limits/fair-use-guidelines)
+before you plan around them:
 
-- **Bandwidth**: 100 GB per month
-- **Build minutes**: 6,000 per month
-- **Serverless execution**: 100 GB-hours per month
+- **Fast Data Transfer**: up to 100 GB per month
+- **Active CPU**: up to 4 CPU-hrs per month
+- **Provisioned Memory**: up to 360 GB-hrs per month
+- **Function invocations**: up to 1 million per month
+- **Builds**: Hobby has no monthly build-minute quota. Each deployment is
+  capped at 45 minutes of build time, with one concurrent build.
 - **Commercial use**: Hobby is for personal projects; commercial products need
   the Pro plan
 
