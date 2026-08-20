@@ -7,6 +7,7 @@ describe('Home page', () => {
     render(<Home />);
 
     expect(screen.getByTestId('layout')).toBeInTheDocument();
+    expect(screen.getByTestId('layout')).not.toHaveAttribute('data-title');
     expect(screen.getByRole('heading', { name: 'Turn Data Into Value' })).toBeInTheDocument();
     expect(
       screen.getByText(

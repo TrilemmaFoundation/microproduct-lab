@@ -4,10 +4,7 @@ import { PageSection } from '../components/ControlSurface';
 
 export default function Home() {
   return (
-    <Layout
-      title="Turn Data Into Value"
-      description="An open source knowledge hub by Trilemma Foundation for our community of builders."
-    >
+    <Layout description="An open source knowledge hub by Trilemma Foundation for our community of builders.">
       <main className="bt-shell">
         <div className="bt-page">
           <PageSection
