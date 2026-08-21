@@ -18,7 +18,7 @@ describe('playbookTreeUtils', () => {
             id: 'child',
             title: 'Child',
             description: 'Child',
-            docId: 'playbook/intro/mission',
+            docId: 'playbook/frame/frame',
           },
         ],
       },
@@ -26,6 +26,6 @@ describe('playbookTreeUtils', () => {
     const flat = flattenPlaybookNodes(tree);
     assert.equal(flat.length, 2);
     assert.equal(flat[0].id, 'root');
-    assert.equal(flat[1].docId, 'playbook/intro/mission');
+    assert.equal(flat[1].docId, 'playbook/frame/frame');
   });
 });

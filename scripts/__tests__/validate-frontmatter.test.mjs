@@ -238,16 +238,16 @@ describe('frontmatter parsing and validation', () => {
       [
         'title: Mission',
         'description: Why this hub exists.',
-        'slug: /intro/mission',
-        'canonical_human_url: /docs/intro/mission',
-        'section: intro',
-        'source_doc_id: playbook/intro/mission',
+        'slug: /playbook/frame',
+        'canonical_human_url: /docs/playbook/frame',
+        'section: frame',
+        'source_doc_id: playbook/frame/frame',
         'content_kind: mirror',
       ].join('\n'),
     );
     assert.deepEqual(
       validate(undefined, (root) =>
-        writeFile(root, 'docs/agents/human/playbook/intro/mission.md', mirrorDoc),
+        writeFile(root, 'docs/agents/human/playbook/frame/frame.md', mirrorDoc),
       ),
       [],
     );
@@ -269,9 +269,9 @@ describe('frontmatter parsing and validation', () => {
   it('rejects invalid generated mirror docs and mirror content_kind outside generated roots', () => {
     hasError(
       validate(undefined, (root) =>
-        writeFile(root, 'docs/agents/human/playbook/intro/bad.md', 'No frontmatter here'),
+        writeFile(root, 'docs/agents/human/playbook/frame/bad.md', 'No frontmatter here'),
       ),
-      'docs/agents/human/playbook/intro/bad.md: missing frontmatter block',
+      'docs/agents/human/playbook/frame/bad.md: missing frontmatter block',
     );
 
     hasError(

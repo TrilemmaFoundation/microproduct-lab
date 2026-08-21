@@ -14,7 +14,7 @@ describe('agentMirrorSearchIgnoreFiles', () => {
     expect(matches(pattern, '/agents/runbooks')).toBe(false);
     expect(matches(pattern, '/agents/human')).toBe(true);
     expect(matches(pattern, '/agents/human-overview')).toBe(true);
-    expect(matches(pattern, 'agents/intro/mission')).toBe(true);
+    expect(matches(pattern, 'agents/playbook/frame')).toBe(true);
     expect(matches(pattern, '/agents/playbook/frame')).toBe(true);
     expect(matches(pattern, '/agents/authors')).toBe(true);
     expect(matches(pattern, '/agents/resources')).toBe(true);

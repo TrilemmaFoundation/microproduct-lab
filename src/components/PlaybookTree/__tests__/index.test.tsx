@@ -65,7 +65,6 @@ describe('PlaybookTree', () => {
     expect(visibleNodeLabels).toEqual([
       'Human Overview',
       'Playbook',
-      'Intro',
       'Frame',
       'Build',
       'Operate',
@@ -150,10 +149,10 @@ describe('PlaybookTree', () => {
       '/docs/playbook/frame',
     );
 
-    fireEvent.click(screen.getByRole('button', {name: 'What Is a Microproduct?'}));
+    fireEvent.click(screen.getByRole('button', {name: 'Ideation'}));
     expect(within(detailPanel).getByRole('link', {name: 'Open module'})).toHaveAttribute(
       'href',
-      '/docs/intro/what-is-a-microproduct',
+      '/docs/playbook/ideation',
     );
   });
 

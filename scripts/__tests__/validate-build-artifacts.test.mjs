@@ -19,7 +19,7 @@ function writeFile(root, filePath, content = '') {
 }
 
 function matchingDeepPageHtml(
-  url = 'https://build.trilemma.foundation/docs/intro/what-is-a-microproduct',
+  url = 'https://build.trilemma.foundation/docs/playbook/frame',
 ) {
   return `<html><head><link rel=canonical href=${url}><meta property=og:url content=${url}></head></html>`;
 }
@@ -88,7 +88,7 @@ describe('build artifact validation', () => {
     writeFile(
       root,
       `build/${OG_URL_SAMPLE_PAGE}`,
-      '<link rel=canonical href=https://build.trilemma.foundation/docs/intro/what-is-a-microproduct><meta property=og:url content=https://build.trilemma.foundation>',
+      '<link rel=canonical href=https://build.trilemma.foundation/docs/playbook/frame><meta property=og:url content=https://build.trilemma.foundation>',
     );
     const errors = collectBuildArtifactErrors(root);
     assert.ok(errors.some((error) => error.includes('og:url does not match canonical')));

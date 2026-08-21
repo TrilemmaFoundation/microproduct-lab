@@ -84,7 +84,7 @@ describe('DocItemContent byline', () => {
         content_kind: 'foundation',
         authors: ['mohammad-ashkani'],
       },
-      '@site/docs/human/playbook/intro/what-is-a-microproduct.mdx',
+      '@site/docs/human/playbook/frame/frame.md',
     );
 
     expect(screen.getByText(/^By/i)).toBeInTheDocument();
@@ -97,7 +97,7 @@ describe('DocItemContent byline', () => {
       {
         authors: ['mohammad-ashkani'],
       },
-      '@site/docs/human/playbook/intro/what-is-a-microproduct.mdx',
+      '@site/docs/human/playbook/frame/frame.md',
     );
 
     expect(screen.getByText(/^By/i)).toBeInTheDocument();

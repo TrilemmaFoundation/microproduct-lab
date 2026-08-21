@@ -12,34 +12,6 @@
         "description": "A living collection of contributor-built modules for building microproducts that turn data into value, moving from shared foundations into the analytics development lifecycle: frame, build, and operate.",
         "children": [
           {
-            "id": "intro",
-            "title": "Intro",
-            "description": "Start with the shared concepts and mission behind the Build Trilemma docs.",
-            "children": [
-              {
-                "id": "what-is-a-microproduct",
-                "title": "What Is a Microproduct?",
-                "description": "The core definition: a focused product that turns data into value through an experience, workflow, or utility.",
-                "docId": "playbook/intro/what-is-a-microproduct",
-                "to": "/docs/intro/what-is-a-microproduct"
-              },
-              {
-                "id": "our-approach",
-                "title": "Our Approach",
-                "description": "The four-step method we use to turn a problem into a microproduct: identify the problem, identify the data, build the pipeline, build the microproduct.",
-                "docId": "playbook/intro/our-approach",
-                "to": "/docs/intro/our-approach"
-              },
-              {
-                "id": "mission",
-                "title": "Mission",
-                "description": "The reason this open knowledge hub exists and the outcomes it is meant to create.",
-                "docId": "playbook/intro/mission",
-                "to": "/docs/intro/mission"
-              }
-            ]
-          },
-          {
             "id": "frame-section",
             "title": "Frame",
             "description": "The planning layer of the analytics development lifecycle, organizing content around defining opportunities, understanding users, scoping microproducts, and analyzing whether an idea is worth building.",

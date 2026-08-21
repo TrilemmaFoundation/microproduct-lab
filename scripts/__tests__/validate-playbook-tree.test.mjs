@@ -24,15 +24,15 @@ describe('playbook tree validation', () => {
       'src/data/humanPlaybook.data.json',
       JSON.stringify([
         {
-          id: 'mission',
-          title: 'Mission',
-          description: 'Mission description',
-          docId: 'playbook/intro/mission',
-          to: '/docs/intro/mission',
+          id: 'frame',
+          title: 'Frame',
+          description: 'Frame description',
+          docId: 'playbook/frame/frame',
+          to: '/docs/playbook/frame',
         },
       ]),
     );
-    writeFile(root, 'docs/human/playbook/intro/mission.md', '# Mission\n');
+    writeFile(root, 'docs/human/playbook/frame/frame.md', '# Frame\n');
   });
 
   afterEach(() => {
@@ -45,19 +45,19 @@ describe('playbook tree validation', () => {
   });
 
   it('reports missing source files for docIds', () => {
-    fs.rmSync(path.join(root, 'docs/human/playbook/intro/mission.md'));
+    fs.rmSync(path.join(root, 'docs/human/playbook/frame/frame.md'));
     assert.ok(
       collectPlaybookTreeErrors(root).some((error) =>
-        error.includes("Source not found for docId 'playbook/intro/mission'"),
+        error.includes("Source not found for docId 'playbook/frame/frame'"),
       ),
     );
   });
 
   it('reports orphan docs not referenced by the tree', () => {
-    writeFile(root, 'docs/human/playbook/intro/orphan.md', '# Orphan\n');
+    writeFile(root, 'docs/human/playbook/frame/orphan.md', '# Orphan\n');
     assert.ok(
       collectPlaybookTreeErrors(root).some((error) =>
-        error.includes('docs/human/playbook/intro/orphan.md: not referenced'),
+        error.includes('docs/human/playbook/frame/orphan.md: not referenced'),
       ),
     );
   });
@@ -76,11 +76,11 @@ describe('playbook tree validation', () => {
       'src/data/humanPlaybook.data.json',
       JSON.stringify([
         {
-          id: 'mission',
-          title: 'Mission',
-          description: 'Mission description',
-          docId: 'playbook/intro/mission',
-          to: '/docs/intro/mission',
+          id: 'frame',
+          title: 'Frame',
+          description: 'Frame description',
+          docId: 'playbook/frame/frame',
+          to: '/docs/playbook/frame',
         },
       ]),
     );
