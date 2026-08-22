@@ -37,7 +37,7 @@ describe('agentDocsUtils', () => {
     assert.equal(sectionFromDocId('playbook/operate/operate'), 'operate');
     assert.equal(sectionFromDocId('playbook/grow/scale'), 'grow');
     assert.equal(sectionFromDocId('authors'), 'authors');
-    assert.equal(sectionFromDocId('human-overview'), 'overview');
+    assert.equal(sectionFromDocId('request-for-microproducts'), 'overview');
     assert.equal(sectionFromDocId('unknown/path'), 'other');
     assert.equal(agentSlugFromHumanTo('/docs/playbook/frame'), '/playbook/frame');
     assert.equal(agentSlugFromHumanTo('/docs'), '/');
@@ -167,15 +167,15 @@ Body
     const overview = renderAgentMirrorOverview(humanPlaybookTree);
     assert.match(overview, /Human Docs Mirror/);
     assert.match(overview, /\/agents\/playbook\/frame/);
-    assert.match(overview, /\/agents\/human-overview/);
+    assert.match(overview, /\/agents\/request-for-microproducts/);
     assert.match(overview, /### Playbook/);
     const customOverview = renderAgentMirrorOverview([
       {
         id: 'root',
         title: 'Root',
         description: 'Root description',
-        docId: 'human-overview',
-        to: '/docs/human-overview',
+        docId: 'request-for-microproducts',
+        to: '/docs/request-for-microproducts',
         children: [
           {
             id: 'section',
@@ -194,7 +194,7 @@ Body
         ],
       },
     ]);
-    assert.match(customOverview, /\/agents\/human-overview/);
+    assert.match(customOverview, /\/agents\/request-for-microproducts/);
     assert.match(customOverview, /  - \[Leaf\]/);
   });
 

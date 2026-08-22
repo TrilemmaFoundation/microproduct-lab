@@ -12,7 +12,7 @@ describe('human playbook data', () => {
         type: 'category',
         label: 'About',
         collapsible: false,
-        items: ['human-overview', 'request-for-microproducts', 'authors'],
+        items: ['request-for-microproducts', 'authors'],
       },
       {
         type: 'category',
@@ -46,11 +46,7 @@ describe('human playbook data', () => {
         type: 'category',
         label: 'About',
         collapsible: false,
-        items: [
-          'human/human-overview',
-          'human/request-for-microproducts',
-          'human/authors',
-        ],
+        items: ['human/request-for-microproducts', 'human/authors'],
       },
       {
         type: 'category',

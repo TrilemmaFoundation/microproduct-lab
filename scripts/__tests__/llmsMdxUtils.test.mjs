@@ -39,7 +39,7 @@ import {
 
 <PlaybookTree
   nodes={humanPlaybookTree}
-  initialSelectedId="human-overview"
+  initialSelectedId="request-for-microproducts"
 />
 
 Text after.

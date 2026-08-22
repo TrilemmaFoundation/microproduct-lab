@@ -52,7 +52,7 @@ describe('DocItemContent byline', () => {
       {
         content_kind: 'foundation',
       },
-      '@site/docs/human/human-overview.mdx',
+      '@site/docs/human/request-for-microproducts.md',
     );
 
     expect(screen.getByText(/Maintained by/i)).toBeInTheDocument();

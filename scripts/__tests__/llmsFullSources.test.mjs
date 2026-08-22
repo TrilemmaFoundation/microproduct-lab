@@ -15,7 +15,7 @@ describe('llmsFullSources', () => {
     assert.ok(relPaths.includes('docs/human/playbook/frame/frame.md'));
     assert.ok(relPaths.includes('docs/human/playbook/build/build.md'));
     assert.ok(relPaths.includes('docs/human/playbook/operate/operate.md'));
-    assert.ok(relPaths.includes('docs/human/human-overview.mdx'));
+    assert.ok(relPaths.includes('docs/human/request-for-microproducts.md'));
     assert.ok(relPaths.includes('static/registry.json'));
     assert.ok(relPaths.includes('docs/archetypes/simulation-backtesting-product.md'));
   });

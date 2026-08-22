@@ -245,8 +245,8 @@ const config: Config = {
           items: [
             { label: 'Home', to: '/' },
             {
-              label: 'Human Overview',
-              to: '/docs/human-overview',
+              label: 'Request For Microproducts',
+              to: '/docs/request-for-microproducts',
             },
             { label: 'Templates', to: '/templates' },
             { label: 'Agents', to: '/agents' },

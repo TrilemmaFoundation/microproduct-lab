@@ -33,7 +33,7 @@ export function sectionFromDocId(docId) {
   if (docId === 'authors') {
     return 'authors';
   }
-  if (docId === 'human-overview') {
+  if (docId === 'request-for-microproducts') {
     return 'overview';
   }
 

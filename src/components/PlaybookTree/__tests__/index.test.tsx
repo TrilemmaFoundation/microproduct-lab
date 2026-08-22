@@ -4,7 +4,7 @@ import {PlaybookTree, humanPlaybookTree} from '../index';
 
 describe('PlaybookTree', () => {
   const fullyExpandedIds = [
-    'human-overview',
+    'request-for-microproducts',
     'intro',
     'playbook',
     'frame-section',
@@ -15,17 +15,14 @@ describe('PlaybookTree', () => {
     render(
       <PlaybookTree
         nodes={humanPlaybookTree}
-        initialSelectedId="human-overview"
+        initialSelectedId="request-for-microproducts"
       />,
     );
 
     expect(
-      screen.getByRole('button', {name: 'Human Overview'}),
-    ).toBeInTheDocument();
-    expect(screen.getByRole('button', {name: 'Playbook'})).toBeInTheDocument();
-    expect(
       screen.getByRole('button', {name: 'Request For Microproducts'}),
     ).toBeInTheDocument();
+    expect(screen.getByRole('button', {name: 'Playbook'})).toBeInTheDocument();
     expect(screen.getByRole('button', {name: 'Authors'})).toBeInTheDocument();
     expect(screen.queryByRole('button', {name: 'Intro'})).not.toBeInTheDocument();
     expect(screen.queryByRole('button', {name: 'Plan'})).not.toBeInTheDocument();
@@ -40,9 +37,8 @@ describe('PlaybookTree', () => {
       .map((button) => button.textContent);
 
     expect(visibleNodeLabels).toEqual([
-      'Human Overview',
-      'Playbook',
       'Request For Microproducts',
+      'Playbook',
       'Authors',
     ]);
   });
@@ -51,8 +47,8 @@ describe('PlaybookTree', () => {
     render(
       <PlaybookTree
         nodes={humanPlaybookTree}
-        defaultExpandedIds={['human-overview', 'playbook']}
-        initialSelectedId="human-overview"
+        defaultExpandedIds={['request-for-microproducts', 'playbook']}
+        initialSelectedId="request-for-microproducts"
       />,
     );
 
@@ -65,12 +61,11 @@ describe('PlaybookTree', () => {
       .map((button) => button.textContent);
 
     expect(visibleNodeLabels).toEqual([
-      'Human Overview',
+      'Request For Microproducts',
       'Playbook',
       'Plan',
       'Build',
       'Operate',
-      'Request For Microproducts',
       'Authors',
     ]);
 
@@ -85,8 +80,8 @@ describe('PlaybookTree', () => {
     render(
       <PlaybookTree
         nodes={humanPlaybookTree}
-        defaultExpandedIds={['human-overview', 'playbook']}
-        initialSelectedId="human-overview"
+        defaultExpandedIds={['request-for-microproducts', 'playbook']}
+        initialSelectedId="request-for-microproducts"
       />,
     );
 
@@ -106,7 +101,7 @@ describe('PlaybookTree', () => {
       <PlaybookTree
         nodes={humanPlaybookTree}
         defaultExpandedIds={fullyExpandedIds}
-        initialSelectedId="human-overview"
+        initialSelectedId="request-for-microproducts"
       />,
     );
 
@@ -121,11 +116,11 @@ describe('PlaybookTree', () => {
     expect(screen.queryByText('Contributor focus')).not.toBeInTheDocument();
   });
 
-  it('shows the current-page state for the human overview root', () => {
+  it('shows the current-page state for the request page root', () => {
     render(
       <PlaybookTree
         nodes={humanPlaybookTree}
-        initialSelectedId="human-overview"
+        initialSelectedId="request-for-microproducts"
       />,
     );
 
@@ -168,7 +163,7 @@ describe('PlaybookTree', () => {
 
     const detailPanel = screen.getByRole('complementary');
     expect(
-      within(detailPanel).getByRole('heading', {name: 'Human Overview'}),
+      within(detailPanel).getByRole('heading', {name: 'Request For Microproducts'}),
     ).toBeInTheDocument();
   });
 });

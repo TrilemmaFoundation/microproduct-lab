@@ -1,10 +1,10 @@
 [
   {
-    "id": "human-overview",
-    "title": "Human Overview",
-    "docId": "human-overview",
-    "to": "/docs/human-overview",
-    "description": "The interactive guide to the knowledge hub, helping you understand its structure and explore how ideas connect across the ecosystem.",
+    "id": "request-for-microproducts",
+    "title": "Request For Microproducts",
+    "docId": "request-for-microproducts",
+    "to": "/docs/request-for-microproducts",
+    "description": "A call to build useful microproducts instead of portfolio projects optimized only for hiring signals.",
     "children": [
       {
         "id": "playbook",
@@ -54,13 +54,6 @@
             ]
           }
         ]
-      },
-      {
-        "id": "request-for-microproducts",
-        "title": "Request For Microproducts",
-        "description": "A call to build useful microproducts instead of portfolio projects optimized only for hiring signals.",
-        "docId": "request-for-microproducts",
-        "to": "/docs/request-for-microproducts"
       },
       {
         "id": "authors",

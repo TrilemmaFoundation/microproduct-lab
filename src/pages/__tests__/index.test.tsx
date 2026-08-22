@@ -16,7 +16,7 @@ describe('Home page', () => {
     ).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Humans' })).toHaveAttribute(
       'href',
-      '/docs/human-overview',
+      '/docs/request-for-microproducts',
     );
     expect(screen.getByRole('link', { name: 'Agents' })).toHaveAttribute(
       'href',

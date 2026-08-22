@@ -57,16 +57,6 @@
       "permanent": true
     },
     {
-      "source": "/docs/intro/human-overview",
-      "destination": "/docs/human-overview",
-      "permanent": true
-    },
-    {
-      "source": "/docs/intro/human-overview/",
-      "destination": "/docs/human-overview",
-      "permanent": true
-    },
-    {
       "source": "/docs/intro/authors",
       "destination": "/docs/authors",
       "permanent": true
