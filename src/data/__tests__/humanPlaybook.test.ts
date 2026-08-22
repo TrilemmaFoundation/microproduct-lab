@@ -116,4 +116,68 @@ describe('human playbook data', () => {
       }),
     ).toEqual(['root']);
   });
+
+  it('falls back to grouped categories when playbook sections are absent', () => {
+    const root = {
+      id: 'root',
+      title: 'Root',
+      description: 'Root document',
+      docId: 'root',
+      children: [
+        {
+          id: 'grouped',
+          title: 'Grouped',
+          description: 'A section with nested leaves',
+          children: [
+            {
+              id: 'nested',
+              title: 'Nested',
+              description: 'Nested leaf',
+              docId: 'nested',
+            },
+          ],
+        },
+        {
+          id: 'leaf',
+          title: 'Leaf',
+          description: 'A leaf without children',
+          docId: 'leaf',
+        },
+      ],
+    };
+
+    expect(buildHumanPlaybookSidebar(root)).toEqual([
+      'root',
+      {
+        type: 'category',
+        label: 'Grouped',
+        collapsed: false,
+        items: ['nested'],
+      },
+      {
+        type: 'category',
+        label: 'Leaf',
+        collapsed: false,
+        items: ['leaf'],
+      },
+    ]);
+
+    expect(buildAgentPlaybookSidebar(root)).toEqual([
+      'index',
+      'human/index',
+      'human/root',
+      {
+        type: 'category',
+        label: 'Grouped',
+        collapsed: false,
+        items: ['human/nested'],
+      },
+      {
+        type: 'category',
+        label: 'Leaf',
+        collapsed: false,
+        items: ['human/leaf'],
+      },
+    ]);
+  });
 });

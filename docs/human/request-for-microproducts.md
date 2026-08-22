@@ -12,7 +12,7 @@ You build personal projects to get hired.
 
 Because that is your motivation, you probably will not.
 
-Most technical talent have built personal projects to showcase on GitHub or in a portfolio. Here personal projects are not necessarily projects you build alone; they are projects you choose to pursue yourself. But too often, those projects exist for only one reason: to signal competence to an employer.
+Most technical talent has built personal projects to showcase on GitHub or in a portfolio. Here personal projects are not necessarily projects you build alone; they are projects you choose to pursue yourself. But too often, those projects exist for only one reason: to signal competence to an employer.
 
 That changes what gets built.
 
@@ -89,4 +89,3 @@ We call this new standard a Microproduct, and it follows a few guiding principle
 Trilemma Foundation wanted to capture this mindset for our community of builders, so we gave it a name: **Microproducts**.
 
 On its own, however, the term is abstract. A mindset is only useful if it changes how people build. That is why we created an open knowledge hub that turns Microproducts into a practical framework for identifying problems, creating value, and building projects that last.
-
