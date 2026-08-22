@@ -2,7 +2,7 @@
 
 This repository is the **Build Trilemma** site—patterns, templates, standards, registry, and playbooks for humans and AI agents—served from `https://build.trilemma.foundation`. Microproducts remain focused apps that turn data into usable tools and real utility.
 
-This repository is an open knowledge hub to help builders learn, contribute, and ship microproducts through community-reviewed playbooks, resources, and examples.
+This repository is an open knowledge hub to help builders learn, contribute, and ship microproducts through community-reviewed playbooks and examples.
 
 ## Start Here
 

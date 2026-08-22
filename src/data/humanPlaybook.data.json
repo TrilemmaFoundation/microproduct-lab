@@ -112,13 +112,6 @@
         ]
       },
       {
-        "id": "resources",
-        "title": "Resources",
-        "description": "Curated references that help builders execute faster without changing the playbook hierarchy.",
-        "docId": "resources/index",
-        "to": "/docs/resources"
-      },
-      {
         "id": "authors",
         "title": "Authors",
         "description": "The people and organizations listed in the shared author registry for the docs.",

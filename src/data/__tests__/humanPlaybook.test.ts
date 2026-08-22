@@ -44,11 +44,6 @@ describe('human playbook data', () => {
       },
       {
         type: 'category',
-        label: 'Resources',
-        items: ['resources/index'],
-      },
-      {
-        type: 'category',
         label: 'Authors',
         items: ['authors/index'],
       },
@@ -92,11 +87,6 @@ describe('human playbook data', () => {
             items: ['human/playbook/operate/operate'],
           },
         ],
-      },
-      {
-        type: 'category',
-        label: 'Resources',
-        items: ['human/resources/index'],
       },
       {
         type: 'category',

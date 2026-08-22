@@ -37,7 +37,6 @@ describe('agentDocsUtils', () => {
     assert.equal(sectionFromDocId('playbook/build/build'), 'build');
     assert.equal(sectionFromDocId('playbook/operate/operate'), 'operate');
     assert.equal(sectionFromDocId('playbook/grow/scale'), 'grow');
-    assert.equal(sectionFromDocId('resources/index'), 'resources');
     assert.equal(sectionFromDocId('authors/index'), 'authors');
     assert.equal(sectionFromDocId('human-overview'), 'overview');
     assert.equal(sectionFromDocId('unknown/path'), 'other');
@@ -48,7 +47,7 @@ describe('agentDocsUtils', () => {
 
   it('flattens the playbook tree and resolves human source files', () => {
     const leaves = flattenPlaybookNodes(humanPlaybookTree).filter((node) => node.docId);
-    assert.ok(leaves.length >= 14);
+    assert.ok(leaves.length >= 13);
     const humanDocsRoot = path.join(ROOT, 'docs', 'human');
     const sourcePath = resolveHumanSourceFile(
       humanDocsRoot,

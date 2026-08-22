@@ -23,7 +23,6 @@ describe('PlaybookTree', () => {
       screen.getByRole('button', {name: 'Human Overview'}),
     ).toBeInTheDocument();
     expect(screen.getByRole('button', {name: 'Playbook'})).toBeInTheDocument();
-    expect(screen.getByRole('button', {name: 'Resources'})).toBeInTheDocument();
     expect(screen.getByRole('button', {name: 'Authors'})).toBeInTheDocument();
     expect(screen.queryByRole('button', {name: 'Intro'})).not.toBeInTheDocument();
     expect(screen.queryByRole('button', {name: 'Frame'})).not.toBeInTheDocument();
@@ -40,7 +39,6 @@ describe('PlaybookTree', () => {
     expect(visibleNodeLabels).toEqual([
       'Human Overview',
       'Playbook',
-      'Resources',
       'Authors',
     ]);
   });
@@ -68,7 +66,6 @@ describe('PlaybookTree', () => {
       'Frame',
       'Build',
       'Operate',
-      'Resources',
       'Authors',
     ]);
 

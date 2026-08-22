@@ -30,9 +30,6 @@ export function assertPathInside(rootDir, candidatePath) {
 
 /** @param {string} docId */
 export function sectionFromDocId(docId) {
-  if (docId === 'resources/index') {
-    return 'resources';
-  }
   if (docId === 'authors/index') {
     return 'authors';
   }
