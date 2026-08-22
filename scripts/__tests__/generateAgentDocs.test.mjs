@@ -32,29 +32,27 @@ function writeFile(root, filePath, content) {
 
 describe('agentDocsUtils', () => {
   it('derives sections and agent slugs from human routes', () => {
-    assert.equal(sectionFromDocId('playbook/intro/mission'), 'intro');
-    assert.equal(sectionFromDocId('playbook/frame/design'), 'frame');
+    assert.equal(sectionFromDocId('playbook/frame/frame'), 'frame');
     assert.equal(sectionFromDocId('playbook/build/build'), 'build');
     assert.equal(sectionFromDocId('playbook/operate/operate'), 'operate');
     assert.equal(sectionFromDocId('playbook/grow/scale'), 'grow');
-    assert.equal(sectionFromDocId('resources/index'), 'resources');
-    assert.equal(sectionFromDocId('authors/index'), 'authors');
-    assert.equal(sectionFromDocId('human-overview'), 'overview');
+    assert.equal(sectionFromDocId('authors'), 'authors');
+    assert.equal(sectionFromDocId('request-for-microproducts'), 'overview');
     assert.equal(sectionFromDocId('unknown/path'), 'other');
-    assert.equal(agentSlugFromHumanTo('/docs/intro/mission'), '/intro/mission');
+    assert.equal(agentSlugFromHumanTo('/docs/playbook/frame'), '/playbook/frame');
     assert.equal(agentSlugFromHumanTo('/docs'), '/');
     assert.throws(() => agentSlugFromHumanTo('/agents/foo'), /Expected human route/);
   });
 
   it('flattens the playbook tree and resolves human source files', () => {
     const leaves = flattenPlaybookNodes(humanPlaybookTree).filter((node) => node.docId);
-    assert.ok(leaves.length >= 17);
+    assert.ok(leaves.length >= 5);
     const humanDocsRoot = path.join(ROOT, 'docs', 'human');
     const sourcePath = resolveHumanSourceFile(
       humanDocsRoot,
-      'playbook/intro/our-approach',
+      'playbook/frame/frame',
     );
-    assert.match(sourcePath, /our-approach\.md$/);
+    assert.match(sourcePath, /frame\.md$/);
     assert.throws(
       () => resolveHumanSourceFile(humanDocsRoot, 'missing/doc'),
       /Source not found/,
@@ -81,7 +79,7 @@ describe('agentDocsUtils', () => {
     const sourceText = `---
 title: Source Title
 description: Source description
-slug: /intro/example
+slug: /playbook/example
 ---
 
 import Foo from 'bar';
@@ -96,24 +94,24 @@ Body text.
       id: 'example',
       title: 'Fallback Title',
       description: 'Fallback description',
-      docId: 'playbook/intro/example',
-      to: '/docs/intro/example',
+      docId: 'playbook/frame/example',
+      to: '/docs/playbook/example',
     };
 
     const metadata = metadataFromNode(sourceText, node);
     assert.deepEqual(metadata, {
       title: 'Source Title',
       description: 'Source description',
-      slug: '/intro/example',
-      canonicalHumanUrl: '/docs/intro/example',
-      section: 'intro',
-      sourceDocId: 'playbook/intro/example',
+      slug: '/playbook/example',
+      canonicalHumanUrl: '/docs/playbook/example',
+      section: 'frame',
+      sourceDocId: 'playbook/frame/example',
     });
 
     const output = buildAgentMirrorDocument(sourceText, metadata);
     assert.match(output, /^---\n/);
     assert.match(output, /content_kind: mirror/);
-    assert.match(output, /canonical_human_url: \/docs\/intro\/example/);
+    assert.match(output, /canonical_human_url: \/docs\/playbook\/example/);
     assert.match(output, /Agent-first mirror/);
     assert.match(output, /# Heading/);
     assert.match(output, /Body text/);
@@ -123,15 +121,15 @@ Body text.
 
   it('falls back to tree metadata when frontmatter is missing', () => {
     const node = {
-      id: 'mission',
-      title: 'Mission',
-      description: 'Mission description',
-      docId: 'playbook/intro/mission',
-      to: '/docs/intro/mission',
+      id: 'frame',
+      title: 'Frame',
+      description: 'Frame description',
+      docId: 'playbook/frame/frame',
+      to: '/docs/playbook/frame',
     };
     const metadata = metadataFromNode('Plain body without frontmatter', node);
-    assert.equal(metadata.title, 'Mission');
-    assert.equal(metadata.slug, '/intro/mission');
+    assert.equal(metadata.title, 'Frame');
+    assert.equal(metadata.slug, '/playbook/frame');
     assert.throws(
       () => metadataFromNode('Body', {id: 'bad', title: 'Bad', description: 'Bad'}),
       /missing docId or to/,
@@ -140,11 +138,11 @@ Body text.
 
   it('falls back when frontmatter fields are not strings', () => {
     const node = {
-      id: 'mission',
-      title: 'Mission',
-      description: 'Mission description',
-      docId: 'playbook/intro/mission',
-      to: '/docs/intro/mission',
+      id: 'frame',
+      title: 'Frame',
+      description: 'Frame description',
+      docId: 'playbook/frame/frame',
+      to: '/docs/playbook/frame',
     };
     const sourceText = `---
 title: 123
@@ -155,9 +153,9 @@ slug: 99
 Body
 `;
     const metadata = metadataFromNode(sourceText, node);
-    assert.equal(metadata.title, 'Mission');
-    assert.equal(metadata.description, 'Mission description');
-    assert.equal(metadata.slug, '/intro/mission');
+    assert.equal(metadata.title, 'Frame');
+    assert.equal(metadata.description, 'Frame description');
+    assert.equal(metadata.slug, '/playbook/frame');
   });
 
   it('parses malformed frontmatter safely and renders overview links', () => {
@@ -168,16 +166,16 @@ Body
     assert.deepEqual(parseSourceFrontmatter('---\n42\n---\n'), {});
     const overview = renderAgentMirrorOverview(humanPlaybookTree);
     assert.match(overview, /Human Docs Mirror/);
-    assert.match(overview, /\/agents\/intro\/our-approach/);
-    assert.match(overview, /\/agents\/human-overview/);
+    assert.match(overview, /\/agents\/playbook\/frame/);
+    assert.match(overview, /\/agents\/request-for-microproducts/);
     assert.match(overview, /### Playbook/);
     const customOverview = renderAgentMirrorOverview([
       {
         id: 'root',
         title: 'Root',
         description: 'Root description',
-        docId: 'human-overview',
-        to: '/docs/human-overview',
+        docId: 'request-for-microproducts',
+        to: '/docs/request-for-microproducts',
         children: [
           {
             id: 'section',
@@ -188,15 +186,15 @@ Body
                 id: 'leaf',
                 title: 'Leaf',
                 description: 'Leaf description',
-                docId: 'playbook/intro/sample',
-                to: '/docs/intro/sample',
+                docId: 'playbook/frame/sample',
+                to: '/docs/playbook/sample',
               },
             ],
           },
         ],
       },
     ]);
-    assert.match(customOverview, /\/agents\/human-overview/);
+    assert.match(customOverview, /\/agents\/request-for-microproducts/);
     assert.match(customOverview, /  - \[Leaf\]/);
   });
 
@@ -237,15 +235,15 @@ describe('generateAgentDocs', () => {
           id: 'sample',
           title: 'Sample',
           description: 'Sample description',
-          docId: 'playbook/intro/sample',
-          to: '/docs/intro/sample',
+          docId: 'playbook/frame/sample',
+          to: '/docs/playbook/sample',
           children: [
             {
               id: 'another',
               title: 'Another',
               description: 'Another description',
-              docId: 'playbook/intro/another',
-              to: '/docs/intro/another',
+              docId: 'playbook/frame/another',
+              to: '/docs/playbook/another',
             },
           ],
         },
@@ -253,11 +251,11 @@ describe('generateAgentDocs', () => {
     );
     writeFile(
       tempRoot,
-      'docs/human/playbook/intro/sample.md',
+      'docs/human/playbook/frame/sample.md',
       `---
 title: Sample
 description: Sample description
-slug: /intro/sample
+slug: /playbook/sample
 ---
 
 # Sample body
@@ -265,11 +263,11 @@ slug: /intro/sample
     );
     writeFile(
       tempRoot,
-      'docs/human/playbook/intro/another.md',
+      'docs/human/playbook/frame/another.md',
       `---
 title: Another
 description: Another description
-slug: /intro/another
+slug: /playbook/another
 ---
 
 # Another body
@@ -278,20 +276,20 @@ slug: /intro/another
     writeFile(tempRoot, 'docs/agents/human/stale.md', '# stale mirror output\n');
 
     const {written, mirrorRoot} = generateAgentDocs({root: tempRoot});
-    assert.deepEqual(written, ['playbook/intro/another', 'playbook/intro/sample']);
+    assert.deepEqual(written, ['playbook/frame/another', 'playbook/frame/sample']);
     assert.equal(mirrorRoot, path.join(tempRoot, 'docs', 'agents', 'human'));
     assert.equal(fs.existsSync(path.join(mirrorRoot, 'stale.md')), false);
 
     const sample = fs.readFileSync(
-      path.join(mirrorRoot, 'playbook', 'intro', 'sample.md'),
+      path.join(mirrorRoot, 'playbook', 'frame', 'sample.md'),
       'utf8',
     );
-    assert.match(sample, /source_doc_id: playbook\/intro\/sample/);
+    assert.match(sample, /source_doc_id: playbook\/frame\/sample/);
     assert.match(sample, /# Sample body/);
 
     const overview = fs.readFileSync(path.join(mirrorRoot, 'index.md'), 'utf8');
     assert.match(overview, /Human Docs Mirror/);
-    assert.match(overview, /\/agents\/intro\/sample/);
+    assert.match(overview, /\/agents\/playbook\/sample/);
   });
 
   it('rejects docIds that escape the agent mirror root', () => {

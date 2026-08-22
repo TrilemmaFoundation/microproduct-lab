@@ -6,7 +6,7 @@ import {pathToFileURL} from 'node:url';
 
 /** Deep page used to assert per-page Open Graph URL identity. */
 export const OG_URL_SAMPLE_PAGE =
-  'docs/intro/what-is-a-microproduct/index.html';
+  'docs/playbook/frame/index.html';
 
 /** Hashed or unhashed local-search index emitted into `build/`. */
 export const SEARCH_INDEX_BASENAME = /^search-index.*\.json$/;

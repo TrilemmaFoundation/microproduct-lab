@@ -4,7 +4,7 @@ import {PlaybookTree, humanPlaybookTree} from '../index';
 
 describe('PlaybookTree', () => {
   const fullyExpandedIds = [
-    'human-overview',
+    'request-for-microproducts',
     'intro',
     'playbook',
     'frame-section',
@@ -15,18 +15,17 @@ describe('PlaybookTree', () => {
     render(
       <PlaybookTree
         nodes={humanPlaybookTree}
-        initialSelectedId="human-overview"
+        initialSelectedId="request-for-microproducts"
       />,
     );
 
     expect(
-      screen.getByRole('button', {name: 'Human Overview'}),
+      screen.getByRole('button', {name: 'Request For Microproducts'}),
     ).toBeInTheDocument();
     expect(screen.getByRole('button', {name: 'Playbook'})).toBeInTheDocument();
-    expect(screen.getByRole('button', {name: 'Resources'})).toBeInTheDocument();
     expect(screen.getByRole('button', {name: 'Authors'})).toBeInTheDocument();
     expect(screen.queryByRole('button', {name: 'Intro'})).not.toBeInTheDocument();
-    expect(screen.queryByRole('button', {name: 'Frame'})).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', {name: 'Plan'})).not.toBeInTheDocument();
     expect(screen.queryByRole('button', {name: 'Build'})).not.toBeInTheDocument();
     expect(screen.queryByRole('button', {name: 'Operate'})).not.toBeInTheDocument();
     expect(screen.queryByText(/Level \d/)).not.toBeInTheDocument();
@@ -38,9 +37,8 @@ describe('PlaybookTree', () => {
       .map((button) => button.textContent);
 
     expect(visibleNodeLabels).toEqual([
-      'Human Overview',
+      'Request For Microproducts',
       'Playbook',
-      'Resources',
       'Authors',
     ]);
   });
@@ -49,12 +47,12 @@ describe('PlaybookTree', () => {
     render(
       <PlaybookTree
         nodes={humanPlaybookTree}
-        defaultExpandedIds={['human-overview', 'playbook']}
-        initialSelectedId="human-overview"
+        defaultExpandedIds={['request-for-microproducts', 'playbook']}
+        initialSelectedId="request-for-microproducts"
       />,
     );
 
-    expect(screen.queryByRole('button', {name: 'Ideation'})).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', {name: 'Frame'})).not.toBeInTheDocument();
 
     const tree = screen.getByRole('list', {name: 'Human playbook tree'});
     const visibleNodeLabels = within(tree)
@@ -63,37 +61,35 @@ describe('PlaybookTree', () => {
       .map((button) => button.textContent);
 
     expect(visibleNodeLabels).toEqual([
-      'Human Overview',
+      'Request For Microproducts',
       'Playbook',
-      'Intro',
-      'Frame',
+      'Plan',
       'Build',
       'Operate',
-      'Resources',
       'Authors',
     ]);
 
-    fireEvent.click(screen.getByRole('button', {name: 'Expand Frame'}));
-    expect(screen.getByRole('button', {name: 'Ideation'})).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', {name: 'Expand Plan'}));
+    expect(screen.getByRole('button', {name: 'Frame'})).toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole('button', {name: 'Collapse Frame'}));
-    expect(screen.queryByRole('button', {name: 'Ideation'})).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', {name: 'Collapse Plan'}));
+    expect(screen.queryByRole('button', {name: 'Frame'})).not.toBeInTheDocument();
   });
 
   it('treats folder-like sections as non-module containers', () => {
     render(
       <PlaybookTree
         nodes={humanPlaybookTree}
-        defaultExpandedIds={['human-overview', 'playbook']}
-        initialSelectedId="human-overview"
+        defaultExpandedIds={['request-for-microproducts', 'playbook']}
+        initialSelectedId="request-for-microproducts"
       />,
     );
 
-    fireEvent.click(screen.getByRole('button', {name: 'Frame'}));
+    fireEvent.click(screen.getByRole('button', {name: 'Plan'}));
 
     const detailPanel = screen.getByRole('complementary');
     expect(
-      within(detailPanel).getByRole('heading', {name: 'Frame'}),
+      within(detailPanel).getByRole('heading', {name: 'Plan'}),
     ).toBeInTheDocument();
     expect(
       within(detailPanel).queryByRole('link', {name: 'Open module'}),
@@ -105,26 +101,26 @@ describe('PlaybookTree', () => {
       <PlaybookTree
         nodes={humanPlaybookTree}
         defaultExpandedIds={fullyExpandedIds}
-        initialSelectedId="human-overview"
+        initialSelectedId="request-for-microproducts"
       />,
     );
 
-    fireEvent.click(screen.getByRole('button', {name: 'QA Methodology'}));
+    fireEvent.click(screen.getAllByRole('button', {name: 'Build'}).at(-1)!);
 
     expect(
-      screen.getByRole('heading', {name: 'QA Methodology'}),
+      screen.getByRole('heading', {name: 'Build'}),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(/Use quality gates, behavior-driven checks/i),
+      screen.getByText(/Execute, validate quality, and deliver/i),
     ).toBeInTheDocument();
     expect(screen.queryByText('Contributor focus')).not.toBeInTheDocument();
   });
 
-  it('shows the current-page state for the human overview root', () => {
+  it('shows the current-page state for the request page root', () => {
     render(
       <PlaybookTree
         nodes={humanPlaybookTree}
-        initialSelectedId="human-overview"
+        initialSelectedId="request-for-microproducts"
       />,
     );
 
@@ -150,10 +146,10 @@ describe('PlaybookTree', () => {
       '/docs/playbook/frame',
     );
 
-    fireEvent.click(screen.getByRole('button', {name: 'What Is a Microproduct?'}));
+    fireEvent.click(screen.getAllByRole('button', {name: 'Build'}).at(-1)!);
     expect(within(detailPanel).getByRole('link', {name: 'Open module'})).toHaveAttribute(
       'href',
-      '/docs/intro/what-is-a-microproduct',
+      '/docs/playbook/build',
     );
   });
 
@@ -167,7 +163,7 @@ describe('PlaybookTree', () => {
 
     const detailPanel = screen.getByRole('complementary');
     expect(
-      within(detailPanel).getByRole('heading', {name: 'Human Overview'}),
+      within(detailPanel).getByRole('heading', {name: 'Request For Microproducts'}),
     ).toBeInTheDocument();
   });
 });

@@ -2,12 +2,12 @@
 
 This repository is the **Build Trilemma** site—patterns, templates, standards, registry, and playbooks for humans and AI agents—served from `https://build.trilemma.foundation`. Microproducts remain focused apps that turn data into usable tools and real utility.
 
-This repository is an open knowledge hub to help builders learn, contribute, and ship microproducts through community-reviewed playbooks, resources, and examples.
+This repository is an open knowledge hub to help builders learn, contribute, and ship microproducts through community-reviewed playbooks and examples.
 
 ## Start Here
 
-- **Site routing:** On the deployed site, `/` is an audience chooser. Use `/docs/human-overview` as the human entry point and `/agents` as the agent web hub (paths match this repo’s Docusaurus routes). Navbar search (Cmd/Ctrl+K) covers every docs island; generated agent-mirror playbook pages are omitted so those hits resolve to `/docs/...`. Stable machine-readable URLs such as `/registry.json` and `/schemas/product.schema.json` are summarized on the agents hub.
-- Read: [What is a Microproduct?](docs/human/playbook/intro/what-is-a-microproduct.mdx)
+- **Site routing:** On the deployed site, `/` is an audience chooser. Use `/docs/request-for-microproducts` as the human entry point and `/agents` as the agent web hub (paths match this repo’s Docusaurus routes). Navbar search (Cmd/Ctrl+K) covers every docs island; generated agent-mirror playbook pages are omitted so those hits resolve to `/docs/...`. Stable machine-readable URLs such as `/registry.json` and `/schemas/product.schema.json` are summarized on the agents hub.
+- Read: [Frame](docs/human/playbook/frame/frame.md)
 - Learn the process: [Playbook](docs/human/playbook/frame/ideation.md)
 - Explore examples: [Showcase](docs/showcase/microproducts.md)
 - Contribute: [How to contribute](docs/contribute/how-to-contribute.md)

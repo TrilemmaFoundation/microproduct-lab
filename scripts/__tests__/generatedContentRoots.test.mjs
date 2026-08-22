@@ -17,11 +17,11 @@ describe('generatedContentRoots', () => {
 
   it('detects files under generated roots', () => {
     const generatedPath = path.join(ROOT, 'docs/agents/human/index.md');
-    const canonicalPath = path.join(ROOT, 'docs/human/playbook/intro/mission.md');
+    const canonicalPath = path.join(ROOT, 'docs/human/playbook/frame/frame.md');
     assert.equal(isUnderGeneratedContentRoot(generatedPath, ROOT), true);
     assert.equal(isUnderGeneratedContentRoot(canonicalPath, ROOT), false);
     assert.equal(
-      isUnderGeneratedContentRoot('docs/agents/human/playbook/intro/mission.md', ROOT),
+      isUnderGeneratedContentRoot('docs/agents/human/playbook/frame/frame.md', ROOT),
       true,
     );
   });

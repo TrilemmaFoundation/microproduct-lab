@@ -8,58 +8,32 @@ import {flattenPlaybookNodes} from '../../utils/playbookTree';
 describe('human playbook data', () => {
   it('generates the canonical sidebar hierarchy', () => {
     expect(buildHumanPlaybookSidebar()).toEqual([
-      'human-overview',
       {
         type: 'category',
-        label: 'Playbook',
-        items: [
-          {
-            type: 'category',
-            label: 'Intro',
-            items: [
-              'playbook/intro/what-is-a-microproduct',
-              'playbook/intro/our-approach',
-              'playbook/intro/mission',
-            ],
-          },
-          {
-            type: 'category',
-            label: 'Frame',
-            items: [
-              'playbook/frame/frame',
-              'playbook/frame/ideation',
-              'playbook/frame/design',
-              'playbook/frame/architecture',
-              'playbook/frame/data-stack-analytics-engineering',
-            ],
-          },
-          {
-            type: 'category',
-            label: 'Build',
-            items: [
-              'playbook/build/build',
-              'playbook/build/build-module',
-              'playbook/build/qa-methodology',
-              'playbook/build/release',
-              'playbook/build/deploy-quickstart',
-            ],
-          },
-          {
-            type: 'category',
-            label: 'Operate',
-            items: ['playbook/operate/operate'],
-          },
-        ],
+        label: 'About',
+        collapsible: false,
+        items: ['request-for-microproducts', 'authors'],
       },
       {
         type: 'category',
-        label: 'Resources',
-        items: ['resources/index'],
+        label: 'Plan',
+        collapsed: false,
+        collapsible: false,
+        items: ['playbook/frame/frame'],
       },
       {
         type: 'category',
-        label: 'Authors',
-        items: ['authors/index'],
+        label: 'Build',
+        collapsed: false,
+        collapsible: false,
+        items: ['playbook/build/build'],
+      },
+      {
+        type: 'category',
+        label: 'Operate',
+        collapsed: false,
+        collapsible: false,
+        items: ['playbook/operate/operate'],
       },
     ]);
   });
@@ -68,58 +42,32 @@ describe('human playbook data', () => {
     expect(buildAgentPlaybookSidebar()).toEqual([
       'index',
       'human/index',
-      'human/human-overview',
       {
         type: 'category',
-        label: 'Playbook',
-        items: [
-          {
-            type: 'category',
-            label: 'Intro',
-            items: [
-              'human/playbook/intro/what-is-a-microproduct',
-              'human/playbook/intro/our-approach',
-              'human/playbook/intro/mission',
-            ],
-          },
-          {
-            type: 'category',
-            label: 'Frame',
-            items: [
-              'human/playbook/frame/frame',
-              'human/playbook/frame/ideation',
-              'human/playbook/frame/design',
-              'human/playbook/frame/architecture',
-              'human/playbook/frame/data-stack-analytics-engineering',
-            ],
-          },
-          {
-            type: 'category',
-            label: 'Build',
-            items: [
-              'human/playbook/build/build',
-              'human/playbook/build/build-module',
-              'human/playbook/build/qa-methodology',
-              'human/playbook/build/release',
-              'human/playbook/build/deploy-quickstart',
-            ],
-          },
-          {
-            type: 'category',
-            label: 'Operate',
-            items: ['human/playbook/operate/operate'],
-          },
-        ],
+        label: 'About',
+        collapsible: false,
+        items: ['human/request-for-microproducts', 'human/authors'],
       },
       {
         type: 'category',
-        label: 'Resources',
-        items: ['human/resources/index'],
+        label: 'Plan',
+        collapsed: false,
+        collapsible: false,
+        items: ['human/playbook/frame/frame'],
       },
       {
         type: 'category',
-        label: 'Authors',
-        items: ['human/authors/index'],
+        label: 'Build',
+        collapsed: false,
+        collapsible: false,
+        items: ['human/playbook/build/build'],
+      },
+      {
+        type: 'category',
+        label: 'Operate',
+        collapsed: false,
+        collapsible: false,
+        items: ['human/playbook/operate/operate'],
       },
     ]);
   });
@@ -167,5 +115,69 @@ describe('human playbook data', () => {
         docId: 'root',
       }),
     ).toEqual(['root']);
+  });
+
+  it('falls back to grouped categories when playbook sections are absent', () => {
+    const root = {
+      id: 'root',
+      title: 'Root',
+      description: 'Root document',
+      docId: 'root',
+      children: [
+        {
+          id: 'grouped',
+          title: 'Grouped',
+          description: 'A section with nested leaves',
+          children: [
+            {
+              id: 'nested',
+              title: 'Nested',
+              description: 'Nested leaf',
+              docId: 'nested',
+            },
+          ],
+        },
+        {
+          id: 'leaf',
+          title: 'Leaf',
+          description: 'A leaf without children',
+          docId: 'leaf',
+        },
+      ],
+    };
+
+    expect(buildHumanPlaybookSidebar(root)).toEqual([
+      'root',
+      {
+        type: 'category',
+        label: 'Grouped',
+        collapsed: false,
+        items: ['nested'],
+      },
+      {
+        type: 'category',
+        label: 'Leaf',
+        collapsed: false,
+        items: ['leaf'],
+      },
+    ]);
+
+    expect(buildAgentPlaybookSidebar(root)).toEqual([
+      'index',
+      'human/index',
+      'human/root',
+      {
+        type: 'category',
+        label: 'Grouped',
+        collapsed: false,
+        items: ['human/nested'],
+      },
+      {
+        type: 'category',
+        label: 'Leaf',
+        collapsed: false,
+        items: ['human/leaf'],
+      },
+    ]);
   });
 });

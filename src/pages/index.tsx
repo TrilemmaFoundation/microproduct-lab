@@ -15,7 +15,7 @@ export default function Home() {
             <div className="bt-hero-actions" aria-label="Choose your path">
               <Link
                 className="bt-hero-button bt-hero-button--primary"
-                to="/docs/human-overview"
+                to="/docs/request-for-microproducts"
               >
                 Humans
               </Link>

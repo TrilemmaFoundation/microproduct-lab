@@ -52,7 +52,7 @@ describe('DocItemContent byline', () => {
       {
         content_kind: 'foundation',
       },
-      '@site/docs/human/human-overview.mdx',
+      '@site/docs/human/request-for-microproducts.md',
     );
 
     expect(screen.getByText(/Maintained by/i)).toBeInTheDocument();
@@ -69,7 +69,7 @@ describe('DocItemContent byline', () => {
         content_kind: 'reference',
         authors: ['trilemma-foundation'],
       },
-      '@site/docs/human/authors/index.mdx',
+      '@site/docs/human/authors.mdx',
     );
 
     expect(screen.getByText(/Maintained by/i)).toBeInTheDocument();
@@ -84,7 +84,7 @@ describe('DocItemContent byline', () => {
         content_kind: 'foundation',
         authors: ['mohammad-ashkani'],
       },
-      '@site/docs/human/playbook/intro/what-is-a-microproduct.mdx',
+      '@site/docs/human/playbook/frame/frame.md',
     );
 
     expect(screen.getByText(/^By/i)).toBeInTheDocument();
@@ -97,7 +97,7 @@ describe('DocItemContent byline', () => {
       {
         authors: ['mohammad-ashkani'],
       },
-      '@site/docs/human/playbook/intro/what-is-a-microproduct.mdx',
+      '@site/docs/human/playbook/frame/frame.md',
     );
 
     expect(screen.getByText(/^By/i)).toBeInTheDocument();

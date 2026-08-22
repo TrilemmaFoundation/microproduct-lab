@@ -238,16 +238,16 @@ describe('frontmatter parsing and validation', () => {
       [
         'title: Mission',
         'description: Why this hub exists.',
-        'slug: /intro/mission',
-        'canonical_human_url: /docs/intro/mission',
-        'section: intro',
-        'source_doc_id: playbook/intro/mission',
+        'slug: /playbook/frame',
+        'canonical_human_url: /docs/playbook/frame',
+        'section: frame',
+        'source_doc_id: playbook/frame/frame',
         'content_kind: mirror',
       ].join('\n'),
     );
     assert.deepEqual(
       validate(undefined, (root) =>
-        writeFile(root, 'docs/agents/human/playbook/intro/mission.md', mirrorDoc),
+        writeFile(root, 'docs/agents/human/playbook/frame/frame.md', mirrorDoc),
       ),
       [],
     );
@@ -269,9 +269,9 @@ describe('frontmatter parsing and validation', () => {
   it('rejects invalid generated mirror docs and mirror content_kind outside generated roots', () => {
     hasError(
       validate(undefined, (root) =>
-        writeFile(root, 'docs/agents/human/playbook/intro/bad.md', 'No frontmatter here'),
+        writeFile(root, 'docs/agents/human/playbook/frame/bad.md', 'No frontmatter here'),
       ),
-      'docs/agents/human/playbook/intro/bad.md: missing frontmatter block',
+      'docs/agents/human/playbook/frame/bad.md: missing frontmatter block',
     );
 
     hasError(
@@ -353,38 +353,4 @@ describe('frontmatter parsing and validation', () => {
     assert.equal(extractFrontmatter('Body'), null);
   });
 
-  it('rejects retired Vercel Hobby quota copy in deploy-quickstart', () => {
-    const errors = validate(undefined, (root) =>
-      writeFile(
-        root,
-        'docs/human/playbook/build/deploy-quickstart.md',
-        `${frontmatter(validMission)}\n- **Build minutes**: 6,000 per month\n- **Serverless execution**: 100 GB-hours per month\n`,
-      ),
-    );
-    hasError(errors, "must not list a Hobby 'Build minutes' monthly quota");
-    hasError(errors, 'must not claim a 6,000-per-month Hobby quota');
-    hasError(errors, "must not list a Hobby 'Serverless execution' quota");
-    hasError(errors, 'must not claim 100 GB-hours of Hobby serverless execution');
-  });
-
-  it('accepts current Vercel Hobby limit copy in deploy-quickstart', () => {
-    const hobbySection = [
-      'See [Hobby plan](https://vercel.com/docs/plans/hobby) and',
-      '[fair use](https://vercel.com/docs/limits/fair-use-guidelines).',
-      '',
-      '- **Fast Data Transfer**: up to 100 GB per month',
-      '- **Active CPU**: up to 4 CPU-hrs per month',
-      '- **Provisioned Memory**: up to 360 GB-hrs per month',
-    ].join('\n');
-    assert.deepEqual(
-      validate(undefined, (root) =>
-        writeFile(
-          root,
-          'docs/human/playbook/build/deploy-quickstart.md',
-          `${frontmatter(validMission)}\n${hobbySection}\n`,
-        ),
-      ),
-      [],
-    );
-  });
 });

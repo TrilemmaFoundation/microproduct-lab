@@ -9,7 +9,7 @@ Site routes:
 - / — Audience chooser (agents vs humans)
 - /agents — Web entry for AI agents
 - /agents/human — Browsable agent-first mirror of the human playbook
-- /docs/human-overview — Default human overview and playbook tree
+- /docs/request-for-microproducts — Default human entry point and microproduct call
 
 Core resources:
 - Agent instructions: /AGENTS.md

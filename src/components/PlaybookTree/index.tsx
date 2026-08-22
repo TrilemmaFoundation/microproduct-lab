@@ -107,7 +107,7 @@ export function PlaybookTree({
   );
   const [selectedId, setSelectedId] = useState(initialNode.id);
   const selectedNode = findNode(nodes, selectedId);
-  const isCurrentPage = selectedNode.id === 'human-overview';
+  const isCurrentPage = selectedNode.id === nodes[0]?.id;
 
   function toggleNode(id: string) {
     setExpandedIds((currentIds) => {

@@ -15,7 +15,7 @@ function escapeRegex(value: string): string {
 
 /**
  * Ignore generated agent-mirror routes. Mirror pages copy human slugs onto
- * `/agents` (for example `/docs/intro/mission` → `/agents/intro/mission`), so
+ * `/agents` (for example `/docs/playbook/frame` → `/agents/playbook/frame`), so
  * exclusion follows playbook `to` paths plus the generated overview slug.
  */
 export function agentMirrorSearchIgnoreFiles(
