@@ -52,7 +52,7 @@ describe('PlaybookTree', () => {
       />,
     );
 
-    expect(screen.queryByRole('button', {name: 'Ideation'})).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', {name: 'Frame'})).not.toBeInTheDocument();
 
     const tree = screen.getByRole('list', {name: 'Human playbook tree'});
     const visibleNodeLabels = within(tree)
@@ -70,10 +70,10 @@ describe('PlaybookTree', () => {
     ]);
 
     fireEvent.click(screen.getByRole('button', {name: 'Expand Plan'}));
-    expect(screen.getByRole('button', {name: 'Ideation'})).toBeInTheDocument();
+    expect(screen.getByRole('button', {name: 'Frame'})).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole('button', {name: 'Collapse Plan'}));
-    expect(screen.queryByRole('button', {name: 'Ideation'})).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', {name: 'Frame'})).not.toBeInTheDocument();
   });
 
   it('treats folder-like sections as non-module containers', () => {
@@ -105,13 +105,13 @@ describe('PlaybookTree', () => {
       />,
     );
 
-    fireEvent.click(screen.getByRole('button', {name: 'QA Methodology'}));
+    fireEvent.click(screen.getAllByRole('button', {name: 'Build'}).at(-1)!);
 
     expect(
-      screen.getByRole('heading', {name: 'QA Methodology'}),
+      screen.getByRole('heading', {name: 'Build'}),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(/Use quality gates, behavior-driven checks/i),
+      screen.getByText(/Execute, validate quality, and deliver/i),
     ).toBeInTheDocument();
     expect(screen.queryByText('Contributor focus')).not.toBeInTheDocument();
   });
@@ -146,10 +146,10 @@ describe('PlaybookTree', () => {
       '/docs/playbook/frame',
     );
 
-    fireEvent.click(screen.getByRole('button', {name: 'Ideation'}));
+    fireEvent.click(screen.getAllByRole('button', {name: 'Build'}).at(-1)!);
     expect(within(detailPanel).getByRole('link', {name: 'Open module'})).toHaveAttribute(
       'href',
-      '/docs/playbook/ideation',
+      '/docs/playbook/build',
     );
   });
 

@@ -33,7 +33,6 @@ function writeFile(root, filePath, content) {
 describe('agentDocsUtils', () => {
   it('derives sections and agent slugs from human routes', () => {
     assert.equal(sectionFromDocId('playbook/frame/frame'), 'frame');
-    assert.equal(sectionFromDocId('playbook/frame/design'), 'frame');
     assert.equal(sectionFromDocId('playbook/build/build'), 'build');
     assert.equal(sectionFromDocId('playbook/operate/operate'), 'operate');
     assert.equal(sectionFromDocId('playbook/grow/scale'), 'grow');
@@ -47,13 +46,13 @@ describe('agentDocsUtils', () => {
 
   it('flattens the playbook tree and resolves human source files', () => {
     const leaves = flattenPlaybookNodes(humanPlaybookTree).filter((node) => node.docId);
-    assert.ok(leaves.length >= 13);
+    assert.ok(leaves.length >= 5);
     const humanDocsRoot = path.join(ROOT, 'docs', 'human');
     const sourcePath = resolveHumanSourceFile(
       humanDocsRoot,
-      'playbook/frame/design',
+      'playbook/frame/frame',
     );
-    assert.match(sourcePath, /design\.md$/);
+    assert.match(sourcePath, /frame\.md$/);
     assert.throws(
       () => resolveHumanSourceFile(humanDocsRoot, 'missing/doc'),
       /Source not found/,

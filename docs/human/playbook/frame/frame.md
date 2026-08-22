@@ -24,11 +24,4 @@ Establish whether a microproduct is worth building and feasible to deliver befor
 - Go/no-go criteria for moving into implementation.
 - Architecture decision brief with pipeline, storage, and cost assumptions.
 
-## Module Map
-
-- [Ideation](./ideation): define demand, data availability, and minimum useful outcome.
-- [Design](./design): translate requirements into concrete specifications and product shape.
-- [Architecture](./architecture): pick a modern data pipeline and justify key system decisions.
-- [Data Stack & Analytics Engineering](./data-stack-analytics-engineering): choose orchestration, transformation, and storage for reliable data workflows.
-
 [Propose an improvement](https://github.com/TrilemmaFoundation/microproduct-lab/pulls)

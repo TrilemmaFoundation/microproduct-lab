@@ -6,7 +6,6 @@ import {JSON_SCHEMA, load} from 'js-yaml';
 
 import {isUnderGeneratedContentRoot} from './generatedContentRoots.mjs';
 import {extractFrontmatter} from './frontmatterUtils.mjs';
-import {collectDeployQuickstartHobbyLimitErrors} from './hobbyPlanLimits.mjs';
 import {validatePublicHttpsUrl} from './publicUrl.mjs';
 
 export {extractFrontmatter};
@@ -245,7 +244,6 @@ export function collectFrontmatterErrors(root = process.cwd()) {
   }
 
   validateShowcaseTable(root, errors);
-  errors.push(...collectDeployQuickstartHobbyLimitErrors(root));
   return errors;
 }
 

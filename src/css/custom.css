@@ -357,6 +357,34 @@ textarea:focus-visible {
   html.plugin-id-default.docs-doc-page
     .theme-doc-sidebar-container
     .theme-doc-sidebar-item-category
+    > .menu__list-item-collapsible,
+  html.plugin-id-default.docs-doc-page
+    .theme-doc-sidebar-container
+    .theme-doc-sidebar-item-category
+    > .menu__list-item-collapsible:hover,
+  html.plugin-id-default.docs-doc-page
+    .theme-doc-sidebar-container
+    .theme-doc-sidebar-item-category
+    > .menu__list-item-collapsible--active {
+    background: transparent;
+  }
+
+  html.plugin-id-default.docs-doc-page
+    .theme-doc-sidebar-container
+    .theme-doc-sidebar-item-category
+    > .menu__list-item-collapsible
+    .menu__caret:hover,
+  html.plugin-id-default.docs-doc-page
+    .theme-doc-sidebar-container
+    .theme-doc-sidebar-item-category
+    > .menu__list-item-collapsible
+    .menu__caret:focus {
+    background: transparent;
+  }
+
+  html.plugin-id-default.docs-doc-page
+    .theme-doc-sidebar-container
+    .theme-doc-sidebar-item-category
     > .menu__list-item-collapsible
     .menu__link {
     color: var(--color-text-primary);

@@ -24,11 +24,4 @@ Ship a reliable MVP by combining focused execution, explicit delivery workflows,
 - QA evidence for critical flows, error paths, and accessibility basics.
 - Pilot release summary with observed failures and next-iteration priorities.
 
-## Module Map
-
-- [Delivery Workflow](./build-module): translate scope into focused build tasks and working product slices.
-- [QA Methodology](./qa-methodology): use quality gates and review norms to keep builds reliable.
-- [Release Checklist](./release): decide whether a release candidate is ready to deploy.
-- [Deploy Quickstart](./deploy-quickstart): ship your microproduct using GitHub and Vercel.
-
 [Propose an improvement](https://github.com/TrilemmaFoundation/microproduct-lab/pulls)

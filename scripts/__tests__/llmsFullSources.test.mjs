@@ -13,8 +13,7 @@ describe('llmsFullSources', () => {
     const relPaths = sources.map(([rel]) => rel);
 
     assert.ok(relPaths.includes('docs/human/playbook/frame/frame.md'));
-    assert.ok(relPaths.includes('docs/human/playbook/frame/design.md'));
-    assert.ok(relPaths.includes('docs/human/playbook/build/deploy-quickstart.md'));
+    assert.ok(relPaths.includes('docs/human/playbook/build/build.md'));
     assert.ok(relPaths.includes('docs/human/playbook/operate/operate.md'));
     assert.ok(relPaths.includes('docs/human/human-overview.mdx'));
     assert.ok(relPaths.includes('static/registry.json'));

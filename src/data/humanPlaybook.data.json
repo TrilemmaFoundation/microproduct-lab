@@ -22,34 +22,6 @@
                 "description": "Validate whether a microproduct is worth building and feasible to deliver before execution.",
                 "docId": "playbook/frame/frame",
                 "to": "/docs/playbook/frame"
-              },
-              {
-                "id": "ideation",
-                "title": "Ideation",
-                "description": "Identify demand, available data, and the minimum useful outcome before the product shape hardens.",
-                "docId": "playbook/frame/ideation",
-                "to": "/docs/playbook/ideation"
-              },
-              {
-                "id": "design",
-                "title": "Design",
-                "description": "Translate requirements and learnings into concrete specifications before implementation.",
-                "docId": "playbook/frame/design",
-                "to": "/docs/playbook/design"
-              },
-              {
-                "id": "architecture",
-                "title": "Architecture",
-                "description": "Choose the pipeline, storage, serving model, and operating constraints that can support the product.",
-                "docId": "playbook/frame/architecture",
-                "to": "/docs/playbook/architecture"
-              },
-              {
-                "id": "analytics-engineering",
-                "title": "Data Stack & Analytics Engineering",
-                "description": "Apply software engineering discipline to data workflows so the product can be tested, refreshed, observed, and reused.",
-                "docId": "playbook/frame/data-stack-analytics-engineering",
-                "to": "/docs/playbook/data-stack-analytics-engineering"
               }
             ]
           },
@@ -64,34 +36,6 @@
                 "description": "Execute, validate quality, and deliver a reliable MVP through focused delivery workflows.",
                 "docId": "playbook/build/build",
                 "to": "/docs/playbook/build"
-              },
-              {
-                "id": "build-module",
-                "title": "Delivery Workflow",
-                "description": "Translate validated scope into focused build tasks and working product slices.",
-                "docId": "playbook/build/build-module",
-                "to": "/docs/playbook/build-module"
-              },
-              {
-                "id": "qa-methodology",
-                "title": "QA Methodology",
-                "description": "Use quality gates, behavior-driven checks, and review norms to keep AI-assisted builds reliable.",
-                "docId": "playbook/build/qa-methodology",
-                "to": "/docs/playbook/qa-methodology"
-              },
-              {
-                "id": "release",
-                "title": "Release",
-                "description": "Key release-readiness criteria, including a graph of how these relate to other components of the playbook.",
-                "docId": "playbook/build/release",
-                "to": "/docs/playbook/release"
-              },
-              {
-                "id": "deploy-quickstart",
-                "title": "Deploy Quickstart",
-                "description": "Ship your microproduct for free using only GitHub and the Vercel Hobby plan.",
-                "docId": "playbook/build/deploy-quickstart",
-                "to": "/docs/playbook/deploy-quickstart"
               }
             ]
           },
