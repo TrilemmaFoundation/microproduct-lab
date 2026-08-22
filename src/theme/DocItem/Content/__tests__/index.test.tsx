@@ -69,7 +69,7 @@ describe('DocItemContent byline', () => {
         content_kind: 'reference',
         authors: ['trilemma-foundation'],
       },
-      '@site/docs/human/authors/index.mdx',
+      '@site/docs/human/authors.mdx',
     );
 
     expect(screen.getByText(/Maintained by/i)).toBeInTheDocument();

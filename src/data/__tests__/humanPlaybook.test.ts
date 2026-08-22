@@ -8,44 +8,44 @@ import {flattenPlaybookNodes} from '../../utils/playbookTree';
 describe('human playbook data', () => {
   it('generates the canonical sidebar hierarchy', () => {
     expect(buildHumanPlaybookSidebar()).toEqual([
-      'human-overview',
       {
         type: 'category',
-        label: 'Playbook',
+        label: 'About',
+        collapsible: false,
+        items: ['human-overview', 'authors'],
+      },
+      {
+        type: 'category',
+        label: 'Plan',
+        collapsed: false,
+        collapsible: false,
         items: [
-          {
-            type: 'category',
-            label: 'Frame',
-            items: [
-              'playbook/frame/frame',
-              'playbook/frame/ideation',
-              'playbook/frame/design',
-              'playbook/frame/architecture',
-              'playbook/frame/data-stack-analytics-engineering',
-            ],
-          },
-          {
-            type: 'category',
-            label: 'Build',
-            items: [
-              'playbook/build/build',
-              'playbook/build/build-module',
-              'playbook/build/qa-methodology',
-              'playbook/build/release',
-              'playbook/build/deploy-quickstart',
-            ],
-          },
-          {
-            type: 'category',
-            label: 'Operate',
-            items: ['playbook/operate/operate'],
-          },
+          'playbook/frame/frame',
+          'playbook/frame/ideation',
+          'playbook/frame/design',
+          'playbook/frame/architecture',
+          'playbook/frame/data-stack-analytics-engineering',
         ],
       },
       {
         type: 'category',
-        label: 'Authors',
-        items: ['authors/index'],
+        label: 'Build',
+        collapsed: false,
+        collapsible: false,
+        items: [
+          'playbook/build/build',
+          'playbook/build/build-module',
+          'playbook/build/qa-methodology',
+          'playbook/build/release',
+          'playbook/build/deploy-quickstart',
+        ],
+      },
+      {
+        type: 'category',
+        label: 'Operate',
+        collapsed: false,
+        collapsible: false,
+        items: ['playbook/operate/operate'],
       },
     ]);
   });
@@ -54,44 +54,44 @@ describe('human playbook data', () => {
     expect(buildAgentPlaybookSidebar()).toEqual([
       'index',
       'human/index',
-      'human/human-overview',
       {
         type: 'category',
-        label: 'Playbook',
+        label: 'About',
+        collapsible: false,
+        items: ['human/human-overview', 'human/authors'],
+      },
+      {
+        type: 'category',
+        label: 'Plan',
+        collapsed: false,
+        collapsible: false,
         items: [
-          {
-            type: 'category',
-            label: 'Frame',
-            items: [
-              'human/playbook/frame/frame',
-              'human/playbook/frame/ideation',
-              'human/playbook/frame/design',
-              'human/playbook/frame/architecture',
-              'human/playbook/frame/data-stack-analytics-engineering',
-            ],
-          },
-          {
-            type: 'category',
-            label: 'Build',
-            items: [
-              'human/playbook/build/build',
-              'human/playbook/build/build-module',
-              'human/playbook/build/qa-methodology',
-              'human/playbook/build/release',
-              'human/playbook/build/deploy-quickstart',
-            ],
-          },
-          {
-            type: 'category',
-            label: 'Operate',
-            items: ['human/playbook/operate/operate'],
-          },
+          'human/playbook/frame/frame',
+          'human/playbook/frame/ideation',
+          'human/playbook/frame/design',
+          'human/playbook/frame/architecture',
+          'human/playbook/frame/data-stack-analytics-engineering',
         ],
       },
       {
         type: 'category',
-        label: 'Authors',
-        items: ['human/authors/index'],
+        label: 'Build',
+        collapsed: false,
+        collapsible: false,
+        items: [
+          'human/playbook/build/build',
+          'human/playbook/build/build-module',
+          'human/playbook/build/qa-methodology',
+          'human/playbook/build/release',
+          'human/playbook/build/deploy-quickstart',
+        ],
+      },
+      {
+        type: 'category',
+        label: 'Operate',
+        collapsed: false,
+        collapsible: false,
+        items: ['human/playbook/operate/operate'],
       },
     ]);
   });

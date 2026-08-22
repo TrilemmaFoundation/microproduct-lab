@@ -13,7 +13,7 @@
         "children": [
           {
             "id": "frame-section",
-            "title": "Frame",
+            "title": "Plan",
             "description": "The planning layer of the analytics development lifecycle, organizing content around defining opportunities, understanding users, scoping microproducts, and analyzing whether an idea is worth building.",
             "children": [
               {
@@ -115,7 +115,7 @@
         "id": "authors",
         "title": "Authors",
         "description": "The people and organizations listed in the shared author registry for the docs.",
-        "docId": "authors/index",
+        "docId": "authors",
         "to": "/docs/authors"
       }
     ]

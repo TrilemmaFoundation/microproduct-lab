@@ -25,7 +25,7 @@ describe('PlaybookTree', () => {
     expect(screen.getByRole('button', {name: 'Playbook'})).toBeInTheDocument();
     expect(screen.getByRole('button', {name: 'Authors'})).toBeInTheDocument();
     expect(screen.queryByRole('button', {name: 'Intro'})).not.toBeInTheDocument();
-    expect(screen.queryByRole('button', {name: 'Frame'})).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', {name: 'Plan'})).not.toBeInTheDocument();
     expect(screen.queryByRole('button', {name: 'Build'})).not.toBeInTheDocument();
     expect(screen.queryByRole('button', {name: 'Operate'})).not.toBeInTheDocument();
     expect(screen.queryByText(/Level \d/)).not.toBeInTheDocument();
@@ -63,16 +63,16 @@ describe('PlaybookTree', () => {
     expect(visibleNodeLabels).toEqual([
       'Human Overview',
       'Playbook',
-      'Frame',
+      'Plan',
       'Build',
       'Operate',
       'Authors',
     ]);
 
-    fireEvent.click(screen.getByRole('button', {name: 'Expand Frame'}));
+    fireEvent.click(screen.getByRole('button', {name: 'Expand Plan'}));
     expect(screen.getByRole('button', {name: 'Ideation'})).toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole('button', {name: 'Collapse Frame'}));
+    fireEvent.click(screen.getByRole('button', {name: 'Collapse Plan'}));
     expect(screen.queryByRole('button', {name: 'Ideation'})).not.toBeInTheDocument();
   });
 
@@ -85,11 +85,11 @@ describe('PlaybookTree', () => {
       />,
     );
 
-    fireEvent.click(screen.getByRole('button', {name: 'Frame'}));
+    fireEvent.click(screen.getByRole('button', {name: 'Plan'}));
 
     const detailPanel = screen.getByRole('complementary');
     expect(
-      within(detailPanel).getByRole('heading', {name: 'Frame'}),
+      within(detailPanel).getByRole('heading', {name: 'Plan'}),
     ).toBeInTheDocument();
     expect(
       within(detailPanel).queryByRole('link', {name: 'Open module'}),

@@ -37,7 +37,7 @@ describe('agentDocsUtils', () => {
     assert.equal(sectionFromDocId('playbook/build/build'), 'build');
     assert.equal(sectionFromDocId('playbook/operate/operate'), 'operate');
     assert.equal(sectionFromDocId('playbook/grow/scale'), 'grow');
-    assert.equal(sectionFromDocId('authors/index'), 'authors');
+    assert.equal(sectionFromDocId('authors'), 'authors');
     assert.equal(sectionFromDocId('human-overview'), 'overview');
     assert.equal(sectionFromDocId('unknown/path'), 'other');
     assert.equal(agentSlugFromHumanTo('/docs/playbook/frame'), '/playbook/frame');

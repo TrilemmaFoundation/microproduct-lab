@@ -14,6 +14,8 @@ export type GeneratedSidebarItem =
   | {
       type: 'category';
       label: string;
+      collapsed?: boolean;
+      collapsible?: boolean;
       items: GeneratedSidebarItem[];
     };
 
@@ -22,11 +24,14 @@ export const humanPlaybookTree: PlaybookTreeNode[] = humanPlaybookTreeData;
 function nestedSidebarItem(
   node: PlaybookTreeNode,
   mapDocId: (docId: string) => string,
+  options: {collapsible?: boolean} = {},
 ): GeneratedSidebarItem {
   if (node.children?.length) {
     return {
       type: 'category',
       label: node.title,
+      collapsed: false,
+      collapsible: options.collapsible,
       items: node.children.map((child) => nestedSidebarItem(child, mapDocId)),
     };
   }
@@ -49,12 +54,40 @@ function buildPlaybookSidebar(
     throw new Error('Playbook root is missing docId');
   }
 
+  const playbookNode = root.children?.find((node) => node.id === 'playbook');
+  const authorsNode = root.children?.find((node) => node.id === 'authors');
+  const items: GeneratedSidebarItem[] = [
+    ...(options.leadingItems ?? []),
+    {
+      type: 'category',
+      label: 'About',
+      collapsible: false,
+      items: [
+        mapDocId(root.docId),
+        ...(authorsNode ? [nestedSidebarItem(authorsNode, mapDocId)] : []),
+      ],
+    },
+  ];
+
+  if (playbookNode?.children?.length) {
+    items.push(
+      ...playbookNode.children.map((child) =>
+        nestedSidebarItem(child, mapDocId, {collapsible: false}),
+      ),
+    );
+  }
+
+  if (items.length > (options.leadingItems?.length ?? 0) + 1) {
+    return items;
+  }
+
   return [
     ...(options.leadingItems ?? []),
     mapDocId(root.docId),
     ...(root.children ?? []).map((node) => ({
       type: 'category' as const,
       label: node.title,
+      collapsed: false,
       items: node.children?.length
         ? node.children.map((child) => nestedSidebarItem(child, mapDocId))
         : [nestedSidebarItem(node, mapDocId)],
