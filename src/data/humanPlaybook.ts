@@ -55,7 +55,7 @@ function buildPlaybookSidebar(
   }
 
   const playbookNode = root.children?.find((node) => node.id === 'playbook');
-  const authorsNode = root.children?.find((node) => node.id === 'authors');
+  const aboutNodes = root.children?.filter((node) => node.id !== 'playbook') ?? [];
   const items: GeneratedSidebarItem[] = [
     ...(options.leadingItems ?? []),
     {
@@ -64,7 +64,7 @@ function buildPlaybookSidebar(
       collapsible: false,
       items: [
         mapDocId(root.docId),
-        ...(authorsNode ? [nestedSidebarItem(authorsNode, mapDocId)] : []),
+        ...aboutNodes.map((node) => nestedSidebarItem(node, mapDocId)),
       ],
     },
   ];

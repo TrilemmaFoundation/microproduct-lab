@@ -56,6 +56,13 @@
         ]
       },
       {
+        "id": "request-for-microproducts",
+        "title": "Request For Microproducts",
+        "description": "A call to build useful microproducts instead of portfolio projects optimized only for hiring signals.",
+        "docId": "request-for-microproducts",
+        "to": "/docs/request-for-microproducts"
+      },
+      {
         "id": "authors",
         "title": "Authors",
         "description": "The people and organizations listed in the shared author registry for the docs.",
