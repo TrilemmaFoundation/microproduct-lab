@@ -2,7 +2,6 @@ agentic
 browsable
 Behaviour
 Behaviours
-Dagster
 frontmatter
 microproduct
 microproducts
@@ -24,7 +23,4 @@ backtests
 capex
 CRPS
 toolkits
-wireframes
 ashkani
-judgements
-Descr
