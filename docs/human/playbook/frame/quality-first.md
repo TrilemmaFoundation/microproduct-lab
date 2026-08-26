@@ -36,7 +36,7 @@ The entropy model is a simplified view of the complexities of software developme
 
 ## A Solution: Spec-Driven Development
 
-The intrinsic knowledge of a team is only as good as its process and shared documentation. Good docs take many forms: user-studies, briefings, guides/manuals, technical architecture diagrams. Perhaps the simplest but most important is a product specification. Sometimes taking the form of a product requirements document (PRD), the spec says everything that a piece of software must do. Be it a data source, transformation pipeline, web -app or even a shared library, every product has a set of requirements that must remain until explicitly changed or removed.
+The intrinsic knowledge of a team is only as good as its process and shared documentation. Good docs take many forms: user-studies, briefings, guides/manuals, technical architecture diagrams. Perhaps the simplest but most important is a product specification. Sometimes taking the form of a product requirements document (PRD), the spec says everything that a piece of software must do. Be it a data source, transformation pipeline, web app or even a shared library, every product has a set of requirements that must remain until explicitly changed or removed.
 
 One of the biggest reasons projects start degrading in quality after the first iteration is that intent gets lost. While LLMs are great at taking written intent and turning it into working code, they do not by default preserve that intent in its original form. Without that intent recorded, you or future contributors to the project can quickly lose sight of original user requirements, and agents do not even know when something is truly a regression in functionality.
 
