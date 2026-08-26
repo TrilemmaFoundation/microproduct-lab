@@ -31,3 +31,6 @@ ODbL
 ODC
 OpenStreetMap
 generis
+licences
+Licence
+Ouverte

@@ -67,16 +67,18 @@ You do not need an encyclopedia of licenses. You need a working map of the statu
 | --- | --- |
 | **CC0** | Usually the easiest case. Designed to maximize unrestricted reuse. |
 | **CC BY 4.0** | Broad reuse, including commercial reuse, with attribution requirements. |
+| **Open government licences (OGL, Licence Ouverte)** | Broad reuse, usually including commercial reuse, with attribution. Read the named instrument; national variants exist. Treat cousins such as DL-DE as this class, not as new rows. |
 | **CDLA Permissive 2.0** | Data-specific permissive license. Broad use, analysis, modification, and sharing. |
 | **ODC-BY** | Open database use with attribution. |
 | **ODbL** | Open, but share-alike obligations can apply to adapted databases. |
 | **CC BY-SA** | Broad use, but share-alike requirements matter. |
 | **CC BY-NC** | Commercial use restricted. Often a problem for products. |
+| **Research-only / academic-use-only** | Free to download is not permission to ship a product. Common on Hugging Face, Kaggle, and academic dumps. Often bans commercialization, redistribution, or any use outside a paper. Not the same as CC BY-NC; the text may be a custom research clause with no SPDX id. |
 | **Custom license** | Read it. Do not infer permissions from the dataset being free. |
 | **No stated license** | Treat as unresolved, not automatically reusable. |
 | **Public domain** | Generally highly reusable, but verify what exactly is in the public domain. |
 
-[Creative Commons](https://creativecommons.org/faq/) supports CC 4.0 licenses for databases and database rights. CC0 is intended to maximize reuse. [ODbL](https://opendatacommons.org/licenses/odbl/index.html) combines attribution with share-alike obligations for databases. [CDLA-Permissive-2.0](https://www.linuxfoundation.org/press/press-release/enabling-easier-collaboration-on-open-data-for-ai-and-ml-with-cdla-permissive-2-0) is worth knowing because it was designed for data and computational use, including machine learning.
+[Creative Commons](https://creativecommons.org/faq/) supports CC 4.0 licenses for databases and database rights. CC0 is intended to maximize reuse. [ODbL](https://opendatacommons.org/licenses/odbl/index.html) combines attribution with share-alike obligations for databases. [CDLA-Permissive-2.0](https://www.linuxfoundation.org/press/press-release/enabling-easier-collaboration-on-open-data-for-ai-and-ml-with-cdla-permissive-2-0) is worth knowing because it was designed for data and computational use, including machine learning. [OGL](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/) and [Licence Ouverte](https://www.etalab.gouv.fr/licence-ouverte-open-licence/) are the named face of the Green open-government bucket. Research-only is a status, not a license family: if the card says "research use only," Frame it as restricted even when the files are public.
 
 Do not spend Frame time cataloging every Creative Commons permutation. Spend it answering whether your intended product use is allowed.
 
@@ -176,7 +178,7 @@ Proceed normally:
 - Clear public-domain dedication
 - CC BY 4.0 with manageable attribution
 - CDLA-Permissive-2.0
-- Similarly permissive open-government licenses
+- OGL / Licence Ouverte and similarly permissive open-government licences
 
 The [Open Definition](https://opendefinition.org/od/2.0/en/) is a useful baseline: genuinely open data must permit use, redistribution, and modification.
 
@@ -187,6 +189,7 @@ Understand the consequences before architecture is locked:
 - ODbL
 - Share-alike licenses
 - Non-commercial licenses
+- Research-only / academic-use-only terms (especially if commercialize or redistribute is in scope)
 - Custom government licenses
 - Mixed-license datasets
 - Uncertain derived-data treatment
@@ -199,6 +202,7 @@ Do not make it a core dependency until resolved:
 
 - No identifiable license
 - Explicit prohibition on your intended use
+- Research-only or academic-use source used as a core product dependency
 - Unclear ownership
 - Incompatible redistribution requirements
 - Terms that prohibit the extraction or storage you need
