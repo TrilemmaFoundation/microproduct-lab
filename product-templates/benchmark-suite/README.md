@@ -1,7 +1,7 @@
 ---
 title: benchmark-suite · Readme
 description: Documentation fragment for starter benchmark-suite (g81c41d891).
-last_reviewed: 2026-05-04
+last_reviewed: 2026-08-26
 authors: [trilemma-foundation]
 ---
 
@@ -11,7 +11,7 @@ Opinionated layout for repeatable benchmark harnesses, leaderboards, and regress
 
 ## Getting started
 
-- Freeze dataset licensing + provenance in `data-contract.md` before leaderboard publication.
+- Freeze dataset usage rights (license, terms reviewed, provenance) in `data-contract.md` before leaderboard publication.
 - Document statistical thresholds and rerun policies in `evaluation.md`.
 
 ## Repository hygiene

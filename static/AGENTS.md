@@ -67,6 +67,7 @@ A good microproduct:
 - Can be tested or evaluated.
 - Is small enough to ship.
 - Has a clear path from data/input to action/output.
+- Documents provenance and usage rights for material external data.
 
 ## Bad microproduct characteristics
 
@@ -77,7 +78,7 @@ Avoid:
 - Unvalidated AI wrappers.
 - Unstructured notebooks with no product path.
 - Overbuilt architecture before a useful MVP exists.
-- Hidden assumptions.
+- Hidden assumptions, including unknown data usage rights.
 - Missing README, schema, or evaluation criteria.
 
 ## Build workflow

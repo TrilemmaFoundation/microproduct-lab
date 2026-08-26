@@ -3,7 +3,7 @@ title: Folder contract
 description: Standard microproduct repository layout mandated for Trilemma-aligned projects.
 content_kind: reference
 slug: folder-contract
-last_reviewed: 2026-05-04
+last_reviewed: 2026-08-26
 authors: [trilemma-foundation]
 ---
 
@@ -36,7 +36,7 @@ In practice your repository root **is** the `<product-id>` folder—omit the red
 | `product.yaml`     | Machine-readable mirror of `/schemas/product.schema.json` |
 | `product-brief.md` | Users, pains, wedge, non-goals                       |
 | `architecture.md`  | Bounded context diagrams, integrations, infra      |
-| `data-contract.md` | Inputs, freshness, lineage, privacy tiers           |
+| `data-contract.md` | Inputs, freshness, lineage, privacy tiers, usage rights |
 | `evaluation.md`    | Metrics, thresholds, rollback triggers               |
 | `roadmap.md`       | Next bets and explicit rejects                       |
 | `demo.md`          | Scripts for humans *and* bots to replay happy paths  |

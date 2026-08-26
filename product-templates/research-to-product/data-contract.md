@@ -1,7 +1,7 @@
 ---
 title: research-to-product · Data Contract
 description: Documentation fragment for starter research-to-product (3f4eaaf6e3).
-last_reviewed: 2026-05-04
+last_reviewed: 2026-08-26
 authors: [trilemma-foundation]
 ---
 
@@ -10,6 +10,24 @@ authors: [trilemma-foundation]
 ## Inputs
 
 TODO: enumerate tables, embeddings, SaaS payloads, SLA, lineage.
+
+### Usage rights
+
+Record license, Terms of Service, and privacy constraints separately for each material external input.
+
+```yaml
+source: OpenStreetMap
+url: ...
+license: ODbL-1.0
+license_url: ...
+access_method: API
+commercial_use: true
+redistribution: conditional
+attribution_required: true
+share_alike: true
+terms_reviewed: 2026-08-26
+notes: ...
+```
 
 ## Outputs
 

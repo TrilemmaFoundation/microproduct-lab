@@ -24,6 +24,13 @@
                 "to": "/docs/playbook/frame"
               },
               {
+                "id": "data-licensing",
+                "title": "Data Licensing",
+                "description": "Access is not permission. Before treating a dataset as a product input, document the rights you have to store, transform, combine, serve, and commercialize it.",
+                "docId": "playbook/frame/data-licensing",
+                "to": "/docs/playbook/frame/data-licensing"
+              },
+              {
                 "id": "quality-first",
                 "title": "Quality-First",
                 "description": "How a modern approach to QA and spec-driven development helps ship quickly and confidently.",

@@ -3,7 +3,7 @@ title: "Archetype: Benchmark evaluation product"
 description: Compare competing models, pipelines, or policies with fair harnesses.
 content_kind: reference
 slug: benchmark-evaluation-product
-last_reviewed: 2026-05-04
+last_reviewed: 2026-08-26
 authors: [trilemma-foundation]
 ---
 
@@ -20,7 +20,7 @@ Buyers must pick among vendors, models, or strategies using apples-to-apples evi
 
 ## Minimal MVP
 
-- Frozen evaluation dataset(s) with licenses noted
+- Frozen evaluation dataset(s) with usage rights recorded in `data-contract.md`
 - Runner that logs hardware + software fingerprint
 - Leaderboard with confidence intervals
 - Regression tests when baselines move
@@ -51,4 +51,4 @@ Buyers must pick among vendors, models, or strategies using apples-to-apples evi
 
 ## Agent prompt
 
-You are building a benchmark microproduct. Freeze datasets, document licensing, script the harness, and only then publish comparative tables with uncertainty.
+You are building a benchmark microproduct. Freeze datasets, record usage rights in `data-contract.md`, script the harness, and only then publish comparative tables with uncertainty.

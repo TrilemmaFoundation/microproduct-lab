@@ -1,7 +1,7 @@
 ---
 title: llm-app · Readme
 description: Documentation fragment for starter llm-app (b13a73125e).
-last_reviewed: 2026-05-04
+last_reviewed: 2026-08-26
 authors: [trilemma-foundation]
 ---
 
@@ -12,7 +12,7 @@ Opinionated starting point for retrieval-heavy LLM copilots with citations embed
 ## Getting started
 
 - Enumerate allowable tools/models and escalation paths inside `architecture.md`.
-- Capture dataset licenses and grounding rules in `data-contract.md`.
+- Capture dataset usage rights (license, terms, commercial and redistribution constraints) and grounding rules in `data-contract.md`.
 
 ## Repository hygiene
 

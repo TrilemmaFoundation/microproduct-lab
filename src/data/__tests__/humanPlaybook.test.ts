@@ -19,7 +19,11 @@ describe('human playbook data', () => {
         label: 'Plan',
         collapsed: false,
         collapsible: false,
-        items: ['playbook/frame/frame', 'playbook/frame/quality-first'],
+        items: [
+          'playbook/frame/frame',
+          'playbook/frame/data-licensing',
+          'playbook/frame/quality-first',
+        ],
       },
       {
         type: 'category',
@@ -53,7 +57,11 @@ describe('human playbook data', () => {
         label: 'Plan',
         collapsed: false,
         collapsible: false,
-        items: ['human/playbook/frame/frame', 'human/playbook/frame/quality-first'],
+        items: [
+          'human/playbook/frame/frame',
+          'human/playbook/frame/data-licensing',
+          'human/playbook/frame/quality-first',
+        ],
       },
       {
         type: 'category',

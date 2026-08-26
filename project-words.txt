@@ -24,3 +24,10 @@ capex
 CRPS
 toolkits
 ashkani
+faltyn
+CC0
+CDLA
+ODbL
+ODC
+OpenStreetMap
+generis
