@@ -1,5 +1,5 @@
 ---
-title: "You Found the Data. Can You Actually Use It? A Builder's Guide to Data Licensing"
+title: "A Builder's Guide to Data Licensing"
 sidebar_label: Data Licensing
 description: "Access is not permission. Before treating a dataset as a product input, document the rights you have to store, transform, combine, serve, and commercialize it."
 slug: /playbook/frame/data-licensing
