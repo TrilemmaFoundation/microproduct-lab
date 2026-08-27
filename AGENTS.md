@@ -1,0 +1,1 @@
+Use the 'check' npm script to verify correctness before finishing work. If you get feedback such as a linting issue or failed test, you should attempt to fix it before reporting back unless a decision is required from a human.
