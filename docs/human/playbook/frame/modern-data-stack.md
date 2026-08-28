@@ -61,13 +61,16 @@ You do not need an encyclopedia of infrastructure categories. You need a working
 | Access | Where does the data come from, and how can it be retrieved? |
 | Ingest | How does new data enter the system? |
 | Store | What state and history must persist? |
+| Catalog | How do engines agree on table names, locations, and access? |
 | Transform | How does raw input become useful information? |
 | Orchestrate | What runs when, in what order, and after what dependencies? |
 | Validate | How do we know expected properties still hold? |
 | Observe | How do we detect failures and unexpected behavior? |
+| Lineage | What produced this data, and what depends on it? |
 | Serve | How does the product consume the result? |
+| Semantic interchange | How do metric and dimension definitions move between tools? |
 
-Security, metadata, lineage, privacy, and cost cut across the entire system.
+Security, metadata, privacy, and cost cut across the entire system. Lineage and cost belong in this guide's architecture checklist. Privacy, usage rights, and access control belong in `data-contract.md`.
 
 The important point is that these are **logical responsibilities**, not necessarily separate products.
 
@@ -109,18 +112,18 @@ Do not confuse the diagram with a shopping list.
 
 ## Tools
 
-These names are current implementations of the responsibilities above. They are not a recommended architecture.
+These names are current examples of the responsibilities above. They are not an exhaustive list, and they are not a recommended architecture. Access and Orchestrate do not need product rows: files or APIs, and a cron job, already cover the small case.
 
-| Tool | Responsibility | Default | Earns its place when |
-| --- | --- | --- | --- |
-| dlt | Ingest | Green | A Python loader is cheaper than hand-rolled extractors, and you want source schema, load IDs, and a raw copy |
-| DuckDB | Transform | Green | Analytical work can run inside the pipeline, notebook, or application |
-| Apache Iceberg | Store | Yellow | You need snapshots, schema evolution, or concurrent writers on object storage |
-| Apache Polaris | Store | Yellow | More than one engine must find and govern the same Iceberg tables |
-| DQX | Validate | Yellow | Quality checks must run at Spark or Databricks scale |
-| OpenLineage | Observe | Yellow | Many jobs depend on each other and blast radius is an operational question |
-| SLayer | Serve | Yellow | Applications or agents need named metrics instead of warehouse SQL |
-| Apache Ossie | Serve | Yellow | The same metric and dimension definitions must move between tools |
+| Tool | Responsibility | Earns its place when |
+| --- | --- | --- |
+| [dlt](https://dlthub.com/docs) | Ingest | A Python loader is cheaper than hand-rolled extractors, and you want source schema, load IDs, and a raw copy |
+| [DuckDB](https://duckdb.org/) | Transform | Analytical work can run inside the pipeline, notebook, or application |
+| [Apache Iceberg](https://iceberg.apache.org/) | Store | You need snapshots, schema evolution, or concurrent writers on object storage |
+| [Apache Polaris](https://polaris.apache.org/) | Catalog | More than one engine must find and govern the same Iceberg tables |
+| [DQX](https://databrickslabs.github.io/dqx/) | Validate | Quality checks must run inside Databricks (workspace-licensed) |
+| [OpenLineage](https://openlineage.io/) | Lineage | Many jobs depend on each other and blast radius is an operational question |
+| [SLayer](https://docs.motley.ai/slayer/) | Serve | Applications or agents need governed query-time measures and dimensions instead of ad-hoc warehouse SQL |
+| [Apache Ossie](https://github.com/apache/ossie) | Semantic interchange | The same metric and dimension definitions must move between tools (incubating) |
 
 The implementation does not change the test. Finish the sentence "We need this because..." before adding a row to the stack.
 
@@ -139,15 +142,17 @@ For each material data flow, answer:
 1. **Sources** — Where does the data originate?
 2. **Volume** — How much data exists now, and how quickly will it grow?
 3. **Freshness** — Does the user need updates in seconds, minutes, hours, or days?
-4. **History** — Which previous states need to remain available?
-5. **Replay** — Can the system be reconstructed from its source inputs?
+4. **Ingestion** — How does new data enter the system, and how often?
+5. **Storage** — Where does it live, and which raw or historical state must remain available?
 6. **Transformation** — What computation turns the input into something valuable?
-7. **Consumers** — Is the output for an application, API, analyst, model, download, or another pipeline?
-8. **Concurrency** — How many readers and writers need simultaneous access?
-9. **Reliability** — What happens if a source disappears or a job fails halfway through?
-10. **Privacy** — Does any data require restricted access, deletion, or special handling?
+7. **Orchestration** — What runs when, in what order, and after what dependencies?
+8. **Serving** — Who consumes the result, through what interface, and with what concurrency?
+9. **Reliability** — What happens if a source disappears or a job fails halfway through? Can the system be reconstructed from its source inputs?
+10. **Quality** — Which contracts, tests, monitoring, observability, and lineage will you actually run?
 11. **Cost** — What is an acceptable cost to ingest, refresh, store, and serve it?
-12. **Portability** — How difficult would replacing one component be?
+12. **Complexity** — Does this require streaming or distributed compute, and how hard would replacing one component be?
+
+Privacy, usage rights, and access control stay in `data-contract.md`. See [Data Licensing](/docs/playbook/frame/data-licensing).
 
 That turns the data stack from an industry diagram into an architectural decision.
 
@@ -186,6 +191,8 @@ Canonical
   ↓
 Product
 ```
+
+Those layers are a useful default shape, not extra YAML keys. `storage.raw_retained` and `storage.history_retained` are how you record the escape hatch.
 
 "Raw" does not mean dumping everything forever without thought. Storage costs money, licenses can restrict retention, and privacy constraints can require deletion or minimization.
 
@@ -290,7 +297,7 @@ For many data products, this is enough to create a surprisingly capable architec
 
 A lakehouse architecture can add transactional table semantics, schema evolution, snapshots, concurrent writers, and interoperability on top of object storage.
 
-Apache Iceberg is the open table format most often used for those capabilities. Apache Polaris is a catalog for Iceberg tables: a shared place to register names, locations, and access so more than one engine can read and write the same tables. A catalog is how engines agree on what a table is. It is not a reason to introduce Iceberg when one process writes a file and another reads it.
+Apache Iceberg is a common open table format for those capabilities. Apache Polaris is a catalog for Iceberg tables: a shared place to register names, locations, and access so more than one engine can read and write the same tables. A catalog is how engines agree on what a table is. It is not a reason to introduce Iceberg when one process writes a file and another reads it.
 
 Those capabilities can be valuable.
 
@@ -327,12 +334,12 @@ Hourly batch
      ↓
 Micro-batch
      ↓
-Change data capture
-     ↓
 Continuous event streaming
 ```
 
 Moving right should require increasing product value.
+
+Change data capture is how some systems notice source changes. It can feed any cadence on that ladder. Choosing CDC is not the same as choosing streaming.
 
 If a weather dashboard refreshes every ten minutes, there may be no useful distinction between processing an event in 30 milliseconds and processing it in three minutes.
 
@@ -428,7 +435,7 @@ A hundred schema tests do not tell you whether a perfectly valid upstream API qu
 
 OpenLineage is a standard for the lineage column: jobs emit what they read and wrote, and a collector can show what produced a dataset and what depends on it. That answers blast radius. It does not answer whether the data is correct.
 
-A quality engine such as DQX can encode tests and quarantine invalid rows, especially on Spark or Databricks workloads. That is still the test column, not lineage, not a contract, and not documentation. If the pipeline is a Python job and a DuckDB transform, a few explicit assertions are the smaller version of the same idea.
+A Databricks quality engine such as DQX can encode tests and quarantine invalid rows. That is still the test column, not lineage, not a contract, and not documentation. If the pipeline is a Python job and a DuckDB transform, a few explicit assertions are the smaller version of the same idea.
 
 ## The Serving Boundary Matters
 
@@ -461,9 +468,9 @@ A model may require point-in-time correct historical features.
 
 A public API creates compatibility obligations that an internal table does not.
 
-An agent that generates SQL is another consumer, and a more dangerous one: it can invent joins and redefine metrics on every run. When several surfaces need the same measures and dimensions, a semantic layer such as SLayer can sit on the serving boundary so applications and agents ask for named metrics instead of writing warehouse SQL. Apache Ossie is a vendor-neutral specification for writing those metric and dimension definitions down, so "revenue" can mean the same thing in a dashboard, an API, and an agent.
+An agent that generates SQL is another consumer, and a more dangerous one: it can invent joins and redefine metrics on every run. When several surfaces need the same measures and dimensions, a query-time semantic layer such as SLayer can sit on the serving boundary so applications and agents ask for governed measures and dimensions instead of writing warehouse SQL. Apache Ossie is an incubating vendor-neutral specification for writing those metric and dimension definitions down, so "revenue" can mean the same thing in a dashboard, an API, and an agent.
 
-Shared semantics are a serving contract. They are not a reason to stand up a semantic platform before anyone shares a definition.
+Shared semantics are a serving contract. They are not a reason to stand up SLayer or adopt Ossie before anyone shares a definition.
 
 This is why serving should be designed during Frame rather than added after the pipeline exists.
 
@@ -479,7 +486,7 @@ Use this as the Frame-phase takeaway.
 
 Start here when the requirements allow it:
 
-* scheduled batch ingestion, including a Python loader such as dlt
+* scheduled batch ingestion — a short Python job, or a loader such as dlt when hand-rolled extractors would sprawl
 * Python and SQL
 * relational or analytical databases
 * Parquet and object storage
@@ -504,11 +511,11 @@ Add when a concrete requirement justifies it:
 * distributed compute
 * lakehouse table formats such as Apache Iceberg
 * multiple compute engines
-* semantic layers such as SLayer, and semantic interchange such as Apache Ossie
+* semantic layers such as SLayer, and semantic interchange specs such as Apache Ossie (incubating)
 * centralized catalogs such as Apache Polaris
 * dedicated data observability platforms
 * complex lineage infrastructure such as OpenLineage
-* distributed quality engines such as DQX
+* Databricks quality engines such as DQX
 
 Yellow is not a warning against the technology.
 
@@ -544,7 +551,7 @@ A sophisticated solution to a problem you do not have is still the wrong archite
 
 [Frame](/docs/playbook/frame) should answer the data architecture before Build turns assumptions into infrastructure.
 
-For every material data product, record the architecture in `architecture.md`. The [folder contract](/standards/folder-contract) now treats data architecture as part of that file: sources, freshness, storage, transformation, serving, reliability, and complexity justification.
+For every material data product, record the architecture in `architecture.md`. The [folder contract](/standards/folder-contract) is where that file lives. The YAML below is this guide's Frame checklist.
 
 ```yaml
 data_architecture:
@@ -590,6 +597,7 @@ data_architecture:
     contracts: ...
     tests: ...
     monitoring: ...
+    observability: ...
     lineage: ...
 
   cost:
