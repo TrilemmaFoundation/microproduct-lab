@@ -62,6 +62,11 @@ describe('static navigation regressions', () => {
     }
   });
 
+  it('tells contributors to install with npm ci so the lockfile stays stable', () => {
+    assert.match(readme, /npm ci/);
+    assert.match(readme, /package-lock\.json/);
+  });
+
   it('does not advertise deleted human-overview as the live entry point', () => {
     assert.match(readme, /\/docs\/request-for-microproducts/);
     assert.doesNotMatch(readme, /human-overview/);

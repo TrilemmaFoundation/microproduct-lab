@@ -1,1 +1,2 @@
-npm run check
+# Full production build stays on `npm run check` and CI.
+npm run check:fast

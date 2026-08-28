@@ -43,7 +43,8 @@ Navbar/footer grouping for Humans vs Agents is configured in `themeConfig` in [`
 
 - **`npm run dev`** / **`npm start`** — Local Docusaurus dev server (`predev` clears dev caches and runs `generate-agent-docs.mjs`)
 - **`npm run build`** — Runs `generate-agent-docs.mjs`, `generate-llms-full.mjs`, `docusaurus build`, then `validate-build-artifacts.mjs`
-- **`npm run check`** — typecheck, spellcheck, frontmatter + registry + playbook-tree validation, markdown lint, production build (includes link checks)
+- **`npm run check:fast`** — typecheck, spellcheck, frontmatter + registry + playbook-tree validation, markdown lint, tests (Husky pre-push)
+- **`npm run check`** — `check:fast` plus production build (includes link checks)
 - **`npm test`** — Jest plus Node `node --test` for all `scripts/__tests__/*.test.mjs`
 - **`npm run test:coverage`** — Jest with coverage thresholds (see [`jest.config.js`](jest.config.js)) plus Node tests above
 - **`npm run clean`** — `docusaurus clear` and remove `build/` + `coverage/`
@@ -65,12 +66,13 @@ Navbar/footer grouping for Humans vs Agents is configured in `themeConfig` in [`
 ### Content & agent surfaces
 
 - **Machine-readable data**: [`static/registry.json`](static/registry.json) validated by `npm run validate:registry` (schema under `static/schemas/`).
+- **Repo working-copy agent notes**: root [`AGENTS.md`](AGENTS.md) (not served by the site).
 - **Agent-oriented static files**: `static/AGENTS.md`, `static/llms.txt`; **`static/llms-full.txt`** is generated on `npm run build` (ignored by git).
 - **Generated agent mirror**: `docs/agents/human/` is produced by `generate-agent-docs.mjs` from `docs/human/` (gitignored; edit human docs only).
 - **MDX in docs**: When adding JSX or imports, remember `generate-llms-full.mjs` and the agent mirror strip MDX for plain-text bundles via [`scripts/llmsMdxUtils.mjs`](scripts/llmsMdxUtils.mjs).
 
 ### Do / don’t
 
-- **Do** run **`npm run check`** and **`npm run test:coverage`** before pushing (matches [`.github/workflows/ci.yml`](.github/workflows/ci.yml)).
+- **Do** run **`npm run check`** and **`npm run test:coverage`** before opening a PR (matches [`.github/workflows/ci.yml`](.github/workflows/ci.yml); push already runs `check:fast`).
 - **Do** keep changes to docs/plugins/registry in sync (broken links fail the build).
 - **Don’t** assume Vite, React Router, Tailwind, Biome, or Google Sheets pipelines — those belong to other projects, not this repo.

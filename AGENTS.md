@@ -1,1 +1,5 @@
-Use the 'check' npm script to verify correctness before finishing work. If you get feedback such as a linting issue or failed test, you should attempt to fix it before reporting back unless a decision is required from a human.
+# Repository agent notes
+
+This file is for people and coding agents working in this repository. The published site agent entrypoint is [`static/AGENTS.md`](static/AGENTS.md) (served at `/AGENTS.md`). Edit that file when changing the public agent contract.
+
+Before finishing work, run `npm run check`. Fix lint, type, and test failures yourself unless a human decision is required.
