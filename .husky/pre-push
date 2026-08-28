@@ -1,1 +1,2 @@
-npm run check
+# Fast local gate. CI and `npm run check` still run the full production build.
+npm run typecheck && npm test

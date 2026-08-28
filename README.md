@@ -11,7 +11,7 @@ This repository is an open knowledge hub to help builders learn, contribute, and
 - Learn the process: [Playbook](docs/human/playbook/frame/frame.md)
 - Explore examples: [Showcase](docs/showcase/microproducts.md)
 - Contribute: [How to contribute](docs/contribute/how-to-contribute.md)
-- Agent-facing files in the static site root: `static/AGENTS.md`, `static/llms.txt`, and generated `static/llms-full.txt` (created on `npm run build`)
+- Agent-facing files: repo working-copy [`AGENTS.md`](AGENTS.md); published site copies in `static/AGENTS.md`, `static/llms.txt`, and generated `static/llms-full.txt` (created on `npm run build`)
 
 ## Local Development
 
@@ -40,7 +40,10 @@ This runs:
   `static/schemas/product.schema.json`; product and starter archetypes must match the catalog
 - playbook tree sync check (`humanPlaybook.data.json` must match every file under `docs/human/`)
 - markdown lint for `docs/**/*.md` and `docs/**/*.mdx`, plus `README.md`, `CONTRIBUTING.md`, `templates/**/*.md`, `product-templates/**/*.md`, and `products/**/*.md` (generated `docs/agents/human/**` is excluded)
+- unit and script tests (`npm test`)
 - `generate-agent-docs`, `generate-llms-full`, production Docusaurus build, and build-artifact validation (static output + link checks)
+
+`npm install` also installs a Husky pre-push hook that runs `npm run typecheck` and `npm test`. Use `npm run check` before opening a PR.
 
 ## Tests
 
