@@ -11,7 +11,7 @@ Build Trilemma hosts opinionated starters under **`product-templates/`** in [mic
 
 :::info Legacy markdown templates
 
-The top-level **`templates/`** folder is for documentation and submission scaffolding (for example playbook modules)—not runnable product repos.
+The top-level **`templates/`** folder is for documentation scaffolding (for example playbook modules)—not runnable product repos.
 
 :::
 

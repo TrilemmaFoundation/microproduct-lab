@@ -7,7 +7,6 @@ This repository is an open knowledge hub to help builders learn, contribute, and
 ## Start Here
 
 - **Site routing:** On the deployed site, `/` is an audience chooser. Use `/docs/request-for-microproducts` as the human entry point and `/agents` as the agent web hub (paths match this repo’s Docusaurus routes). Navbar search (Cmd/Ctrl+K) covers every docs island; generated agent-mirror playbook pages are omitted so those hits resolve to `/docs/...`. Stable machine-readable URLs such as `/registry.json` and `/schemas/product.schema.json` are summarized on the agents hub.
-- Read: [Frame](docs/human/playbook/frame/frame.md)
 - Learn the process: [Playbook](docs/human/playbook/frame/frame.md)
 - Explore examples: [Showcase](docs/showcase/microproducts.md)
 - Contribute: [How to contribute](docs/contribute/how-to-contribute.md)
