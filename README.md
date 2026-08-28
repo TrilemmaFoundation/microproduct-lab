@@ -49,7 +49,7 @@ This runs:
 
 ## Tests
 
-CI confirms `package-lock.json` is unchanged by `npm install --package-lock-only`, then runs `npm run check` and `npm run test:coverage`. Locally:
+CI confirms `package-lock.json` is unchanged by `npm install --package-lock-only`, then runs `npm run check:ci` and `npm run test:coverage`. Locally:
 
 ```bash
 npm run test:coverage

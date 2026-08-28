@@ -134,10 +134,8 @@ const config: Config = {
     hooks: {
       onBrokenMarkdownLinks: 'throw',
     },
-    mermaid: true,
   },
   themes: [
-    '@docusaurus/theme-mermaid',
     [
       '@easyops-cn/docusaurus-search-local',
       {
@@ -151,7 +149,6 @@ const config: Config = {
           ...docsIslandPlugins.map((spec) => spec.routeBasePath),
         ],
         ignoreFiles: agentMirrorSearchIgnoreFiles(humanPlaybookTree),
-        ignoreCssSelectors: ['.docusaurus-mermaid-container'],
         searchBarShortcut: true,
         searchBarShortcutKeymap: 'mod+k',
         searchBarPosition: 'right',
@@ -191,16 +188,6 @@ const config: Config = {
       defaultMode: 'dark',
       disableSwitch: true,
       respectPrefersColorScheme: false,
-    },
-    mermaid: {
-      // Match the label-measurement font to the rendered font so node
-      // boxes are sized correctly and text isn't clipped.
-      options: {
-        fontFamily: 'var(--ifm-font-family-base)',
-        flowchart: {
-          useMaxWidth: false,
-        },
-      },
     },
     metadata: [
       { property: 'og:title', content: 'Build Trilemma' },
