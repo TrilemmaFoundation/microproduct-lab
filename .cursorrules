@@ -43,8 +43,7 @@ Navbar/footer grouping for Humans vs Agents is configured in `themeConfig` in [`
 
 - **`npm run dev`** / **`npm start`** — Local Docusaurus dev server (`predev` clears dev caches and runs `generate-agent-docs.mjs`)
 - **`npm run build`** — Runs `generate-agent-docs.mjs`, `generate-llms-full.mjs`, `docusaurus build`, then `validate-build-artifacts.mjs`
-- **`npm run check`** — typecheck, spellcheck, frontmatter + registry + playbook-tree validation, markdown lint, tests, production build (includes link checks)
-- **`prepare` / Husky** — `npm install` installs a pre-push hook that runs `npm run typecheck` and `npm test` (not the full build)
+- **`npm run check`** — typecheck, spellcheck, frontmatter + registry + playbook-tree validation, markdown lint, production build (includes link checks)
 - **`npm test`** — Jest plus Node `node --test` for all `scripts/__tests__/*.test.mjs`
 - **`npm run test:coverage`** — Jest with coverage thresholds (see [`jest.config.js`](jest.config.js)) plus Node tests above
 - **`npm run clean`** — `docusaurus clear` and remove `build/` + `coverage/`
@@ -66,7 +65,6 @@ Navbar/footer grouping for Humans vs Agents is configured in `themeConfig` in [`
 ### Content & agent surfaces
 
 - **Machine-readable data**: [`static/registry.json`](static/registry.json) validated by `npm run validate:registry` (schema under `static/schemas/`).
-- **Repo working-copy agent notes**: root [`AGENTS.md`](AGENTS.md) (not served by the site).
 - **Agent-oriented static files**: `static/AGENTS.md`, `static/llms.txt`; **`static/llms-full.txt`** is generated on `npm run build` (ignored by git).
 - **Generated agent mirror**: `docs/agents/human/` is produced by `generate-agent-docs.mjs` from `docs/human/` (gitignored; edit human docs only).
 - **MDX in docs**: When adding JSX or imports, remember `generate-llms-full.mjs` and the agent mirror strip MDX for plain-text bundles via [`scripts/llmsMdxUtils.mjs`](scripts/llmsMdxUtils.mjs).

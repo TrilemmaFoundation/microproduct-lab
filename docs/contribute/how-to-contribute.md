@@ -3,7 +3,7 @@ title: How to Contribute
 description: Exact process for proposing and publishing new hub content.
 content_kind: reference
 slug: /
-last_reviewed: 2026-08-28
+last_reviewed: 2026-08-19
 authors: [trilemma-foundation]
 ---
 
@@ -16,7 +16,7 @@ version pinned in `.nvmrc`, then install the locked dependency tree with
 1. Pick a section and copy the correct template from `templates/`.
 2. Add required YAML frontmatter and content. `last_reviewed` must be a real
    calendar date in `YYYY-MM-DD` form.
-3. Run `npm run check` and `npm run test:coverage` locally. `check` already includes typecheck, validators, tests, and the production build.
+3. Run `npm run typecheck`, `npm run check`, and `npm run test:coverage` locally.
 4. Open a PR and complete the checklist.
 5. Committee members review, request changes if needed, and merge.
 
