@@ -223,12 +223,18 @@ function validateShowcaseTable(root, errors) {
   }
 
   const expected = '| Name | Description | Team | Link |';
-  if (!fs.readFileSync(showcasePath, 'utf8').includes(expected)) {
+  const hasExactHeader = fs
+    .readFileSync(showcasePath, 'utf8')
+    .split(/\r?\n/)
+    .some((line) => line.trim() === expected);
+  if (!hasExactHeader) {
     errors.push(`${showcasePath}: table header must be exactly '${expected}'`);
   }
 }
 
-export function collectFrontmatterErrors(root = process.cwd()) {
+export function collectFrontmatterErrors(
+  root = path.resolve(import.meta.dirname, '..'),
+) {
   const errors = [];
   const authorIds = loadAuthorIds(root, errors);
 

@@ -1,0 +1,138 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
+import {describe, it} from 'node:test';
+
+const ROOT = path.resolve(import.meta.dirname, '../..');
+
+const FOLDER_CONTRACT_FILES = [
+  'README.md',
+  'AGENTS.md',
+  'product.yaml',
+  'product-brief.md',
+  'architecture.md',
+  'data-contract.md',
+  'evaluation.md',
+  'roadmap.md',
+  'demo.md',
+  'src/',
+  'tests/',
+];
+
+const NO_STARTER_ARCHETYPES = new Set([
+  'ranking-recommendation-engine',
+  'risk-scoring-product',
+  'alerting-monitoring-product',
+  'search-discovery-product',
+  'simulation-backtesting-product',
+]);
+
+function read(rel) {
+  return fs.readFileSync(path.join(ROOT, rel), 'utf8');
+}
+
+function archetypeSlugs() {
+  return fs
+    .readdirSync(path.join(ROOT, 'docs/archetypes'))
+    .filter((name) => name.endsWith('.md') && name !== 'index.md')
+    .map((name) => name.slice(0, -3))
+    .sort();
+}
+
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function startersByArchetype() {
+  const startersDir = path.join(ROOT, 'product-templates');
+  /** @type {Map<string, string[]>} */
+  const byArchetype = new Map();
+  for (const entry of fs.readdirSync(startersDir, {withFileTypes: true})) {
+    if (!entry.isDirectory()) {
+      continue;
+    }
+    const yamlPath = path.join(startersDir, entry.name, 'product.yaml');
+    const yaml = fs.readFileSync(yamlPath, 'utf8');
+    const match = yaml.match(/^archetype:\s*(\S+)/m);
+    assert.ok(match, `${entry.name} product.yaml must declare archetype`);
+    const list = byArchetype.get(match[1]) ?? [];
+    list.push(entry.name);
+    byArchetype.set(match[1], list);
+  }
+  return byArchetype;
+}
+
+describe('documentation contracts', () => {
+  const catalog = read('docs/archetypes/index.md');
+  const contribute = read('docs/contribute/how-to-contribute.md');
+  const contributing = read('CONTRIBUTING.md');
+  const prTemplate = read('.github/PULL_REQUEST_TEMPLATE.md');
+  const issueTemplate = read('.github/ISSUE_TEMPLATE/content.yml');
+  const packageJson = JSON.parse(read('package.json'));
+
+  it('lists the folder-contract files on every archetype page', () => {
+    const slugs = archetypeSlugs();
+    assert.ok(slugs.length >= 10, 'expected the published archetype catalog');
+    for (const slug of slugs) {
+      const body = read(`docs/archetypes/${slug}.md`);
+      for (const file of FOLDER_CONTRACT_FILES) {
+        assert.match(
+          body,
+          new RegExp(`\`${escapeRegExp(file)}\``),
+          `${slug} must list ${file}`,
+        );
+      }
+    }
+  });
+
+  it('either maps each archetype to a starter or marks it as having no starter', () => {
+    const starters = startersByArchetype();
+    for (const slug of archetypeSlugs()) {
+      const starterNames = starters.get(slug) ?? [];
+      const slugLink = `./${slug}.md`;
+      const rows = catalog.split('\n').filter((line) => line.includes(slugLink));
+      assert.equal(rows.length, 1, `catalog should have one row for ${slug}`);
+      if (starterNames.length > 0) {
+        assert.equal(
+          NO_STARTER_ARCHETYPES.has(slug),
+          false,
+          `${slug} has a starter and must not be marked as having none`,
+        );
+        for (const name of starterNames) {
+          assert.match(
+            rows[0],
+            new RegExp(`product-templates/${escapeRegExp(name)}`),
+            `${slug} catalog row must link to starter ${name}`,
+          );
+        }
+        continue;
+      }
+      assert.match(rows[0], /No starter yet/, `${slug} must say no starter yet`);
+    }
+  });
+
+  it('requires authors in contributor checklists', () => {
+    assert.match(contributing, /authors/);
+    assert.match(contribute, /authors/);
+    assert.match(prTemplate, /authors/);
+  });
+
+  it('tells showcase contributors to edit the showcase table', () => {
+    assert.match(contribute, /docs\/showcase\/microproducts\.md/);
+    assert.match(contributing, /docs\/showcase\/microproducts\.md/);
+  });
+
+  it('lists only live doc islands in GitHub templates', () => {
+    assert.doesNotMatch(prTemplate, /^\s*-\s*\[\s*\]\s*Intro\s*$/m);
+    assert.doesNotMatch(prTemplate, /^\s*-\s*\[\s*\]\s*Resources\s*$/m);
+    assert.doesNotMatch(issueTemplate, /\bintro\b/);
+    assert.doesNotMatch(issueTemplate, /\bresources\b/);
+    assert.match(prTemplate, /Playbook/);
+    assert.match(prTemplate, /Standards/);
+    assert.match(issueTemplate, /archetypes/);
+  });
+
+  it('generates llms-full.txt during npm run dev', () => {
+    assert.match(packageJson.scripts.predev, /generate-llms-full\.mjs/);
+  });
+});

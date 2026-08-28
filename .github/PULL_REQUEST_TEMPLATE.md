@@ -4,17 +4,20 @@ Describe what you changed and why.
 
 ## Section
 
-- [ ] Intro
 - [ ] Playbook
 - [ ] Showcase
-- [ ] Resources
 - [ ] Contribute
+- [ ] Agents
+- [ ] Templates
+- [ ] Archetypes
+- [ ] Standards
 
 ## Required Metadata Checklist
 
 - [ ] `title` included
 - [ ] `description` included
 - [ ] `last_reviewed` uses `YYYY-MM-DD`
+- [ ] `authors` included for module pages (registered IDs)
 
 ## Quality Checklist
 

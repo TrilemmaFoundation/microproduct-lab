@@ -3,7 +3,7 @@ title: "Archetype: Simulation backtesting product"
 description: Counterfactual experiments that stress decisions before capital is deployed.
 content_kind: reference
 slug: simulation-backtesting-product
-last_reviewed: 2026-05-04
+last_reviewed: 2026-08-28
 authors: [trilemma-foundation]
 ---
 
@@ -27,11 +27,19 @@ Strategies must be exercised across historical regimes with transparent assumpti
 
 ## Required files
 
+Follow the [folder contract](/standards/folder-contract):
+
+- `README.md`
+- `AGENTS.md`
 - `product.yaml`
 - `product-brief.md`
+- `architecture.md`
 - `data-contract.md`
 - `evaluation.md`
+- `roadmap.md`
 - `demo.md`
+- `src/`
+- `tests/`
 
 ## Evaluation
 

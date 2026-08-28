@@ -11,7 +11,7 @@ This repository is an open knowledge hub to help builders learn, contribute, and
 - Learn the process: [Playbook](docs/human/playbook/frame/frame.md)
 - Explore examples: [Showcase](docs/showcase/microproducts.md)
 - Contribute: [How to contribute](docs/contribute/how-to-contribute.md)
-- Agent-facing files: repo working-copy [`AGENTS.md`](AGENTS.md); published site copies in `static/AGENTS.md`, `static/llms.txt`, and generated `static/llms-full.txt` (created on `npm run build`)
+- Agent-facing files: repo working-copy [`AGENTS.md`](AGENTS.md); published site copies in `static/AGENTS.md`, `static/llms.txt`, and generated `static/llms-full.txt` (created on `npm run dev` and `npm run build`)
 
 ## Local Development
 
@@ -26,7 +26,7 @@ npm run dev
 
 Use `npm ci` so the locked tree is installed without rewriting `package-lock.json`. `npm install` on npm 11+ can drop `"dev": true` metadata and add `"peer": true` entries; do not commit those diffs. Add or update dependencies only with Node.js 22.18.0 from `.nvmrc`.
 
-`npm run dev` runs a short pre-step that removes `.docusaurus` and `node_modules/.cache`, then regenerates the agent mirror under `docs/agents/human/` from `docs/human/`. Do not edit generated mirror files directly. Use `npm run clear` to clear the Docusaurus cache, or `npm run clean` to also remove `build/` and `coverage/`.
+`npm run dev` runs a short pre-step that removes `.docusaurus` and `node_modules/.cache`, regenerates the agent mirror under `docs/agents/human/` from `docs/human/`, and writes `static/llms-full.txt`. Do not edit generated mirror files or `llms-full.txt` directly. Use `npm run clear` to clear the Docusaurus cache, or `npm run clean` to also remove `build/` and `coverage/`.
 
 ## Validation
 

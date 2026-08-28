@@ -3,7 +3,7 @@ title: "Archetype: Alerting monitoring product"
 description: Time-series and event streams that demand fast human or automated response.
 content_kind: reference
 slug: alerting-monitoring-product
-last_reviewed: 2026-05-04
+last_reviewed: 2026-08-28
 authors: [trilemma-foundation]
 ---
 
@@ -27,11 +27,19 @@ Operations depend on catching anomalies, SLO breaches, or policy violations befo
 
 ## Required files
 
+Follow the [folder contract](/standards/folder-contract):
+
+- `README.md`
+- `AGENTS.md`
 - `product.yaml`
 - `product-brief.md`
+- `architecture.md`
 - `data-contract.md`
 - `evaluation.md`
+- `roadmap.md`
 - `demo.md`
+- `src/`
+- `tests/`
 
 ## Evaluation
 

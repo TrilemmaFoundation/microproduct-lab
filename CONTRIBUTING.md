@@ -4,8 +4,8 @@ Thank you for helping improve the Microproduct Incubator knowledge hub. The full
 
 ## Quickstart
 
-- Add or update content in `docs/` using a template from `templates/`.
-- Ensure each markdown file includes `title`, `description`, and `last_reviewed` (`YYYY-MM-DD`) frontmatter.
+- Add or update playbook modules from `templates/playbook-module.md`. Showcase entries edit the table in `docs/showcase/microproducts.md`. Other doc islands follow that section’s existing page.
+- Ensure each markdown file includes `title`, `description`, `last_reviewed` (`YYYY-MM-DD`), and `authors` (registered IDs from `src/data/authors.json`). Default `content_kind` is `module`, which requires `authors`.
 - Run checks locally:
 
 ```bash

@@ -3,7 +3,7 @@ title: "Archetype: Data-to-decision tool"
 description: Convert governed datasets into a narrow choice surface for operators.
 content_kind: reference
 slug: data-to-decision-tool
-last_reviewed: 2026-05-04
+last_reviewed: 2026-08-28
 authors: [trilemma-foundation]
 ---
 
@@ -28,11 +28,19 @@ Operational teams must choose among a constrained set of actions using curated f
 
 ## Required files
 
+Follow the [folder contract](/standards/folder-contract):
+
+- `README.md`
+- `AGENTS.md`
 - `product.yaml`
 - `product-brief.md`
+- `architecture.md`
 - `data-contract.md`
 - `evaluation.md`
+- `roadmap.md`
 - `demo.md`
+- `src/`
+- `tests/`
 
 ## Evaluation
 

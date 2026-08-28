@@ -3,7 +3,7 @@ title: Agents Hub
 description: Canonical AI-agent instructions, workflows, and links into Build Trilemma.
 content_kind: reference
 slug: /
-last_reviewed: 2026-05-10
+last_reviewed: 2026-08-28
 authors: [trilemma-foundation]
 ---
 
@@ -20,7 +20,7 @@ authors: [trilemma-foundation]
 ## Workflows on this site
 
 1. Pick an [archetype](/archetypes) closest to your user decision.
-2. Choose a starter from [templates](/templates) (repo `product-templates/`).
+2. Choose a starter from [templates](/templates) (repo `product-templates/`) when one exists for that archetype.
 3. Author the microproduct contracts in [Standards](/standards).
 4. Register the shipped product metadata in [`/registry.json`](pathname:///registry.json) when ready for broader discovery.
 

@@ -13,9 +13,14 @@ Use Node.js 22 for repository work. Run `nvm use` to select the Node.js 22.18.0
 version pinned in `.nvmrc`, then install the locked dependency tree with
 `npm ci`.
 
-1. Pick a section and copy the correct template from `templates/`.
+1. Playbook modules: copy `templates/playbook-module.md`. Showcase entries: edit
+   the table in `docs/showcase/microproducts.md`. Other islands (agents,
+   archetypes, standards, contribute, templates): edit or add a page in that
+   section rather than copying a playbook template.
 2. Add required YAML frontmatter and content. `last_reviewed` must be a real
-   calendar date in `YYYY-MM-DD` form.
+   calendar date in `YYYY-MM-DD` form. Module pages (the default
+   `content_kind`) also require `authors` with registered IDs from
+   `src/data/authors.json`.
 3. Run `npm run check` and `npm run test:coverage` locally. `check` already includes typecheck, validators, tests, and the production build.
 4. Open a PR and complete the checklist.
 5. Committee members review, request changes if needed, and merge.

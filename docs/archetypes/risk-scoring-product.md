@@ -3,7 +3,7 @@ title: "Archetype: Risk scoring product"
 description: Prioritize cases, assets, or actions when downside risk dominates decisions.
 content_kind: reference
 slug: risk-scoring-product
-last_reviewed: 2026-05-04
+last_reviewed: 2026-08-28
 authors: [trilemma-foundation]
 ---
 
@@ -31,11 +31,19 @@ The product helps users prioritize entities, cases, assets, decisions, or action
 
 ## Required files
 
+Follow the [folder contract](/standards/folder-contract):
+
+- `README.md`
+- `AGENTS.md`
 - `product.yaml`
 - `product-brief.md`
+- `architecture.md`
 - `data-contract.md`
 - `evaluation.md`
+- `roadmap.md`
 - `demo.md`
+- `src/`
+- `tests/`
 
 ## Evaluation
 

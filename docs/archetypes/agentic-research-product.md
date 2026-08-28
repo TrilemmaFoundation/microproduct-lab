@@ -3,7 +3,7 @@ title: "Archetype: Agentic research product"
 description: Multi-step investigations where autonomous agents gather evidence under policy.
 content_kind: reference
 slug: agentic-research-product
-last_reviewed: 2026-05-04
+last_reviewed: 2026-08-28
 authors: [trilemma-foundation]
 ---
 
@@ -27,11 +27,19 @@ Open-ended questions need iterative retrieval, tooling, synthesis, yet must rema
 
 ## Required files
 
+Follow the [folder contract](/standards/folder-contract):
+
+- `README.md`
+- `AGENTS.md`
 - `product.yaml`
 - `product-brief.md`
+- `architecture.md`
 - `data-contract.md`
 - `evaluation.md`
+- `roadmap.md`
 - `demo.md`
+- `src/`
+- `tests/`
 
 ## Evaluation
 

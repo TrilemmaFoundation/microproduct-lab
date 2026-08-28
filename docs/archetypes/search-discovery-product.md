@@ -3,7 +3,7 @@ title: "Archetype: Search discovery product"
 description: High-recall retrieval with transparent ranking signals.
 content_kind: reference
 slug: search-discovery-product
-last_reviewed: 2026-05-04
+last_reviewed: 2026-08-28
 authors: [trilemma-foundation]
 ---
 
@@ -27,11 +27,19 @@ Knowledge workers must discover needles in large unstructured corpora with guard
 
 ## Required files
 
+Follow the [folder contract](/standards/folder-contract):
+
+- `README.md`
+- `AGENTS.md`
 - `product.yaml`
 - `product-brief.md`
+- `architecture.md`
 - `data-contract.md`
 - `evaluation.md`
+- `roadmap.md`
 - `demo.md`
+- `src/`
+- `tests/`
 
 ## Evaluation
 

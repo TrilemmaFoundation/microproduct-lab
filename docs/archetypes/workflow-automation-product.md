@@ -3,7 +3,7 @@ title: "Archetype: Workflow automation product"
 description: Choreographed human + bot steps that must stay auditable and idempotent.
 content_kind: reference
 slug: workflow-automation-product
-last_reviewed: 2026-05-04
+last_reviewed: 2026-08-28
 authors: [trilemma-foundation]
 ---
 
@@ -27,11 +27,19 @@ Operational playbooks bundle approvals, integrations, retries, or compensating t
 
 ## Required files
 
+Follow the [folder contract](/standards/folder-contract):
+
+- `README.md`
+- `AGENTS.md`
 - `product.yaml`
 - `product-brief.md`
+- `architecture.md`
 - `data-contract.md`
 - `evaluation.md`
+- `roadmap.md`
 - `demo.md`
+- `src/`
+- `tests/`
 
 ## Evaluation
 

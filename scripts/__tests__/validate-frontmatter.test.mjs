@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import {spawnSync} from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -231,6 +232,33 @@ describe('frontmatter parsing and validation', () => {
       ),
       'table header must be exactly',
     );
+    hasError(
+      validate(undefined, (root) =>
+        writeFile(
+          root,
+          'docs/showcase/microproducts.md',
+          `${frontmatter(validMission)}\n| Name | Description | Team | Link | Extra |\n`,
+        ),
+      ),
+      'table header must be exactly',
+    );
+  });
+
+  it('defaults to the repository root when no root argument is passed', () => {
+    assert.deepEqual(collectFrontmatterErrors(), []);
+  });
+
+  it('resolves the repo root from the script location when cwd is scripts/', () => {
+    const result = spawnSync(
+      process.execPath,
+      ['validate-frontmatter.mjs'],
+      {
+        cwd: path.resolve(import.meta.dirname, '..'),
+        encoding: 'utf8',
+      },
+    );
+    assert.equal(result.status, 0, result.stderr || result.stdout);
+    assert.match(result.stdout, /Frontmatter validation passed/);
   });
 
   it('validates generated mirror docs with mirror-specific rules', () => {

@@ -3,7 +3,7 @@ title: Product templates overview
 description: Starter repositories for scaffolding microproducts—from data apps to agentic workflows.
 content_kind: reference
 slug: /
-last_reviewed: 2026-05-04
+last_reviewed: 2026-08-28
 authors: [trilemma-foundation]
 ---
 
@@ -19,16 +19,16 @@ The top-level **`templates/`** folder is for documentation and submission scaffo
 
 Each row links into the canonical repository paths.
 
-| Template | Audience | Highlights |
-| --- | --- | --- |
-| [**data-app**](https://github.com/TrilemmaFoundation/microproduct-lab/tree/main/product-templates/data-app) | Engineers shipping decision tools atop structured datasets | Opinionated Markdown contracts plus placeholder app layout |
-| [**llm-app**](https://github.com/TrilemmaFoundation/microproduct-lab/tree/main/product-templates/llm-app) | Teams combining retrieval/classification workflows | Mirrors standard agent files for LLM-first delivery |
-| [**analytics-api**](https://github.com/TrilemmaFoundation/microproduct-lab/tree/main/product-templates/analytics-api) | Builders exposing reusable APIs around analytics | Highlights data contracts meant for integrations |
-| [**dashboard-to-tool**](https://github.com/TrilemmaFoundation/microproduct-lab/tree/main/product-templates/dashboard-to-tool) | Teams converting passive dashboards | Focus on decision outcomes and evaluation |
-| [**research-to-product**](https://github.com/TrilemmaFoundation/microproduct-lab/tree/main/product-templates/research-to-product) | Researchers hardening notebook insights | Emphasizes reproducibility and promotion path |
-| [**capstone-project**](https://github.com/TrilemmaFoundation/microproduct-lab/tree/main/product-templates/capstone-project) | Students and faculty partners | Adds classroom-friendly README framing |
-| [**benchmark-suite**](https://github.com/TrilemmaFoundation/microproduct-lab/tree/main/product-templates/benchmark-suite) | Evaluation-heavy teams | Evaluation + metrics docs first |
-| [**agentic-workflow**](https://github.com/TrilemmaFoundation/microproduct-lab/tree/main/product-templates/agentic-workflow) | Operators orchestrating autonomous agents | Captures escalation + human review hooks |
+| Template | Archetype | Audience | Highlights |
+| --- | --- | --- | --- |
+| [**data-app**](https://github.com/TrilemmaFoundation/microproduct-lab/tree/main/product-templates/data-app) | [data-to-decision-tool](/archetypes/data-to-decision-tool) | Engineers shipping decision tools atop structured datasets | Opinionated Markdown contracts plus placeholder app layout |
+| [**llm-app**](https://github.com/TrilemmaFoundation/microproduct-lab/tree/main/product-templates/llm-app) | [agentic-research-product](/archetypes/agentic-research-product) | Teams combining retrieval/classification workflows | Mirrors standard agent files for LLM-first delivery |
+| [**analytics-api**](https://github.com/TrilemmaFoundation/microproduct-lab/tree/main/product-templates/analytics-api) | [forecasting-product](/archetypes/forecasting-product) | Builders exposing reusable APIs around analytics | Highlights data contracts meant for integrations |
+| [**dashboard-to-tool**](https://github.com/TrilemmaFoundation/microproduct-lab/tree/main/product-templates/dashboard-to-tool) | [data-to-decision-tool](/archetypes/data-to-decision-tool) | Teams converting passive dashboards | Focus on decision outcomes and evaluation |
+| [**research-to-product**](https://github.com/TrilemmaFoundation/microproduct-lab/tree/main/product-templates/research-to-product) | [benchmark-evaluation-product](/archetypes/benchmark-evaluation-product) | Researchers hardening notebook insights | Emphasizes reproducibility and promotion path |
+| [**capstone-project**](https://github.com/TrilemmaFoundation/microproduct-lab/tree/main/product-templates/capstone-project) | [workflow-automation-product](/archetypes/workflow-automation-product) | Students and faculty partners | Adds classroom-friendly README framing |
+| [**benchmark-suite**](https://github.com/TrilemmaFoundation/microproduct-lab/tree/main/product-templates/benchmark-suite) | [benchmark-evaluation-product](/archetypes/benchmark-evaluation-product) | Evaluation-heavy teams | Evaluation + metrics docs first |
+| [**agentic-workflow**](https://github.com/TrilemmaFoundation/microproduct-lab/tree/main/product-templates/agentic-workflow) | [workflow-automation-product](/archetypes/workflow-automation-product) | Operators orchestrating autonomous agents | Captures escalation + human review hooks |
 
 :::caution Stub CI workflows
 

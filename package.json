@@ -4,7 +4,7 @@
   "private": true,
   "description": "Build Trilemma — open knowledge hub for microproducts (Docusaurus)",
   "scripts": {
-    "predev": "node scripts/clear-dev-cache.mjs && node scripts/generate-agent-docs.mjs",
+    "predev": "node scripts/clear-dev-cache.mjs && node scripts/generate-agent-docs.mjs && node scripts/generate-llms-full.mjs",
     "dev": "docusaurus start",
     "start": "npm run dev",
     "build": "node scripts/generate-agent-docs.mjs && node scripts/generate-llms-full.mjs && docusaurus build && node scripts/validate-build-artifacts.mjs",

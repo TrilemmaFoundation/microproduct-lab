@@ -7,7 +7,7 @@ body:
     attributes:
       label: Section
       description: Which section should this content live in?
-      placeholder: intro | playbook | resources | contribute
+      placeholder: playbook | showcase | contribute | agents | templates | archetypes | standards
     validations:
       required: true
   - type: textarea
