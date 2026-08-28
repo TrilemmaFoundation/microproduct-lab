@@ -36,3 +36,6 @@ Licence
 Ouverte
 lakehouse
 replayable
+OpenLineage
+Ossie
+SLayer

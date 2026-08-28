@@ -76,7 +76,7 @@ A small microproduct might implement almost all of them with:
 ```text
 API / files
     ↓
-Python
+Python / dlt
     ↓
 Parquet
     ↓
@@ -84,6 +84,8 @@ DuckDB
     ↓
 Application
 ```
+
+A loader such as dlt can replace the ad-hoc download step: connect to an API or file source, write raw and normalized datasets, and keep load metadata. The architecture is still a Python process writing files. The product did not become a platform.
 
 A larger analytical product might look more like:
 
@@ -104,6 +106,23 @@ API / application / analytics / models
 And a sufficiently large system might split every box into independently operated infrastructure.
 
 Do not confuse the diagram with a shopping list.
+
+## Tools
+
+These names are current implementations of the responsibilities above. They are not a recommended architecture.
+
+| Tool | Responsibility | Default | Earns its place when |
+| --- | --- | --- | --- |
+| dlt | Ingest | Green | A Python loader is cheaper than hand-rolled extractors, and you want source schema, load IDs, and a raw copy |
+| DuckDB | Transform | Green | Analytical work can run inside the pipeline, notebook, or application |
+| Apache Iceberg | Store | Yellow | You need snapshots, schema evolution, or concurrent writers on object storage |
+| Apache Polaris | Store | Yellow | More than one engine must find and govern the same Iceberg tables |
+| DQX | Validate | Yellow | Quality checks must run at Spark or Databricks scale |
+| OpenLineage | Observe | Yellow | Many jobs depend on each other and blast radius is an operational question |
+| SLayer | Serve | Yellow | Applications or agents need named metrics instead of warehouse SQL |
+| Apache Ossie | Serve | Yellow | The same metric and dimension definitions must move between tools |
+
+The implementation does not change the test. Finish the sentence "We need this because..." before adding a row to the stack.
 
 ## Reason From the Product Backward
 
@@ -179,6 +198,8 @@ If the underlying observations still exist, you can fix the transformation and r
 If only the incorrect scores were retained, you have an incident and a history problem.
 
 This is why ingestion timestamps, source identifiers, source versions, and provenance often matter more than another dashboard.
+
+Ingestion libraries earn their place when they make that provenance cheap. dlt, for example, can retain source schema, load identifiers, and a raw copy so a later transformation can be replayed. The escape hatch is the retained source state, not the brand of the loader.
 
 You do not know every transformation you will want tomorrow.
 
@@ -268,6 +289,8 @@ For many data products, this is enough to create a surprisingly capable architec
 ### Lakehouse
 
 A lakehouse architecture can add transactional table semantics, schema evolution, snapshots, concurrent writers, and interoperability on top of object storage.
+
+Apache Iceberg is the open table format most often used for those capabilities. Apache Polaris is a catalog for Iceberg tables: a shared place to register names, locations, and access so more than one engine can read and write the same tables. A catalog is how engines agree on what a table is. It is not a reason to introduce Iceberg when one process writes a file and another reads it.
 
 Those capabilities can be valuable.
 
@@ -403,6 +426,10 @@ These mechanisms overlap, but they are not interchangeable.
 
 A hundred schema tests do not tell you whether a perfectly valid upstream API quietly stopped sending half of Europe.
 
+OpenLineage is a standard for the lineage column: jobs emit what they read and wrote, and a collector can show what produced a dataset and what depends on it. That answers blast radius. It does not answer whether the data is correct.
+
+A quality engine such as DQX can encode tests and quarantine invalid rows, especially on Spark or Databricks workloads. That is still the test column, not lineage, not a contract, and not documentation. If the pipeline is a Python job and a DuckDB transform, a few explicit assertions are the smaller version of the same idea.
+
 ## The Serving Boundary Matters
 
 The data pipeline does not end when a table exists.
@@ -417,6 +444,7 @@ Canonical dataset
     ├──→ Public API
     ├──→ BI dashboard
     ├──→ ML model
+    ├──→ Agent / semantic layer
     ├──→ Download
     └──→ Another pipeline
 ```
@@ -433,6 +461,10 @@ A model may require point-in-time correct historical features.
 
 A public API creates compatibility obligations that an internal table does not.
 
+An agent that generates SQL is another consumer, and a more dangerous one: it can invent joins and redefine metrics on every run. When several surfaces need the same measures and dimensions, a semantic layer such as SLayer can sit on the serving boundary so applications and agents ask for named metrics instead of writing warehouse SQL. Apache Ossie is a vendor-neutral specification for writing those metric and dimension definitions down, so "revenue" can mean the same thing in a dashboard, an API, and an agent.
+
+Shared semantics are a serving contract. They are not a reason to stand up a semantic platform before anyone shares a definition.
+
 This is why serving should be designed during Frame rather than added after the pipeline exists.
 
 A table is not automatically a product interface.
@@ -447,7 +479,7 @@ Use this as the Frame-phase takeaway.
 
 Start here when the requirements allow it:
 
-* scheduled batch ingestion
+* scheduled batch ingestion, including a Python loader such as dlt
 * Python and SQL
 * relational or analytical databases
 * Parquet and object storage
@@ -470,14 +502,17 @@ Add when a concrete requirement justifies it:
 * change data capture
 * micro-batch pipelines
 * distributed compute
-* lakehouse table formats
+* lakehouse table formats such as Apache Iceberg
 * multiple compute engines
-* semantic layers
-* centralized catalogs
+* semantic layers such as SLayer, and semantic interchange such as Apache Ossie
+* centralized catalogs such as Apache Polaris
 * dedicated data observability platforms
-* complex lineage infrastructure
+* complex lineage infrastructure such as OpenLineage
+* distributed quality engines such as DQX
 
 Yellow is not a warning against the technology.
+
+The [tools table](#tools) is the index. The implementation does not change the test.
 
 Yellow means you should be able to finish this sentence:
 
@@ -492,10 +527,11 @@ Do not make these assumptions by default:
 * Kafka because the product should be "real time"
 * Spark because the dataset is called big data
 * Kubernetes for three scheduled data jobs
-* a lakehouse with one writer and one consumer
+* a lakehouse, or Iceberg tables in Polaris, with one writer and one consumer
 * five managed data services around a small warehouse
 * a feature store without an online feature-serving problem
-* a semantic layer before anyone needs shared semantic definitions
+* a semantic layer, or Ossie models, before anyone needs shared semantic definitions
+* OpenLineage before there are downstream dependencies to map
 * data mesh infrastructure for a team that fits around one table
 
 Red does not mean bad technology.
