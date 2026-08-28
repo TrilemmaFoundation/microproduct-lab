@@ -39,7 +39,7 @@ This runs:
 - registry JSON and starter `product.yaml` validation against
   `static/schemas/product.schema.json`; product and starter archetypes must match the catalog
 - playbook tree sync check (`humanPlaybook.data.json` must match every file under `docs/human/`)
-- markdown lint for `docs/**/*.md` and `docs/**/*.mdx`, plus `README.md`, `CONTRIBUTING.md`, `templates/**/*.md`, `product-templates/**/*.md`, and `products/**/*.md` (generated `docs/agents/human/**` is excluded)
+- markdown lint for `docs/**/*.md` and `docs/**/*.mdx`, plus `README.md`, `AGENTS.md`, `CONTRIBUTING.md`, `templates/**/*.md`, `product-templates/**/*.md`, and `products/**/*.md` (generated `docs/agents/human/**` is excluded)
 - unit and script tests (`npm test`)
 - `generate-agent-docs`, `generate-llms-full`, production Docusaurus build, and build-artifact validation (static output + link checks)
 
