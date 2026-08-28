@@ -34,3 +34,5 @@ generis
 licences
 Licence
 Ouverte
+lakehouse
+replayable

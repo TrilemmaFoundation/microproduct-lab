@@ -22,6 +22,7 @@ describe('human playbook data', () => {
         items: [
           'playbook/frame/frame',
           'playbook/frame/data-licensing',
+          'playbook/frame/modern-data-stack',
           'playbook/frame/quality-first',
         ],
       },
@@ -60,6 +61,7 @@ describe('human playbook data', () => {
         items: [
           'human/playbook/frame/frame',
           'human/playbook/frame/data-licensing',
+          'human/playbook/frame/modern-data-stack',
           'human/playbook/frame/quality-first',
         ],
       },

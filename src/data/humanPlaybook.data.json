@@ -31,6 +31,13 @@
                 "to": "/docs/playbook/frame/data-licensing"
               },
               {
+                "id": "modern-data-stack",
+                "title": "Modern Data Stack",
+                "description": "Modern data infrastructure is not a list of products. Reason from product constraints before choosing a warehouse, orchestrator, or lakehouse.",
+                "docId": "playbook/frame/modern-data-stack",
+                "to": "/docs/playbook/frame/modern-data-stack"
+              },
+              {
                 "id": "quality-first",
                 "title": "Quality-First",
                 "description": "How a modern approach to QA and spec-driven development helps ship quickly and confidently.",

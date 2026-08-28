@@ -68,6 +68,7 @@ A good microproduct:
 - Is small enough to ship.
 - Has a clear path from data/input to action/output.
 - Documents provenance and usage rights for material external data.
+- Records a justified data architecture in architecture.md.
 
 ## Bad microproduct characteristics
 
@@ -78,13 +79,14 @@ Avoid:
 - Unvalidated AI wrappers.
 - Unstructured notebooks with no product path.
 - Overbuilt architecture before a useful MVP exists.
+- Unjustified data-stack complexity with no product requirement.
 - Hidden assumptions, including unknown data usage rights.
 - Missing README, schema, or evaluation criteria.
 
 ## Build workflow
 
 1. Read product.yaml.
-2. Read product-brief.md.
+2. Read product-brief.md and architecture.md.
 3. Inspect the selected template.
 4. Confirm the archetype.
 5. Generate the minimum useful implementation.
