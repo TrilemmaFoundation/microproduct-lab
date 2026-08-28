@@ -5,10 +5,6 @@ import {stripFrontmatter as stripFrontmatterBody} from './frontmatterUtils.mjs';
 
 const WORDS_PER_MINUTE = 225;
 
-export function stripFrontmatter(content) {
-  return stripFrontmatterBody(content);
-}
-
 export function stripMdxBoilerplate(content) {
   return content
     .replace(/^import\s.+?;?\s*$/gm, '')
@@ -21,7 +17,7 @@ export function stripMdxBoilerplate(content) {
 }
 
 export function countReadableWords(content) {
-  const words = stripMdxBoilerplate(stripFrontmatter(content))
+  const words = stripMdxBoilerplate(stripFrontmatterBody(content))
     .split(/\s+/)
     .map((word) => word.trim())
     .filter(Boolean);

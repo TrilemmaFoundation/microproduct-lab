@@ -11,9 +11,6 @@ import {extractFrontmatter} from './frontmatterUtils.mjs';
 import {
   stripFrontmatterAndMdxForLlms,
 } from './llmsMdxUtils.mjs';
-import {flattenPlaybookNodes} from './playbookTreeUtils.mjs';
-
-export {flattenPlaybookNodes};
 
 /**
  * @param {string} rootDir

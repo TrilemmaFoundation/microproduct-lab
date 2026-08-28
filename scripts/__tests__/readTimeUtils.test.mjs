@@ -8,19 +8,8 @@ import {
   buildDocReadTimes,
   calculateReadMinutes,
   countReadableWords,
-  stripFrontmatter,
   stripMdxBoilerplate,
 } from '../readTimeUtils.mjs';
-
-test('stripFrontmatter removes yaml frontmatter', () => {
-  const content = '---\ntitle: Example\n---\n\nVisible body';
-  assert.equal(stripFrontmatter(content).trim(), 'Visible body');
-});
-
-test('stripFrontmatter preserves content without a complete frontmatter block', () => {
-  assert.equal(stripFrontmatter('Visible body'), 'Visible body');
-  assert.equal(stripFrontmatter('---\ntitle: Incomplete\nVisible body'), '---\ntitle: Incomplete\nVisible body');
-});
 
 test('stripMdxBoilerplate removes import and export lines', () => {
   const content = [

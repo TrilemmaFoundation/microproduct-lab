@@ -1,5 +1,5 @@
 /**
- * Playbook tree helpers shared by UI, generators, and validators.
+ * Playbook tree helpers shared by generators and validators.
  */
 
 /** @param {import('../src/data/humanPlaybook').PlaybookTreeNode[]} nodes */

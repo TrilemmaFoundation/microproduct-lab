@@ -10,11 +10,11 @@ import {pathToFileURL} from 'node:url';
 import {
   assertPathInside,
   buildAgentMirrorDocument,
-  flattenPlaybookNodes,
   metadataFromNode,
   renderAgentMirrorOverview,
   resolveHumanSourceFile,
 } from './agentDocsUtils.mjs';
+import {flattenPlaybookNodes} from './playbookTreeUtils.mjs';
 
 /**
  * @param {{ root?: string }} [options]

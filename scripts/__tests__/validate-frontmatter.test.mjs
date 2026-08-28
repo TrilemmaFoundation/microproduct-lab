@@ -7,7 +7,6 @@ import {describe, it} from 'node:test';
 
 import {
   collectFrontmatterErrors,
-  extractFrontmatter,
   isValidReviewedDate,
 } from '../validate-frontmatter.mjs';
 
@@ -242,6 +241,41 @@ describe('frontmatter parsing and validation', () => {
       ),
       'table header must be exactly',
     );
+    hasError(
+      validate(undefined, (root) =>
+        writeFile(
+          root,
+          'docs/showcase/microproducts.md',
+          [
+            frontmatter(validMission),
+            '| Name | Description | Team | Link | Extra |',
+            '| --- | --- | --- | --- | --- |',
+            '| Broken | row | 1 | https://example.com | x |',
+            '',
+            'Example of the required header:',
+            '| Name | Description | Team | Link |',
+            '',
+          ].join('\n'),
+        ),
+      ),
+      'table header must be exactly',
+    );
+    assert.deepEqual(
+      validate(undefined, (root) =>
+        writeFile(
+          root,
+          'docs/showcase/microproducts.md',
+          [
+            frontmatter(validMission),
+            '| --- | --- | --- | --- |',
+            '| Name | Description | Team | Link |',
+            '| --- | --- | --- | --- |',
+            '',
+          ].join('\n'),
+        ),
+      ),
+      [],
+    );
   });
 
   it('defaults to the repository root when no root argument is passed', () => {
@@ -374,11 +408,6 @@ describe('frontmatter parsing and validation', () => {
       ),
       'canonical_human_url must be a string value',
     );
-  });
-
-  it('extracts frontmatter without consuming the body', () => {
-    assert.equal(extractFrontmatter(frontmatter(validMission)), validMission);
-    assert.equal(extractFrontmatter('Body'), null);
   });
 
 });

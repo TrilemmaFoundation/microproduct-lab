@@ -447,16 +447,6 @@ textarea:focus-visible {
     .theme-doc-sidebar-item-link
     > .menu__link--active {
     color: var(--color-text-primary);
-  }
-
-  html.plugin-id-default.docs-doc-page
-    .theme-doc-sidebar-container
-    .theme-doc-sidebar-item-link
-    > .menu__link:hover,
-  html.plugin-id-default.docs-doc-page
-    .theme-doc-sidebar-container
-    .theme-doc-sidebar-item-link
-    > .menu__link--active {
     background: transparent;
   }
 

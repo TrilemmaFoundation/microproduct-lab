@@ -88,4 +88,22 @@ describe('playbook tree validation', () => {
       collectPlaybookTreeErrors(root).some((error) => error.includes('human docs root is missing')),
     );
   });
+
+  it('reports malformed playbook tree JSON without throwing', () => {
+    writeFile(root, 'src/data/humanPlaybook.data.json', '{bad');
+    const errors = collectPlaybookTreeErrors(root);
+    assert.ok(
+      errors.some((error) => error.includes('invalid JSON')),
+      errors.join('\n'),
+    );
+  });
+
+  it('reports a non-array playbook tree without throwing', () => {
+    writeFile(root, 'src/data/humanPlaybook.data.json', '{}');
+    const errors = collectPlaybookTreeErrors(root);
+    assert.ok(
+      errors.some((error) => error.includes('playbook tree must be a JSON array')),
+      errors.join('\n'),
+    );
+  });
 });

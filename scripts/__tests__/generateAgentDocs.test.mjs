@@ -9,7 +9,6 @@ import {
   agentSlugFromHumanTo,
   assertPathInside,
   buildAgentMirrorDocument,
-  flattenPlaybookNodes,
   metadataFromNode,
   parseSourceFrontmatter,
   renderAgentMirrorOverview,
@@ -18,6 +17,7 @@ import {
 } from '../agentDocsUtils.mjs';
 import {generateAgentDocs} from '../generate-agent-docs.mjs';
 import {stripFrontmatterAndMdxForLlms} from '../llmsMdxUtils.mjs';
+import {flattenPlaybookNodes} from '../playbookTreeUtils.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const humanPlaybookTree = JSON.parse(

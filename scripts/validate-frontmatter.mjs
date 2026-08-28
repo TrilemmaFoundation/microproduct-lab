@@ -8,8 +8,6 @@ import {isUnderGeneratedContentRoot} from './generatedContentRoots.mjs';
 import {extractFrontmatter} from './frontmatterUtils.mjs';
 import {validatePublicHttpsUrl} from './publicUrl.mjs';
 
-export {extractFrontmatter};
-
 const baseRequiredFields = ['title', 'description', 'last_reviewed'];
 const contentKinds = new Set(['foundation', 'module', 'reference', 'mirror']);
 const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
@@ -215,6 +213,23 @@ function validateFile(filePath, authorIds, root, errors) {
   errors.push(...fileErrors);
 }
 
+const SHOWCASE_TABLE_HEADER = '| Name | Description | Team | Link |';
+
+function isMarkdownTableSeparator(line) {
+  const trimmed = line.trim();
+  return /^\|[\s:|-]+\|$/.test(trimmed) && trimmed.includes('-');
+}
+
+function firstMarkdownTableHeader(content) {
+  for (const line of content.split(/\r?\n/)) {
+    const trimmed = line.trim();
+    if (trimmed.startsWith('|') && !isMarkdownTableSeparator(trimmed)) {
+      return trimmed;
+    }
+  }
+  return null;
+}
+
 function validateShowcaseTable(root, errors) {
   const showcasePath = path.join(root, 'docs', 'showcase', 'microproducts.md');
   if (!fs.existsSync(showcasePath)) {
@@ -222,13 +237,11 @@ function validateShowcaseTable(root, errors) {
     return;
   }
 
-  const expected = '| Name | Description | Team | Link |';
-  const hasExactHeader = fs
-    .readFileSync(showcasePath, 'utf8')
-    .split(/\r?\n/)
-    .some((line) => line.trim() === expected);
-  if (!hasExactHeader) {
-    errors.push(`${showcasePath}: table header must be exactly '${expected}'`);
+  const header = firstMarkdownTableHeader(fs.readFileSync(showcasePath, 'utf8'));
+  if (header !== SHOWCASE_TABLE_HEADER) {
+    errors.push(
+      `${showcasePath}: table header must be exactly '${SHOWCASE_TABLE_HEADER}'`,
+    );
   }
 }
 

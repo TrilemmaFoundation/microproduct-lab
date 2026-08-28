@@ -22,9 +22,19 @@ function walkMarkdownFiles(dir) {
   return files;
 }
 
-function loadPlaybookTree(root) {
+function loadPlaybookTree(root, errors) {
   const treePath = path.join(root, 'src', 'data', 'humanPlaybook.data.json');
-  return JSON.parse(fs.readFileSync(treePath, 'utf8'));
+  try {
+    const tree = JSON.parse(fs.readFileSync(treePath, 'utf8'));
+    if (!Array.isArray(tree)) {
+      errors.push(`${treePath}: playbook tree must be a JSON array`);
+      return null;
+    }
+    return tree;
+  } catch (error) {
+    errors.push(`${treePath}: invalid JSON (${error.message})`);
+    return null;
+  }
 }
 
 function docIdToRelativePath(docId) {
@@ -49,7 +59,11 @@ export function collectPlaybookTreeErrors(root = path.resolve(import.meta.dirnam
     return errors;
   }
 
-  const tree = loadPlaybookTree(root);
+  const tree = loadPlaybookTree(root, errors);
+  if (!tree) {
+    return errors;
+  }
+
   const nodes = flattenPlaybookNodes(tree);
   const docIds = new Set(
     nodes.map((node) => node.docId).filter((docId) => typeof docId === 'string'),
