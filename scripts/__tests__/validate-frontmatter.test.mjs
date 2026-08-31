@@ -161,7 +161,73 @@ describe('frontmatter parsing and validation', () => {
     );
     hasError(
       validate(undefined, (root) => writeFile(root, 'src/data/authors.json', '[{}]')),
-      'must define at least one author ID',
+      'author id must be a lowercase kebab-case string',
+    );
+    hasError(
+      validate(undefined, (root) =>
+        writeFile(
+          root,
+          'src/data/authors.json',
+          JSON.stringify([{id: 'Not Safe', name: 'Author'}]),
+        ),
+      ),
+      'author id must be a lowercase kebab-case string',
+    );
+    hasError(
+      validate(undefined, (root) =>
+        writeFile(
+          root,
+          'src/data/authors.json',
+          JSON.stringify([{id: 'author', name: ''}]),
+        ),
+      ),
+      "author 'author' name must be a non-empty string value",
+    );
+    hasError(
+      validate(undefined, (root) =>
+        writeFile(
+          root,
+          'src/data/authors.json',
+          JSON.stringify([{id: 'author', name: 'Author', bio: ''}]),
+        ),
+      ),
+      "author 'author' bio must be a non-empty string value",
+    );
+    hasError(
+      validate(undefined, (root) =>
+        writeFile(
+          root,
+          'src/data/authors.json',
+          JSON.stringify([{id: 'author', name: 'Author', bio: '   '}]),
+        ),
+      ),
+      "author 'author' bio must be a non-empty string value",
+    );
+    hasError(
+      validate(undefined, (root) =>
+        writeFile(
+          root,
+          'src/data/authors.json',
+          JSON.stringify([{id: 'author', name: 'Author', bio: 12}]),
+        ),
+      ),
+      "author 'author' bio must be a non-empty string value",
+    );
+    assert.deepEqual(
+      validate(undefined, (root) =>
+        writeFile(
+          root,
+          'src/data/authors.json',
+          JSON.stringify([
+            {
+              id: 'trilemma-foundation',
+              name: 'Trilemma Foundation',
+              bio: 'Maintains the playbook.',
+            },
+          ]),
+        ),
+      ),
+      [],
     );
   });
 

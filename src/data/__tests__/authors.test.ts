@@ -24,11 +24,54 @@ describe('authors', () => {
 
   it('sanitizeAuthor omits missing or unsafe URLs', () => {
     expect(
-      sanitizeAuthor({id: 'a', name: 'A', url: 'https://example.com'}),
-    ).toEqual({id: 'a', name: 'A', url: 'https://example.com'});
+      sanitizeAuthor({
+        id: 'a',
+        name: 'A',
+        bio: 'A short biography.',
+        url: 'https://example.com',
+      }),
+    ).toEqual({
+      id: 'a',
+      name: 'A',
+      bio: 'A short biography.',
+      url: 'https://example.com',
+    });
     expect(sanitizeAuthor({id: 'b', name: 'B'})).toEqual({id: 'b', name: 'B'});
+    expect(sanitizeAuthor({id: 'blank', name: 'Blank', bio: ''})).toEqual({
+      id: 'blank',
+      name: 'Blank',
+    });
     expect(
       sanitizeAuthor({id: 'c', name: 'C', url: 'javascript:alert(1)'}),
     ).toEqual({id: 'c', name: 'C'});
+  });
+
+  it('sanitizeAuthor omits non-string bios and does not invent missing fields', () => {
+    expect(
+      sanitizeAuthor({
+        id: 'typed',
+        name: 'Typed',
+        bio: 12 as unknown as string,
+      }),
+    ).toEqual({id: 'typed', name: 'Typed'});
+    expect(
+      sanitizeAuthor({
+        id: 'nulled',
+        name: 'Nulled',
+        bio: null as unknown as string,
+        url: undefined,
+      }),
+    ).toEqual({id: 'nulled', name: 'Nulled'});
+  });
+
+  it('keeps optional live-registry bios only when they are non-empty strings', () => {
+    for (const author of authors) {
+      expect(author.id).toMatch(/^[a-z0-9]+(?:-[a-z0-9]+)*$/);
+      expect(author.name.trim().length).toBeGreaterThan(0);
+      if (author.bio !== undefined) {
+        expect(author.bio.trim().length).toBeGreaterThan(0);
+      }
+    }
+    expect(new Set(authors.map((author) => author.id)).size).toBe(authors.length);
   });
 });

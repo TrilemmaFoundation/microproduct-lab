@@ -58,7 +58,7 @@ describe('DocItemContent byline', () => {
     expect(screen.getByText(/Maintained by/i)).toBeInTheDocument();
     expect(
       screen.getByRole('link', {name: 'Trilemma Foundation'}),
-    ).toBeInTheDocument();
+    ).toHaveAttribute('href', '/authors/trilemma-foundation');
     expect(screen.getByText('1 min read')).toBeInTheDocument();
     expect(screen.queryByText(/^By/i)).not.toBeInTheDocument();
   });
@@ -88,7 +88,10 @@ describe('DocItemContent byline', () => {
     );
 
     expect(screen.getByText(/^By/i)).toBeInTheDocument();
-    expect(screen.getByRole('link', {name: 'Mohammad Ashkani'})).toBeInTheDocument();
+    expect(screen.getByRole('link', {name: 'Mohammad Ashkani'})).toHaveAttribute(
+      'href',
+      '/authors/mohammad-ashkani',
+    );
     expect(screen.queryByText(/Maintained by/i)).not.toBeInTheDocument();
   });
 
@@ -101,7 +104,10 @@ describe('DocItemContent byline', () => {
     );
 
     expect(screen.getByText(/^By/i)).toBeInTheDocument();
-    expect(screen.getByRole('link', {name: 'Mohammad Ashkani'})).toBeInTheDocument();
+    expect(screen.getByRole('link', {name: 'Mohammad Ashkani'})).toHaveAttribute(
+      'href',
+      '/authors/mohammad-ashkani',
+    );
     expect(screen.queryByText(/Maintained by/i)).not.toBeInTheDocument();
   });
 
@@ -115,7 +121,20 @@ describe('DocItemContent byline', () => {
     expect(screen.queryByText(/^By/i)).not.toBeInTheDocument();
   });
 
-  it('renders authors without profile URLs as plain text', () => {
+  it('keeps bylines on-site even when the author has an external profile URL', () => {
+    renderDoc(
+      {authors: ['matt-faltyn']},
+      '@site/docs/human/playbook/on-site.md',
+      {includeReadTime: false},
+    );
+
+    const byline = screen.getByRole('link', {name: 'Matt Faltyn'});
+    expect(byline).toHaveAttribute('href', '/authors/matt-faltyn');
+    expect(byline).not.toHaveAttribute('href', 'https://www.mattfaltyn.com');
+    expect(byline).not.toHaveAttribute('target');
+  });
+
+  it('links authors without profile URLs to their native profile', () => {
     authorsById.set('plain-author', {id: 'plain-author', name: 'Plain Author'});
     try {
       renderDoc(
@@ -123,8 +142,10 @@ describe('DocItemContent byline', () => {
         '@site/docs/human/playbook/plain-author.md',
         {includeReadTime: false},
       );
-      expect(screen.getByText(/Plain Author/)).toBeInTheDocument();
-      expect(screen.queryByRole('link', {name: 'Plain Author'})).not.toBeInTheDocument();
+      expect(screen.getByRole('link', {name: 'Plain Author'})).toHaveAttribute(
+        'href',
+        '/authors/plain-author',
+      );
     } finally {
       authorsById.delete('plain-author');
     }
@@ -138,6 +159,23 @@ describe('DocItemContent byline', () => {
     expect(
       screen.getByRole('link', {name: 'Mohammad Ashkani'}).parentElement,
     ).toHaveTextContent('By Mohammad Ashkani, Trilemma Foundation');
+  });
+
+  it('drops unknown coauthors from native byline links', () => {
+    renderDoc(
+      {authors: ['unknown-author', 'rowan-lindsay']},
+      '@site/docs/human/playbook/mixed.md',
+      {includeReadTime: false},
+    );
+
+    expect(screen.getByRole('link', {name: 'Rowan Lindsay'})).toHaveAttribute(
+      'href',
+      '/authors/rowan-lindsay',
+    );
+    expect(screen.queryByText('unknown-author')).not.toBeInTheDocument();
+    expect(
+      screen.getByRole('link', {name: 'Rowan Lindsay'}).parentElement,
+    ).toHaveTextContent('By Rowan Lindsay');
   });
 
   it('keeps the byline when the markdown title is explicit or hidden', () => {

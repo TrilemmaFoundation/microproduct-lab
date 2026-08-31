@@ -11,6 +11,7 @@ import {validatePublicHttpsUrl} from './publicUrl.mjs';
 const baseRequiredFields = ['title', 'description', 'last_reviewed'];
 const contentKinds = new Set(['foundation', 'module', 'reference', 'mirror']);
 const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+const authorIdRegex = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 function walkMarkdownFiles(dir) {
   const files = [];
@@ -93,10 +94,21 @@ function loadAuthorIds(root, errors) {
     }
     const ids = [];
     for (const author of authors) {
-      if (typeof author?.id !== 'string' || author.id.length === 0) {
+      if (typeof author?.id !== 'string' || !authorIdRegex.test(author.id)) {
+        errors.push(`${authorsPath}: author id must be a lowercase kebab-case string`);
         continue;
       }
       ids.push(author.id);
+      if (typeof author.name !== 'string' || author.name.trim().length === 0) {
+        errors.push(`${authorsPath}: author '${author.id}' name must be a non-empty string value`);
+      }
+      if (typeof author.bio !== 'undefined') {
+        if (typeof author.bio !== 'string' || author.bio.trim().length === 0) {
+          errors.push(
+            `${authorsPath}: author '${author.id}' bio must be a non-empty string value`,
+          );
+        }
+      }
       if (typeof author.url === 'undefined') {
         continue;
       }

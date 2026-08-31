@@ -40,6 +40,11 @@ Optional profile URLs in `src/data/authors.json` use the same public HTTPS
 rules. Unsafe schemes (including `javascript:` and `http:`) fail frontmatter
 validation and are stripped at render time.
 
+Each registered author receives a native `/authors/<id>` page. Add an optional
+plain-text `bio` to the author record when approved profile copy is available;
+the page lists every public canonical doc that explicitly names that author,
+ordered by `last_reviewed`.
+
 Starter `product.yaml` files are validated against the public product schema
 and must select an archetype documented in the catalog. Every registry product
 archetype must also exist as a page under `docs/archetypes/`.

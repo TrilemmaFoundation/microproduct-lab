@@ -1,5 +1,6 @@
 import React, {type ReactNode} from 'react';
 import clsx from 'clsx';
+import Link from '@docusaurus/Link';
 import {ThemeClassNames} from '@docusaurus/theme-common';
 import {usePluginData} from '@docusaurus/useGlobalData';
 import {useDoc} from '@docusaurus/plugin-content-docs/client';
@@ -68,13 +69,7 @@ function DocByline(): ReactNode {
           {pageAuthors.map((author, index) => (
             <React.Fragment key={author.id}>
               {index > 0 && ', '}
-              {author.url ? (
-                <a href={author.url} target="_blank" rel="noopener noreferrer">
-                  {author.name}
-                </a>
-              ) : (
-                author.name
-              )}
+              <Link to={`/authors/${author.id}`}>{author.name}</Link>
             </React.Fragment>
           ))}
         </span>

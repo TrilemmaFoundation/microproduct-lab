@@ -8,6 +8,7 @@ authors: [trilemma-foundation]
 ---
 
 import {authors} from '@site/src/data/authors';
+import Link from '@docusaurus/Link';
 
 People and organizations who contribute to the Build Trilemma playbook. The list
 below comes from the shared site author registry (`src/data/authors.json`).
@@ -16,7 +17,7 @@ Optional profile links must be public HTTPS URLs.
 <ul>
   {authors.map((author) => (
     <li key={author.id}>
-      {author.url ? <a href={author.url}>{author.name}</a> : author.name}
+      <Link to={`/authors/${author.id}`}>{author.name}</Link>
     </li>
   ))}
 </ul>

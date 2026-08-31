@@ -3,6 +3,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 import type {PluginOptions as LocalSearchOptions} from '@easyops-cn/docusaurus-search-local';
 import { SITE_URL } from './siteUrl';
 import {humanPlaybookTree} from './src/data/humanPlaybook';
+import authorPagesPlugin from './src/plugins/authorPages';
 import docReadTimesPlugin from './src/plugins/docReadTimes';
 import {agentMirrorSearchIgnoreFiles} from './src/utils/agentMirrorSearchIgnore';
 
@@ -68,6 +69,7 @@ const plugins: PluginConfig[] = [
       docRoots: ['docs/human', ...docsIslandPlugins.map((spec) => spec.path)],
     },
   ],
+  authorPagesPlugin,
   [
     '@docusaurus/plugin-vercel-analytics',
     {
