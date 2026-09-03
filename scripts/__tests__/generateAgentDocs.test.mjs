@@ -86,7 +86,7 @@ import Foo from 'bar';
 
 # Heading
 
-<PlaybookTree />
+<ExampleWidget />
 
 Body text.
 `;
@@ -116,7 +116,7 @@ Body text.
     assert.match(output, /# Heading/);
     assert.match(output, /Body text/);
     assert.doesNotMatch(output, /import Foo/);
-    assert.doesNotMatch(output, /<PlaybookTree/);
+    assert.doesNotMatch(output, /<ExampleWidget/);
   });
 
   it('falls back to tree metadata when frontmatter is missing', () => {

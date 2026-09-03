@@ -15,7 +15,7 @@
 │   └── agents/human/    # Generated agent mirror of docs/human (do not edit; see scripts/generate-agent-docs.mjs)
 ├── src/
 │   ├── pages/           # React pages (e.g. audience chooser)
-│   ├── components/      # Shared React (e.g. ControlSurface, PlaybookTree)
+│   ├── components/      # Shared React (e.g. ControlSurface, AuthorPage)
 │   ├── theme/           # Swizzled theme pieces (e.g. Navbar)
 │   ├── css/             # Global styles
 │   ├── utils/           # Helpers

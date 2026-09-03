@@ -27,9 +27,8 @@ Important prose between components must survive.
 import Foo from '@site/x';
 
 import {
-  PlaybookTree,
-  humanPlaybookTree,
-} from '@site/src/components/PlaybookTree';
+  ExampleWidget,
+} from '@site/src/components/ExampleWidget';
 
 # Hello
 
@@ -37,8 +36,8 @@ import {
 
 <OtherComp prop="x" />
 
-<PlaybookTree
-  nodes={humanPlaybookTree}
+<ExampleWidget
+  nodes={sampleTree}
   initialSelectedId="request-for-microproducts"
 />
 
@@ -61,7 +60,6 @@ End.
     assert.match(out, /Text after/);
     assert.match(out, /End/);
     assert.doesNotMatch(out, /import Foo/);
-    assert.doesNotMatch(out, /PlaybookTree/);
     assert.doesNotMatch(out, /ExampleWidget/);
     assert.doesNotMatch(out, /<OtherComp/);
     assert.doesNotMatch(out, /authors\.map/);
