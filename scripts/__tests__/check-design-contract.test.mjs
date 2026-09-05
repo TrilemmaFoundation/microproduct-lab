@@ -23,9 +23,9 @@ function fixture(name = 'microproduct-lab') {
 }
 test('all framework mappings accept the same independent contract', () => {
   const website = fixture('trilemma-foundation'); const data = fixture('data'); const lab = fixture();
-  assert.equal(checkDesignContract(website, [data, lab]), '1.0.0');
-  assert.equal(checkDesignContract(data), '1.0.0');
-  assert.equal(checkDesignContract(lab), '1.0.0');
+  assert.equal(checkDesignContract(website, [data, lab]), '1.1.0');
+  assert.equal(checkDesignContract(data), '1.1.0');
+  assert.equal(checkDesignContract(lab), '1.1.0');
 });
 test('detects local token drift', () => {
   const root = fixture(); writeFileSync(join(root, 'src/design/tokens.css'), 'changed');

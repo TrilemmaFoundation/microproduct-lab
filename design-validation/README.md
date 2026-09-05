@@ -1,5 +1,10 @@
 # Foundation experience unification — design contract 1.0.0
 
+> **Current navigation (contract 1.1.0):** Data and Playbook now render only
+> their local subdomain header. The Foundation header is not imported by either
+> app. The common footer remains. The double-header screenshots and validation
+> below are historical evidence from the original 1.0.0 migration.
+
 Implemented September 5, 2026. The canonical reference is the rendered Foundation
 landing at `website_v2` revision `c6b1b7da2d8ca4c3c1d53b4912a91f45de9e0b1e`.
 The applications remain separate repositories with independent builds and releases.

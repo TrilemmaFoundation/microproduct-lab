@@ -37,7 +37,7 @@
   --ifm-color-content-secondary: var(--tf-primary-navy);
   --ifm-background-color: var(--tf-ghost-white);
   --ifm-background-surface-color: var(--tf-ghost-white);
-  --ifm-navbar-height: var(--foundation-shell-height, 116px);
+  --ifm-navbar-height: var(--foundation-shell-height, 52px);
   --ifm-navbar-background-color: var(--tf-ghost-white);
   --ifm-navbar-link-color: var(--tf-ink-black);
   --ifm-navbar-link-hover-color: var(--tf-azure-bold);
@@ -83,12 +83,11 @@ body, .main-wrapper { background: var(--tf-ghost-white); color: var(--tf-ink-bla
 h1,h2,h3,h4 { letter-spacing: -.025em; }
 a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, summary:focus-visible { outline: 2px solid var(--tf-azure-bold); outline-offset: 2px; }
 .navbar { height: auto; padding: 0; display: block; background: var(--tf-ghost-white); box-shadow: none; z-index: 60; }
-.navbar .foundation-header { position: relative; }
 .playbook-tools { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .playbook-links { display: flex; align-items: center; gap: 16px; }
 .playbook-search { margin-left: auto; }
 .playbook-search .navbar__search { padding: 0; }
-.playbook-search [class*='dropdownMenu'] { max-height: calc(100dvh - var(--foundation-shell-height, 116px) - 16px); overflow-y: auto; overscroll-behavior: contain; }
+.playbook-search [class*='dropdownMenu'] { max-height: calc(100dvh - var(--foundation-shell-height, 52px) - 16px); overflow-y: auto; overscroll-behavior: contain; }
 .playbook-search input { min-height: 44px; border: 1px solid var(--tf-azure-bold); border-radius: 10px; font-size: 14px; }
 .playbook-page-toggle { border: 1px solid var(--tf-soft-periwinkle); background: transparent; padding: 8px; cursor: pointer; }
 .navbar-sidebar { background: var(--tf-ghost-white); color: var(--tf-ink-black); }
@@ -132,7 +131,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 @media (prefers-reduced-motion: no-preference) { .button:hover, .bt-hero-button:hover { transform: translateY(-2px); box-shadow: 0 6px 8px rgba(10,10,20,.85); } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }
 
-/* Keep the native page drawer above the shared site header. */
+/* Keep the native page drawer above the local navigation. */
 .navbar-sidebar { z-index: 100; }
 .navbar-sidebar__backdrop { z-index: 90; }
 .navbar-sidebar__brand { height: var(--tf-header-height); }

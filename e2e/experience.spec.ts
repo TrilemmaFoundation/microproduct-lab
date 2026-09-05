@@ -30,36 +30,20 @@ test('light surfaces and primary hover remain accessible', async ({ page }) => {
   }
 });
 
-test('site menu isolates the page, dismisses and restores focus on short screens', async ({ page }) => {
-  for (const viewport of [{ width: 390, height: 844 }, { width: 844, height: 390 }]) {
-    await page.setViewportSize(viewport);
-    await page.goto('/docs/request-for-microproducts');
-    const toggle = page.getByRole('button', { name: 'Open site menu' });
-    await toggle.click();
-    await expect(page.locator('main')).toHaveJSProperty('inert', true);
-    const menu = page.getByRole('navigation', { name: 'Mobile site navigation' });
-    await menu.getByRole('button', { name: 'About', exact: true }).click();
-    const last = menu.getByRole('link', { name: 'Manifesto', exact: true });
-    await last.focus();
-    await expect(last).toBeInViewport();
-    await page.keyboard.press('Escape');
-    await expect(toggle).toBeFocused();
-    await expect(page.locator('main')).toHaveJSProperty('inert', false);
-  }
-});
 
-test('page navigation retains Docusaurus behavior and excludes the site overlay', async ({ page }) => {
+test('page navigation isolates content and restores focus', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/docs/request-for-microproducts');
   const toggle = page.getByRole('button', { name: 'Open page navigation' });
   await toggle.click();
   await expect(page.locator('.navbar-sidebar')).toBeVisible();
-  await expect(page.getByRole('navigation', { name: 'Mobile site navigation' })).toHaveCount(0);
+  await expect(page.locator('.playbook-header')).toHaveJSProperty('inert', true);
+  await expect(page.locator('.main-wrapper')).toHaveJSProperty('inert', true);
   await page.keyboard.press('Escape');
   await expect(toggle).toBeFocused();
 });
 
-test('anchors and previous/next links work with both header rows', async ({ page }) => {
+test('anchors and previous/next links work with the local header', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/docs/request-for-microproducts');
   const anchor = page.locator('.table-of-contents a').last();
@@ -110,16 +94,6 @@ test('code copy announces success and recovers from denied clipboard access', as
   await expect(page.getByRole('status').filter({ hasText: 'Copy failed.' })).toBeVisible();
 });
 
-test('desktop disclosures open on focus and Escape restores their trigger', async ({ page }) => {
-  await page.goto('/');
-  const trigger = page.getByRole('button', { name: 'Resources', exact: true });
-  await trigger.focus();
-  await expect(trigger).toHaveAttribute('aria-expanded', 'true');
-  await page.locator('#desktop-resources-panel a').first().focus();
-  await page.keyboard.press('Escape');
-  await expect(trigger).toBeFocused();
-  await expect(trigger).toHaveAttribute('aria-expanded', 'false');
-});
 
 test('search selection is readable and every suggestion remains reachable on short screens', async ({ page }, info) => {
   for (const viewport of [{ width: 390, height: 844 }, { width: 844, height: 390 }, { width: 1024, height: 600 }]) {
@@ -150,22 +124,21 @@ test('search selection is readable and every suggestion remains reachable on sho
 });
 
 
-test('current-app mobile links restore focus and isolate auxiliary content', async ({ page }) => {
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto('/');
-  const toggle = page.getByRole('button', { name: 'Open site menu' });
-  await toggle.click();
-  for (const region of await page.locator('[data-foundation-background]').all()) {
-    await expect(region).toHaveJSProperty('inert', true);
-  }
-  const menu = page.getByRole('navigation', { name: 'Mobile site navigation' });
-  await menu.getByRole('button', { name: 'Resources', exact: true }).click();
-  const currentApp = menu.getByRole('link', { name: 'Playbook', exact: true });
-  await currentApp.focus();
-  await currentApp.press('Enter');
-  await expect(menu).toHaveCount(0);
-  await expect(toggle).toBeFocused();
-  for (const region of await page.locator('[data-foundation-background]').all()) {
-    await expect(region).toHaveJSProperty('inert', false);
+
+
+test('only local navigation is rendered and offsets track its actual height', async ({ page }) => {
+  for (const width of [320, 390, 768, 1023, 1024, 1280, 1536]) {
+    await page.setViewportSize({ width, height: 844 });
+    await page.goto('/');
+    const header = page.locator('.playbook-header');
+    await expect(header).toBeVisible();
+    await expect(page.getByRole('navigation', { name: 'Playbook navigation', exact: true })).toBeVisible();
+    await expect(page.locator('.foundation-header, .foundation-header-bar')).toHaveCount(0);
+    await expect(page.getByRole('button', { name: 'Open site menu' })).toHaveCount(0);
+    const box = await header.boundingBox();
+    expect(box!.y).toBe(0);
+    expect(box!.height).toBeLessThan(width >= 1024 ? 65 : 120);
+    await expect.poll(() => page.evaluate(() => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--foundation-shell-height')))).toBeCloseTo(box!.height, 0);
+    for (const link of await header.locator('a').all()) await expect(link).toBeInViewport({ ratio: 1 });
   }
 });

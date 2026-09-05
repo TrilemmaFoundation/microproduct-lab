@@ -1,26 +1,31 @@
-import { useEffect, useRef, type AnchorHTMLAttributes } from 'react';
+import { useEffect, useRef } from 'react';
 import Link from '@docusaurus/Link';
 import { useLocation } from '@docusaurus/router';
 import { useNavbarMobileSidebar } from '@docusaurus/theme-common/internal';
 import SearchBar from '@theme/SearchBar';
-import FoundationHeader from '../../../components/foundation/FoundationHeader';
 
-function LocalLink({ href, ...props }: AnchorHTMLAttributes<HTMLAnchorElement> & { href: string }) {
-  return <Link to={href} {...props} />;
-}
 const links = [ ['Humans', '/docs/request-for-microproducts'], ['Agents', '/agents'], ['Templates', '/templates'], ['Showcase', '/showcase'] ];
 
 export default function NavbarContent() {
   const { pathname } = useLocation();
   const sidebar = useNavbarMobileSidebar();
   const pageToggle = useRef<HTMLButtonElement>(null);
+  const header = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const node = header.current;
+    if (!node) return;
+    const update = () => document.documentElement.style.setProperty('--foundation-shell-height', `${node.getBoundingClientRect().height}px`);
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(node);
+    return () => { observer.disconnect(); document.documentElement.style.removeProperty('--foundation-shell-height'); };
+  }, []);
   const currentPath = useRef(pathname);
   currentPath.current = pathname;
   useEffect(() => {
     if (!sidebar.shown) return;
-    window.dispatchEvent(new Event('foundation-close-menu'));
     const openedPath = currentPath.current;
-    const covered = [...document.querySelectorAll<HTMLElement>('.foundation-header, .main-wrapper, footer, [class*=skipToContent]')];
+    const covered = [...document.querySelectorAll<HTMLElement>('.playbook-header, .main-wrapper, footer, [class*=skipToContent]')];
     const previous = covered.map(node => node.inert);
     covered.forEach(node => { node.inert = true; });
     const frame = requestAnimationFrame(() => document.querySelector<HTMLElement>('.navbar-sidebar__close')?.focus());
@@ -45,7 +50,7 @@ export default function NavbarContent() {
       }
     };
   }, [sidebar.shown, sidebar.toggle]);
-  return <FoundationHeader app="playbook" pathname={pathname} LinkComponent={LocalLink} onBeforeOpen={() => { if (sidebar.shown) sidebar.toggle(); }}>
+  return <div ref={header} className="playbook-header foundation-local-nav">
     <nav className="foundation-local-inner playbook-tools" aria-label="Playbook navigation">
       <Link to="/" className="foundation-local-brand">Build Playbook</Link>
       {!sidebar.disabled && <button ref={pageToggle} type="button" className="playbook-page-toggle" aria-label="Open page navigation" aria-expanded={sidebar.shown} onClick={sidebar.toggle}>Pages</button>}
@@ -66,5 +71,5 @@ export default function NavbarContent() {
           input.removeEventListener('focus', keepClosed, true);
         }}><SearchBar /></div>
     </nav>
-  </FoundationHeader>;
+  </div>;
 }

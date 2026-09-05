@@ -1,11 +1,11 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "canonicalRepository": "TrilemmaFoundation/website_v2",
   "referenceRevision": "c6b1b7da2d8ca4c3c1d53b4912a91f45de9e0b1e",
   "sha256": {
-    "tokens.css": "2ce9be1d26b723680b63ca8660c74d27dcc68bd0f8aa48b0dd83a347493e5f2e",
+    "tokens.css": "eb2a85848aae7ba0356e37fd51b2dcca75f971629c0b81ad0a3467a7e29325a0",
     "chrome.css": "e27ec6dc8e56d5d1805c8e597b1b0e258a3e4cde21a814b42768c5b061a2a90f",
     "navigation.json": "d8e83a292e3ba75bc90c4536f7acf0b992822f7edd0b122ca6be6e1f117c8e0d",
-    "README.md": "2fed4dfb5db20a7808f788c600184eca45fdf1d31352c3397067b904833ea1f3"
+    "README.md": "7acfb85c4a9ae07015af35e2a7f332ece887b261fceb399aa1522654435a7428"
   }
 }
