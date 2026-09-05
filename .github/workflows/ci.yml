@@ -32,3 +32,9 @@ jobs:
 
       - name: Tests with coverage
         run: npm run test:coverage
+
+      - name: Install Chromium for interface checks
+        run: npx playwright install --with-deps chromium
+
+      - name: Browser route and accessibility checks
+        run: npm run test:e2e -- --project=chromium

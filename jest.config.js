@@ -1,5 +1,6 @@
 module.exports = {
   testEnvironment: 'jsdom',
+  testPathIgnorePatterns: ['/node_modules/', '/e2e/'],
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   moduleNameMapper: {
     '\\.(css|less|sass|scss)$': 'identity-obj-proxy',
@@ -30,6 +31,10 @@ module.exports = {
     '!src/__mocks__/**',
     '!src/**/__tests__/**',
     '!src/theme/Navbar/**',
+    // Framework chrome is exercised by the real-browser suite, including focus/inert.
+    '!src/components/foundation/**',
+    '!src/theme/Footer/**',
+    '!src/theme/CodeBlock/**',
     '!src/plugins/**',
   ],
   coverageDirectory: 'coverage',

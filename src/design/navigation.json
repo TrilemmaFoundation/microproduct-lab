@@ -1,0 +1,148 @@
+{
+  "foundationOrigin": "https://www.trilemma.foundation",
+  "origins": {
+    "foundation": "https://www.trilemma.foundation",
+    "data": "https://data.trilemma.foundation",
+    "playbook": "https://build.trilemma.foundation"
+  },
+  "header": [
+    {
+      "type": "link",
+      "id": "tournaments",
+      "label": "Tournaments",
+      "href": "https://2026.trilemma.foundation/",
+      "newTab": true,
+      "placement": "left"
+    },
+    {
+      "type": "group",
+      "id": "resources",
+      "label": "Resources",
+      "placement": "left",
+      "items": [
+        {
+          "type": "link",
+          "id": "playbook",
+          "label": "Playbook",
+          "description": "Open-source guides for building technical talent.",
+          "href": "https://build.trilemma.foundation",
+          "newTab": true
+        },
+        {
+          "type": "link",
+          "id": "catalog",
+          "label": "Catalog",
+          "description": "Curated datasets and build paths.",
+          "href": "https://data.trilemma.foundation",
+          "newTab": true
+        }
+      ]
+    },
+    {
+      "type": "link",
+      "id": "mentorship",
+      "label": "Mentorship",
+      "href": "/mentorship",
+      "activePaths": [
+        "/mentorship"
+      ],
+      "placement": "right"
+    },
+    {
+      "type": "group",
+      "id": "about",
+      "label": "About",
+      "placement": "right",
+      "activePaths": [
+        "/team",
+        "/projects",
+        "/opportunities",
+        "/manifesto"
+      ],
+      "items": [
+        {
+          "type": "link",
+          "id": "people",
+          "label": "People",
+          "href": "/team",
+          "activePaths": [
+            "/team"
+          ]
+        },
+        {
+          "type": "link",
+          "id": "projects",
+          "label": "Projects",
+          "href": "/projects",
+          "activePaths": [
+            "/projects"
+          ]
+        },
+        {
+          "type": "link",
+          "id": "opportunities",
+          "label": "Opportunities",
+          "href": "/opportunities",
+          "activePaths": [
+            "/opportunities"
+          ]
+        },
+        {
+          "type": "link",
+          "id": "manifesto",
+          "label": "Manifesto",
+          "href": "/manifesto",
+          "activePaths": [
+            "/manifesto"
+          ]
+        }
+      ]
+    }
+  ],
+  "social": [
+    {
+      "name": "Discord",
+      "fullName": "Discord",
+      "href": "https://discord.gg/AS7WMx7Cy2"
+    },
+    {
+      "name": "X",
+      "fullName": "X (Twitter)",
+      "href": "https://x.com/TrilemmaFdn"
+    },
+    {
+      "name": "LinkedIn",
+      "fullName": "LinkedIn",
+      "href": "https://www.linkedin.com/company/trilemma-foundation/"
+    },
+    {
+      "name": "YouTube",
+      "fullName": "YouTube",
+      "href": "https://www.youtube.com/@TrilemmaFoundation"
+    },
+    {
+      "name": "GitHub",
+      "fullName": "GitHub",
+      "href": "https://github.com/TrilemmaFoundation"
+    },
+    {
+      "name": "Email",
+      "fullName": "Email",
+      "href": "mailto:matt@trilemma.foundation"
+    }
+  ],
+  "legal": [
+    {
+      "label": "Charter",
+      "href": "/charter"
+    },
+    {
+      "label": "Privacy Policy",
+      "href": "/privacy"
+    },
+    {
+      "label": "Participation Terms",
+      "href": "/terms"
+    }
+  ]
+}

@@ -17,21 +17,15 @@
 
 .sectionHero .sectionTitle {
   margin-bottom: 1rem;
-  font-size: clamp(2rem, 3vw, 3rem);
 }
 
 .sectionHero .sectionDescription {
   margin-inline: auto;
-  max-width: none;
+  max-width: 48rem;
   font-size: clamp(1.2rem, 1.45vw, 1.55rem);
   line-height: 1.55;
 }
 
-@media (min-width: 997px) {
-  .sectionHero .sectionDescription {
-    white-space: nowrap;
-  }
-}
 
 .sectionHeader {
   max-width: 54rem;

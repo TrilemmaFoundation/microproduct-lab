@@ -30,7 +30,7 @@ export function PageSection({
     >
       <div className={styles.sectionHeader}>
         {eyebrow ? <p className={styles.eyebrow}>{eyebrow}</p> : null}
-        <Heading as="h2" className={styles.sectionTitle}>
+        <Heading as={variant === 'hero' ? 'h1' : 'h2'} className={styles.sectionTitle}>
           {title}
         </Heading>
         {description ? <p className={styles.sectionDescription}>{description}</p> : null}

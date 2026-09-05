@@ -7,6 +7,15 @@ import authorPagesPlugin from './src/plugins/authorPages';
 import docReadTimesPlugin from './src/plugins/docReadTimes';
 import {agentMirrorSearchIgnoreFiles} from './src/utils/agentMirrorSearchIgnore';
 
+const codeTheme = {
+  plain: { color: 'var(--tf-ink-black)', backgroundColor: 'var(--tf-ghost-white)' },
+  styles: [
+    { types: ['comment', 'prolog', 'doctype', 'cdata'], style: { color: 'var(--tf-primary-navy)' } },
+    { types: ['keyword', 'boolean', 'number', 'property', 'tag'], style: { color: 'var(--tf-azure-bold)' } },
+    { types: ['string', 'function', 'class-name', 'builtin'], style: { color: 'var(--tf-primary-navy)' } },
+  ],
+};
+
 const REPO_URL = 'https://github.com/TrilemmaFoundation/microproduct-lab';
 
 const DOC_ISLAND_EDIT_URL = `${REPO_URL}/edit/main/`;
@@ -185,9 +194,13 @@ const config: Config = {
   ],
   plugins,
 
+  stylesheets: [
+    {href: 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&display=swap', type: 'text/css'},
+  ],
   themeConfig: {
+    prism: { theme: codeTheme, darkTheme: codeTheme },
     colorMode: {
-      defaultMode: 'dark',
+      defaultMode: 'light',
       disableSwitch: true,
       respectPrefersColorScheme: false,
     },

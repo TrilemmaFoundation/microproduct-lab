@@ -76,3 +76,8 @@ Many IDEs support auto-fixing the issue. Here's what it looks like in VSCode:
 
 Make sure to add to dictionary file and not just editor settings so that the
 change is picked up in the checker script and can be used by others.
+
+## Shared Foundation design
+
+See the [versioned design contract](src/design/README.md) and the
+[implementation, route coverage, and visual evidence](design-validation/README.md).

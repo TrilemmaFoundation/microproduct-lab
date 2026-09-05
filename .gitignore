@@ -52,3 +52,6 @@ docs/agents/human/
 .vercel/
 .DS_Store
 **/.DS_Store
+
+/playwright-report/
+/test-results/
