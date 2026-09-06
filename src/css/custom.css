@@ -3,19 +3,6 @@
 
 :root, html[data-theme='light'], html[data-theme='dark'] {
   color-scheme: light;
-  --color-bg-primary: var(--tf-ghost-white);
-  --color-bg-dark: var(--tf-primary-navy);
-  --color-text-primary: var(--tf-ink-black);
-  --color-text-secondary: var(--tf-primary-navy);
-  --color-text-secondary-strong: var(--tf-primary-navy);
-  --color-accent-orange: var(--tf-digital-amber);
-  --color-accent-blue: var(--tf-azure-bold);
-  --color-border-subtle: var(--tf-soft-periwinkle);
-  --color-border-subtle-strong: var(--tf-soft-periwinkle);
-  --color-surface-card: var(--tf-ghost-white);
-  --color-surface-elevated: var(--tf-ghost-white);
-  --color-shadow-soft: rgba(10, 10, 20, .08);
-  --color-focus-ring: var(--tf-azure-bold);
   --ifm-color-scheme: light;
   --ifm-color-primary: var(--tf-azure-bold);
   --ifm-color-primary-dark: var(--tf-primary-navy);
@@ -61,8 +48,8 @@
   --ifm-blockquote-border-color: var(--tf-soft-periwinkle);
   --ifm-global-radius: 10px;
   --ifm-card-border-radius: 16px;
-  --ifm-global-shadow-lw: 0 4px 12px var(--color-shadow-soft);
-  --ifm-global-shadow-md: 0 12px 32px var(--color-shadow-soft);
+  --ifm-global-shadow-lw: 0 4px 12px rgba(10, 10, 20, .08);
+  --ifm-global-shadow-md: 0 12px 32px rgba(10, 10, 20, .08);
   --ifm-container-width: 74rem;
   --ifm-container-width-xl: 80rem;
   --ifm-navbar-search-input-background-color: var(--ifm-code-background);

@@ -33,7 +33,7 @@
 
 .eyebrow {
   margin: 0 0 0.75rem;
-  color: var(--color-text-secondary-strong);
+  color: var(--tf-primary-navy);
   font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.18em;
@@ -49,7 +49,7 @@
 .sectionDescription {
   margin: 0;
   max-width: 44rem;
-  color: var(--color-text-secondary);
+  color: var(--tf-primary-navy);
   font-size: 1.05rem;
   line-height: 1.65;
 }

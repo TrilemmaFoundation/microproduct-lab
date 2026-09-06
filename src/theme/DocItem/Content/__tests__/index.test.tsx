@@ -1,4 +1,3 @@
-import React from 'react';
 import {cleanup, render, screen} from '@testing-library/react';
 import {useDoc} from '@docusaurus/plugin-content-docs/client';
 import {usePluginData} from '@docusaurus/useGlobalData';
