@@ -135,4 +135,14 @@ describe('documentation contracts', () => {
   it('generates llms-full.txt during npm run dev', () => {
     assert.match(packageJson.scripts.predev, /generate-llms-full\.mjs/);
   });
+
+  it('points GitHub identity at TrilemmaFoundation/build', () => {
+    const config = read('docusaurus.config.ts');
+    assert.equal(packageJson.name, 'build');
+    assert.match(config, /REPO_URL = 'https:\/\/github.com\/TrilemmaFoundation\/build'/);
+    assert.match(config, /projectName: 'build'/);
+    assert.doesNotMatch(catalog, /microproduct-lab/);
+    assert.doesNotMatch(read('docs/templates/index.md'), /microproduct-lab/);
+    assert.doesNotMatch(read('SECURITY.md'), /microproduct-lab/);
+  });
 });
