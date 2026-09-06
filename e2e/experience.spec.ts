@@ -127,18 +127,27 @@ test('search selection is readable and every suggestion remains reachable on sho
 
 
 test('only local navigation is rendered and offsets track its actual height', async ({ page }) => {
-  for (const width of [320, 390, 768, 1023, 1024, 1280, 1536]) {
-    await page.setViewportSize({ width, height: 844 });
-    await page.goto('/');
-    const header = page.locator('.playbook-header');
-    await expect(header).toBeVisible();
-    await expect(page.getByRole('navigation', { name: 'Playbook navigation', exact: true })).toBeVisible();
-    await expect(page.locator('.foundation-header, .foundation-header-bar')).toHaveCount(0);
-    await expect(page.getByRole('button', { name: 'Open site menu' })).toHaveCount(0);
-    const box = await header.boundingBox();
-    expect(box!.y).toBe(0);
-    expect(box!.height).toBeLessThan(width >= 1024 ? 65 : 120);
-    await expect.poll(() => page.evaluate(() => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--foundation-shell-height')))).toBeCloseTo(box!.height, 0);
-    for (const link of await header.locator('a').all()) await expect(link).toBeInViewport({ ratio: 1 });
+  for (const path of ['/', '/docs/request-for-microproducts']) {
+    for (const width of [320, 390, 768, 996, 997, 1023, 1024, 1280, 1536]) {
+      await page.setViewportSize({ width, height: 844 });
+      await page.goto(path);
+      const header = page.locator('.playbook-header');
+      await expect(header).toBeVisible();
+      await expect(page.getByRole('navigation', { name: 'Playbook navigation', exact: true })).toBeVisible();
+      await expect(page.locator('.foundation-header, .foundation-header-bar')).toHaveCount(0);
+      await expect(page.getByRole('button', { name: 'Open site menu' })).toHaveCount(0);
+      const box = await header.boundingBox();
+      expect(box!.y).toBe(0);
+      if (width >= 997) {
+        await expect(page.getByRole('button', { name: 'Open page navigation' })).toBeHidden();
+        const links = await page.locator('.playbook-links').boundingBox();
+        expect(Math.abs(links!.x + links!.width / 2 - width / 2)).toBeLessThanOrEqual(1);
+        const search = await page.locator('.playbook-search').boundingBox();
+        expect(links!.x + links!.width).toBeLessThan(search!.x);
+      }
+      expect(box!.height).toBeLessThan(width >= 1024 ? 65 : 120);
+      await expect.poll(() => page.evaluate(() => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--foundation-shell-height')))).toBeCloseTo(box!.height, 0);
+      for (const link of await header.locator('a').all()) await expect(link).toBeInViewport({ ratio: 1 });
+    }
   }
 });

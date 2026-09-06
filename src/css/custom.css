@@ -126,7 +126,15 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .bt-hero-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-top: 12px; }
 .bt-hero-button { min-height: 52px; padding: 12px 24px; font-size: 20px; }
 @media (min-width:640px) { .bt-page { padding: 96px 24px; } .bt-shell h1 { font-size: 60px; } .bt-hero-button { font-size: 24px; } }
-@media (min-width:1024px) { .bt-page { padding:112px 32px; } .bt-shell h1 { font-size:72px; } .playbook-page-toggle { display: none !important; } }
+@media (min-width:1024px) { .bt-page { padding:112px 32px; } .bt-shell h1 { font-size:72px; } }
+/* Equal side columns keep navigation centered despite the wider search field. */
+@media (min-width:997px) {
+  .playbook-page-toggle { display: none !important; }
+  .playbook-tools { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); }
+  .playbook-tools .foundation-local-brand { justify-self: start; margin-right: 0; }
+  .playbook-links { grid-column: 2; justify-self: center; }
+  .playbook-search { grid-column: 3; justify-self: end; margin-left: 0; }
+}
 @media (max-width:996px) { .playbook-links { order: 3; flex-basis: 100%; max-width: 100%; overflow-x: auto; white-space: nowrap; } .playbook-tools { gap: 0 8px; } .playbook-search input { width: 8rem; } }
 @media (prefers-reduced-motion: no-preference) { .button:hover, .bt-hero-button:hover { transform: translateY(-2px); box-shadow: 0 6px 8px rgba(10,10,20,.85); } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }

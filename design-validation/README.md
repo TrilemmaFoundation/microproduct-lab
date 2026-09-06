@@ -5,6 +5,12 @@
 > app. The common footer remains. The double-header screenshots and validation
 > below are historical evidence from the original 1.0.0 migration.
 
+The Build desktop header uses equal side columns from 997px upward, keeping
+Humans/Agents/Templates/Showcase centered regardless of brand and search widths.
+Below that breakpoint, the existing wrapping navigation and Pages drawer remain.
+The header browser check covers both sides of the 996/997px breakpoint and
+asserts desktop centering and separation from search.
+
 Implemented September 5, 2026. The canonical reference is the rendered Foundation
 landing at `website_v2` revision `c6b1b7da2d8ca4c3c1d53b4912a91f45de9e0b1e`.
 The applications remain separate repositories with independent builds and releases.
