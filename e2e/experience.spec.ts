@@ -1,5 +1,5 @@
 import AxeBuilder from '@axe-core/playwright';
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 
 declare global {
@@ -37,6 +37,12 @@ test('production CSP permits the configured font stylesheet and font files', asy
 
 const families = ['/', '/docs/request-for-microproducts', '/agents', '/agents/request-for-microproducts', '/templates', '/archetypes', '/standards', '/contribute', '/showcase', '/authors/matt-faltyn', '/search?q=data', '/404'];
 
+async function expectNoTargetPageHighlights(page: Page): Promise<void> {
+  // Mark.js paints after a macrotask when highlightSearchTermsOnTargetPage is on.
+  await page.evaluate(() => new Promise((resolve) => setTimeout(resolve, 50)));
+  await expect(page.locator('.theme-doc-markdown mark')).toHaveCount(0);
+}
+
 for (const width of [320, 390, 768, 1023, 1024, 1280, 1536]) {
   test(`page families reflow at ${width}px`, async ({ page, browserName }, info) => {
     test.skip(browserName !== 'chromium' && ![390, 1280].includes(width));
@@ -49,6 +55,62 @@ for (const width of [320, 390, 768, 1023, 1024, 1280, 1536]) {
     }
   });
 }
+
+const tablePages = ['/showcase', '/templates', '/archetypes', '/standards/folder-contract', '/docs/playbook/frame/modern-data-stack'];
+
+function brokenLetterWords(tables: Element[]): string[] {
+  const broken: string[] = [];
+  for (const table of tables) {
+    const walker = document.createTreeWalker(table, NodeFilter.SHOW_TEXT);
+    let node: Node | null;
+    while ((node = walker.nextNode())) {
+      const text = node.textContent ?? '';
+      const wordRe = /[A-Za-z]{4,}/g;
+      let match: RegExpExecArray | null;
+      while ((match = wordRe.exec(text))) {
+        const range = document.createRange();
+        range.setStart(node, match.index);
+        range.setEnd(node, match.index + match[0].length);
+        if ([...range.getClientRects()].filter((rect) => rect.height > 0).length > 1) broken.push(match[0]);
+      }
+    }
+  }
+  return broken;
+}
+
+test('markdown tables keep letter-only words intact', async ({ page }) => {
+  for (const path of tablePages) {
+    for (const width of [390, 1280]) {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(path);
+      await expect(page.locator('h1')).toBeVisible();
+      await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+      expect(await page.locator('.theme-doc-markdown table').evaluateAll(brokenLetterWords), `${path} at ${width}px`).toEqual([]);
+    }
+  }
+});
+
+test('showcase table keeps names, team, and links readable', async ({ page }) => {
+  const table = page.locator('.theme-doc-markdown table');
+  for (const width of [390, 1280]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('/showcase');
+    await expect(page.locator('h1')).toBeVisible();
+    await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    const layout = await table.evaluate((el) => {
+      const rows = [...(el as HTMLTableElement).rows];
+      const team = rows[0]?.cells[2];
+      const teamRange = document.createRange();
+      if (team) teamRange.selectNodeContents(team);
+      return {
+        scrolls: el.scrollWidth > el.clientWidth + 1,
+        teamLines: team ? teamRange.getClientRects().length : 0,
+      };
+    });
+    expect(layout.teamLines).toBe(1);
+    expect(layout.scrolls).toBe(width < 768);
+  }
+});
 
 test('light surfaces and primary hover remain accessible', async ({ page }) => {
   await page.goto('/');
@@ -99,7 +161,42 @@ test('search results can be selected with the keyboard', async ({ page }) => {
   await page.keyboard.press('ArrowDown');
   await page.keyboard.press('Enter');
   await expect(page).not.toHaveURL(/43918\/$/);
+  await expect(page).not.toHaveURL(/[?&]_highlight=/);
   await expect(page.locator('h1')).toBeVisible();
+  await expectNoTargetPageHighlights(page);
+});
+
+test('search clicks omit highlight params and leftover highlights stay unmarked', async ({ page }) => {
+  await page.goto('/');
+  const search = page.getByRole('textbox', { name: 'Search', exact: true });
+  await search.fill('microproduct');
+  const suggestion = page.locator('[class*="suggestion"]').first();
+  await expect(suggestion).toBeVisible();
+  await suggestion.click();
+  await expect(page).not.toHaveURL(/43918\/$/);
+  await expect(page).not.toHaveURL(/[?&]_highlight=/);
+  await expect(page.locator('h1')).toBeVisible();
+  await expectNoTargetPageHighlights(page);
+
+  await page.goto('/search?q=microproduct');
+  await expect(page.getByText(/documents? found/i)).toBeVisible();
+  const results = page.locator('section article h2 a');
+  await expect(results.first()).toBeVisible();
+  const count = await results.count();
+  expect(count).toBeGreaterThan(0);
+  for (let index = 0; index < count; index++) {
+    await expect(results.nth(index)).not.toHaveAttribute('href', /[?&]_highlight=/);
+  }
+  await results.first().click();
+  await expect(page).not.toHaveURL(/\/search(\?|$)/);
+  await expect(page).not.toHaveURL(/[?&]_highlight=/);
+  await expect(page.locator('h1')).toBeVisible();
+  await expectNoTargetPageHighlights(page);
+
+  await page.goto('/docs/request-for-microproducts?_highlight=f');
+  await expect(page.locator('h1')).toBeVisible();
+  await expect(page).toHaveURL(/[?&]_highlight=f/);
+  await expectNoTargetPageHighlights(page);
 });
 
 test('200% text reflows and reduced motion disables decorative movement', async ({ page }) => {

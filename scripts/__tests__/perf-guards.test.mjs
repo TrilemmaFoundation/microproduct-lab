@@ -39,6 +39,10 @@ describe('performance guards', () => {
     assert.doesNotMatch(docusaurusConfig, /^\s*mermaid\s*:/m);
   });
 
+  it('does not highlight search terms on target pages', () => {
+    assert.match(docusaurusConfig, /highlightSearchTermsOnTargetPage:\s*false/);
+  });
+
   it('keeps local check scripts including validators, tests, and build', () => {
     assert.equal(packageJson.scripts['check:fast'], 'npm run check:validate && npm test');
     assert.match(packageJson.scripts.check, /check:fast/);

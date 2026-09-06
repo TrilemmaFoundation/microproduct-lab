@@ -163,7 +163,7 @@ const config: Config = {
         searchBarShortcut: true,
         searchBarShortcutKeymap: 'mod+k',
         searchBarPosition: 'right',
-        highlightSearchTermsOnTargetPage: true,
+        highlightSearchTermsOnTargetPage: false,
         explicitSearchResultPath: true,
       } satisfies LocalSearchOptions,
     ],
