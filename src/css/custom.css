@@ -61,7 +61,7 @@
   --search-local-hit-shadow: none;
   --search-local-hit-color: var(--tf-ink-black);
   --search-local-hit-active-color: var(--tf-ghost-white);
-  --search-local-highlight-color: var(--tf-azure-bold);
+  --search-local-highlight-color: var(--search-local-hit-color);
   --search-local-muted-color: var(--tf-primary-navy);
   --search-local-input-active-border-color: var(--tf-azure-bold);
 }
@@ -76,6 +76,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .playbook-search .navbar__search { padding: 0; }
 .playbook-search [class*='dropdownMenu'] { max-height: calc(100dvh - var(--foundation-shell-height, 52px) - 16px); overflow-y: auto; overscroll-behavior: contain; }
 .playbook-search input { min-height: 44px; border: 1px solid var(--tf-azure-bold); border-radius: 10px; font-size: 14px; }
+.playbook-search mark,
+[class*='searchResultItem'] mark {
+  background: none !important;
+  color: inherit !important;
+  text-decoration: none !important;
+}
 .playbook-page-toggle { border: 1px solid var(--tf-soft-periwinkle); background: transparent; padding: 8px; cursor: pointer; }
 /* Keep the native page drawer above the local navigation. */
 .navbar-sidebar { background: var(--tf-ghost-white); color: var(--tf-ink-black); z-index: 100; }

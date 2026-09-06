@@ -54,6 +54,16 @@ describe('performance guards', () => {
     );
   });
 
+  it('does not color search matches like links', () => {
+    const css = read('src/css/custom.css');
+    assert.doesNotMatch(
+      css,
+      /--search-local-highlight-color:\s*var\(--tf-azure-bold\)/,
+    );
+    assert.match(css, /\.playbook-search mark/);
+    assert.match(css, /\[class\*='searchResultItem'\] mark/);
+  });
+
   it('keeps local check scripts including validators, tests, and build', () => {
     assert.equal(packageJson.scripts['check:fast'], 'npm run check:validate && npm test');
     assert.match(packageJson.scripts.check, /check:fast/);

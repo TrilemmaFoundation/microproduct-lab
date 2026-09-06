@@ -1,5 +1,5 @@
 import AxeBuilder from '@axe-core/playwright';
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test, type Locator, type Page } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 
 declare global {
@@ -41,6 +41,22 @@ async function expectNoTargetPageHighlights(page: Page): Promise<void> {
   // Mark.js paints after a macrotask when highlightSearchTermsOnTargetPage is on.
   await page.evaluate(() => new Promise((resolve) => setTimeout(resolve, 50)));
   await expect(page.locator('.theme-doc-markdown mark')).toHaveCount(0);
+}
+
+async function expectMarksMatchSurroundingText(root: Locator): Promise<void> {
+  const marks = root.locator('mark');
+  const count = await marks.count();
+  expect(count).toBeGreaterThan(0);
+  for (let index = 0; index < count; index++) {
+    const mark = marks.nth(index);
+    await expect(mark).toHaveCSS('text-decoration-line', 'none');
+    const colors = await mark.evaluate((el) => {
+      const style = getComputedStyle(el);
+      return { color: style.color, parent: getComputedStyle(el.parentElement!).color, background: style.backgroundColor };
+    });
+    expect(colors.color).toBe(colors.parent);
+    expect(colors.background === 'rgba(0, 0, 0, 0)' || colors.background === 'transparent').toBe(true);
+  }
 }
 
 for (const width of [320, 390, 768, 1023, 1024, 1280, 1536]) {
@@ -164,6 +180,20 @@ test('search results can be selected with the keyboard', async ({ page }) => {
   await expect(page).not.toHaveURL(/[?&]_highlight=/);
   await expect(page.locator('h1')).toBeVisible();
   await expectNoTargetPageHighlights(page);
+});
+
+test('search match marks do not look like links', async ({ page }) => {
+  await page.goto('/');
+  const search = page.getByRole('textbox', { name: 'Search', exact: true });
+  await search.fill('arch');
+  await expect(page.getByRole('option').first()).toBeVisible();
+  await expectMarksMatchSurroundingText(page.locator('.playbook-search [class*="dropdownMenu"]'));
+  await page.keyboard.press('ArrowDown');
+  await expectMarksMatchSurroundingText(page.locator('[class*="suggestion"][class*="cursor"]'));
+
+  await page.goto('/search?q=arch');
+  await expect(page.getByText(/documents? found/i)).toBeVisible();
+  await expectMarksMatchSurroundingText(page.locator('article').first());
 });
 
 test('search clicks omit highlight params and leftover highlights stay unmarked', async ({ page }) => {
