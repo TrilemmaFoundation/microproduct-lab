@@ -40,7 +40,18 @@ describe('performance guards', () => {
   });
 
   it('does not highlight search terms on target pages', () => {
-    assert.match(docusaurusConfig, /highlightSearchTermsOnTargetPage:\s*false/);
+    const highlight = docusaurusConfig.match(
+      /highlightSearchTermsOnTargetPage:\s*(\w+)/,
+    );
+    assert.equal(
+      highlight?.[1],
+      'false',
+      'search plugin must set highlightSearchTermsOnTargetPage to false',
+    );
+    assert.doesNotMatch(
+      docusaurusConfig,
+      /highlightSearchTermsOnTargetPage:\s*true\b/,
+    );
   });
 
   it('keeps local check scripts including validators, tests, and build', () => {

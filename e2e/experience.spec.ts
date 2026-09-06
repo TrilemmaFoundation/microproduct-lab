@@ -157,7 +157,7 @@ test('search results can be selected with the keyboard', async ({ page }) => {
   await page.goto('/');
   const search = page.getByRole('textbox', { name: 'Search', exact: true });
   await search.fill('microproduct');
-  await expect(page.locator('[class*="suggestion"]').first()).toBeVisible();
+  await expect(page.getByRole('option').first()).toBeVisible();
   await page.keyboard.press('ArrowDown');
   await page.keyboard.press('Enter');
   await expect(page).not.toHaveURL(/43918\/$/);
@@ -170,7 +170,7 @@ test('search clicks omit highlight params and leftover highlights stay unmarked'
   await page.goto('/');
   const search = page.getByRole('textbox', { name: 'Search', exact: true });
   await search.fill('microproduct');
-  const suggestion = page.locator('[class*="suggestion"]').first();
+  const suggestion = page.getByRole('option').first();
   await expect(suggestion).toBeVisible();
   await suggestion.click();
   await expect(page).not.toHaveURL(/43918\/$/);
