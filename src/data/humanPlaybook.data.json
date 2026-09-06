@@ -57,6 +57,13 @@
                 "description": "Execute, validate quality, and deliver a reliable MVP through focused delivery workflows.",
                 "docId": "playbook/build/build",
                 "to": "/docs/playbook/build"
+              },
+              {
+                "id": "from-chat-to-tickets",
+                "title": "From Chat to Tickets",
+                "description": "Chat is an interface; a ticket is a unit of work. Move agentic development from conversation history into bounded tickets that preserve intent.",
+                "docId": "playbook/build/from-chat-to-tickets",
+                "to": "/docs/playbook/build/from-chat-to-tickets"
               }
             ]
           },

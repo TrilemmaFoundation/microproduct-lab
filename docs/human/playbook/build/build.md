@@ -3,7 +3,7 @@ title: Build
 description: "Phase 2 of the playbook: execute, validate quality, and deliver a usable MVP."
 slug: /playbook/build
 tags: [playbook, build]
-last_reviewed: 2026-07-16
+last_reviewed: 2026-09-06
 authors: [trilemma-foundation]
 ---
 
@@ -13,7 +13,7 @@ Ship a reliable MVP by combining focused execution, explicit delivery workflows,
 
 ## What Must Be True Before You Ship
 
-- Validated scope from Frame is translated into implementable slices.
+- Validated scope from Frame is translated into implementable slices. See [From Chat to Tickets](/docs/playbook/build/from-chat-to-tickets).
 - Each slice has clear acceptance criteria and a review owner.
 - Critical user paths have defined quality checks before release.
 - Humans remain accountable for architecture decisions, review quality, and release decisions.

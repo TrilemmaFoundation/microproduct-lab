@@ -4,7 +4,7 @@ sidebar_label: Quality-First
 description: "A thoughtfully crafted quality strategy improves velocity instead of trading it away: how spec-driven development and shift-left QA reduce entropy across the SDLC."
 slug: /playbook/frame/quality-first
 tags: [playbook, frame]
-last_reviewed: 2026-08-25
+last_reviewed: 2026-09-06
 authors: [rowan-lindsay]
 ---
 
@@ -92,4 +92,4 @@ Quality is not an afterthought. Nor is it a single phase of the build pipeline. 
 
 As you proceed on your microproduct development journey, I hope you come away with an appreciation for the interplay between quality and process. Spec-driven development and the patterns outlined above are just a subset of already large and rapidly expanding literature around development and human-agent interaction.
 
-Keep an eye out in the coming weeks for more content diving deeper into topics like development processes, software modelling, automated testing, and implementation. As always, we welcome feedback on pieces like these and hope this serves as merely the start of a long dialogue.
+[From Chat to Tickets](/docs/playbook/build/from-chat-to-tickets) continues this discussion in Build: how ticket-based development turns specifications into bounded work that agents can execute without treating chat as the project database. As always, we welcome feedback on pieces like these and hope this serves as merely the start of a long dialogue.
