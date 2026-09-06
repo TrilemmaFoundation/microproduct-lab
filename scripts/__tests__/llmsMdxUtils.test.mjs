@@ -8,6 +8,30 @@ import {
 } from '../llmsMdxUtils.mjs';
 
 describe('llmsMdxUtils', () => {
+  it('preserves alternative fences, indentation, longer closers, and unclosed code', () => {
+    for (const code of [
+      '~~~jsx\n<Widget />\n~~~',
+      '````md\n```jsx\n<Widget />\n```\n````',
+      '  ~~~jsx\r\n  <Widget />\r\n  ~~~~  \r\n',
+      '```jsx\n~~~\n<Widget />\n````',
+      '~~~jsx\n<Widget />\n\n\n',
+    ]) {
+      assert.equal(stripMdxForPlainText(code), code);
+      assert.equal(stripFrontmatterAndMdxForLlms(`---\ntitle: Code\n---\n\n${code}`), code);
+    }
+    assert.equal(stripMdxForPlainText(''), '');
+    assert.equal(stripMdxForPlainText('```bad`info\n<Widget />'), '```bad`info');
+  });
+
+  it('normalizes prose spacing without changing multiline code literals', () => {
+    const code = '```python\nvalue = """first\n\n\nlast"""\n```';
+    assert.equal(stripMdxForPlainText(code), code);
+    assert.equal(
+      stripMdxForPlainText(`\nBefore\n\n\n${code}\n\n\nAfter\n`),
+      `Before\n\n${code}\n\n\nAfter`,
+    );
+  });
+
   it('stripMdxForPlainText preserves prose between separated components', () => {
     const input = `
 <FirstComponent prop="a" />

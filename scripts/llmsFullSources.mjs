@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-import {resolveHumanSourceFile} from './agentDocsUtils.mjs';
+import {parseSourceFrontmatter, resolveHumanSourceFile} from './agentDocsUtils.mjs';
 import {
   stripFrontmatterAndMdxForLlms,
   stripYamlFrontmatter,
@@ -55,5 +55,8 @@ export function buildLlmsFullSources(root) {
   }
 
   sources.sort(([a], [b]) => a.localeCompare(b, 'en'));
-  return sources;
+  return sources.filter(([rel]) => {
+    const metadata = parseSourceFrontmatter(fs.readFileSync(path.join(root, rel), 'utf8'));
+    return metadata.draft !== true && metadata.unlisted !== true;
+  });
 }

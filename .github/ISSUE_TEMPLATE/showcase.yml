@@ -1,5 +1,5 @@
 name: Showcase entry
-about: Add a microproduct to the showcase table
+description: Add a microproduct to the showcase table
 labels: [showcase]
 body:
   - type: input

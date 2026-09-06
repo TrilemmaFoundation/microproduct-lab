@@ -225,6 +225,28 @@ describe('generateAgentDocs', () => {
     }
   });
 
+  it('preserves visibility on mirrors but omits hidden overview links, including nested nodes', () => {
+    tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-visibility-'));
+    const node = (id, children = []) => ({
+      id, docId: id, to: `/docs/${id}`, title: id, description: id, children,
+    });
+    const tree = [node('draft', [node('unlisted', [node('public')])])];
+    writeFile(tempRoot, 'src/data/humanPlaybook.data.json', JSON.stringify(tree));
+    for (const [id, flags] of [
+      ['draft', 'draft: true'], ['unlisted', 'unlisted: true'],
+      ['public', 'draft: false\nunlisted: false'],
+    ]) {
+      writeFile(tempRoot, `docs/human/${id}.md`, `---\ntitle: ${id}\n${flags}\n---\n\nBody`);
+    }
+    const {mirrorRoot} = generateAgentDocs({root: tempRoot});
+    const read = (id) => fs.readFileSync(path.join(mirrorRoot, `${id}.md`), 'utf8');
+    assert.equal(parseSourceFrontmatter(read('draft')).draft, true);
+    assert.equal(parseSourceFrontmatter(read('unlisted')).unlisted, true);
+    assert.equal(parseSourceFrontmatter(read('public')).draft, undefined);
+    assert.doesNotMatch(read('index'), /\/agents\/(draft|unlisted)/);
+    assert.match(read('index'), /^- \[public\]\(\/agents\/public\)/m);
+  });
+
   it('generates mirror docs, overview index, and removes stale output', () => {
     tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'agent-docs-'));
     writeFile(

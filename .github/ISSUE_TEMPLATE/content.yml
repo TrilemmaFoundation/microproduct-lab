@@ -1,5 +1,5 @@
 name: Content proposal
-about: Propose a new doc or improvement to existing content
+description: Propose a new doc or improvement to existing content
 labels: [content]
 body:
   - type: input

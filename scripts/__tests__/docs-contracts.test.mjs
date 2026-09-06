@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import {describe, it} from 'node:test';
+import {load} from 'js-yaml';
 
 const ROOT = path.resolve(import.meta.dirname, '../..');
 
@@ -63,6 +64,16 @@ function startersByArchetype() {
 }
 
 describe('documentation contracts', () => {
+  it('provides required GitHub issue-form fields for every intake form', () => {
+    const directory = path.join(ROOT, '.github/ISSUE_TEMPLATE');
+    for (const file of fs.readdirSync(directory).filter((name) => name.endsWith('.yml'))) {
+      const form = load(fs.readFileSync(path.join(directory, file), 'utf8'));
+      assert.equal(typeof form.name, 'string', file);
+      assert.equal(typeof form.description, 'string', file);
+      assert.ok(form.description.trim().length > 0, file);
+      assert.ok(Array.isArray(form.body) && form.body.length > 0, file);
+    }
+  });
   const catalog = read('docs/archetypes/index.md');
   const contribute = read('docs/contribute/how-to-contribute.md');
   const contributing = read('CONTRIBUTING.md');

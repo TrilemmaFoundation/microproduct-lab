@@ -77,6 +77,8 @@ export function resolveHumanSourceFile(humanDocsRoot, docId) {
  *   canonicalHumanUrl: string;
  *   section: string;
  *   sourceDocId: string;
+ *   draft?: boolean;
+ *   unlisted?: boolean;
  * }} metadata
  */
 export function buildAgentMirrorDocument(sourceText, metadata) {
@@ -90,6 +92,8 @@ export function buildAgentMirrorDocument(sourceText, metadata) {
       section: metadata.section,
       source_doc_id: metadata.sourceDocId,
       content_kind: 'mirror',
+      ...(metadata.draft ? {draft: true} : {}),
+      ...(metadata.unlisted ? {unlisted: true} : {}),
     },
     {lineWidth: -1, noRefs: true, schema: JSON_SCHEMA},
   ).trimEnd();
@@ -124,6 +128,8 @@ export function metadataFromNode(sourceText, node) {
     canonicalHumanUrl: node.to,
     section: sectionFromDocId(node.docId),
     sourceDocId: node.docId,
+    ...(parsed.draft === true ? {draft: true} : {}),
+    ...(parsed.unlisted === true ? {unlisted: true} : {}),
   };
 }
 
@@ -146,8 +152,9 @@ export function parseSourceFrontmatter(sourceText) {
 
 /**
  * @param {import('../src/data/humanPlaybook').PlaybookTreeNode[]} nodes
+ * @param {Set<string>} excludedDocIds
  */
-export function renderAgentMirrorOverview(nodes) {
+export function renderAgentMirrorOverview(nodes, excludedDocIds = new Set()) {
   const lines = [
     '---',
     'title: Human Docs Mirror',
@@ -163,7 +170,7 @@ export function renderAgentMirrorOverview(nodes) {
   ];
 
   for (const node of nodes) {
-    appendOverviewNode(lines, node, 0);
+    appendOverviewNode(lines, node, 0, excludedDocIds);
   }
 
   return `${lines.join('\n')}\n`;
@@ -173,9 +180,11 @@ export function renderAgentMirrorOverview(nodes) {
  * @param {string[]} lines
  * @param {import('../src/data/humanPlaybook').PlaybookTreeNode} node
  * @param {number} depth
+ * @param {Set<string>} excludedDocIds
  */
-function appendOverviewNode(lines, node, depth) {
-  if (node.docId && node.to) {
+function appendOverviewNode(lines, node, depth, excludedDocIds) {
+  const listed = node.docId && node.to && !excludedDocIds.has(node.docId);
+  if (listed) {
     const slug = agentSlugFromHumanTo(node.to);
     const indent = '  '.repeat(depth);
     lines.push(`${indent}- [${node.title}](/agents${slug}) — ${node.description}`);
@@ -189,7 +198,7 @@ function appendOverviewNode(lines, node, depth) {
       lines.push('');
     }
     for (const child of node.children) {
-      appendOverviewNode(lines, child, node.docId ? depth + 1 : depth);
+      appendOverviewNode(lines, child, listed ? depth + 1 : depth, excludedDocIds);
     }
   }
 }

@@ -27,6 +27,10 @@ Use `npm ci` so the locked tree is installed without rewriting `package-lock.jso
 
 `npm run dev` runs a short pre-step that removes `.docusaurus` and `node_modules/.cache`, regenerates the agent mirror under `docs/agents/human/` from `docs/human/`, and writes `static/llms-full.txt`. Do not edit generated mirror files or `llms-full.txt` directly. Use `npm run clear` to clear the Docusaurus cache, or `npm run clean` to also remove `build/` and `coverage/`.
 
+Mirrors preserve `draft` and `unlisted` publication flags. Both kinds are omitted
+from the generated mirror overview and full LLM context bundle; draft mirrors
+are excluded from production, while unlisted mirrors retain direct-link access.
+
 ## Validation
 
 ```bash

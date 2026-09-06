@@ -4,23 +4,33 @@
 
 import {stripFrontmatter as stripFrontmatterBody} from './frontmatterUtils.mjs';
 
-const FENCE_SPLIT_REGEX = /(^```[^\n]*\n[\s\S]*?\n```[ \t]*$)/gm;
-
-/** Strip MDX import lines and JSX display components for plain-text context bundles. */
+/** Strip display JSX from prose while preserving fenced code byte-for-byte. */
 export function stripMdxForPlainText(text) {
-  const segments = text.split(FENCE_SPLIT_REGEX);
-
-  const out = segments
-    .map((segment, index) => {
-      // Odd indices are the fenced code blocks captured by the split regex; leave them untouched.
-      if (index % 2 === 1) {
-        return segment;
+  const segments = [];
+  let prose = '';
+  let fence = '';
+  for (const line of text.split(/(?<=\n)/)) {
+    if (fence) {
+      segments.push(line);
+      const closing = line.match(/^ {0,3}(`+|~+)[ \t]*\r?\n?$/);
+      if (closing && closing[1][0] === fence[0] && closing[1].length >= fence.length) {
+        fence = '';
       }
-      return stripJsxFromProse(segment);
-    })
-    .join('');
-
-  return out.replace(/\n{3,}/g, '\n\n').trim();
+    } else {
+      const opening = line.match(/^ {0,3}(`{3,}|~{3,})([^\r\n]*)/);
+      if (opening && !(opening[1][0] === '`' && opening[2].includes('`'))) {
+        const cleaned = stripJsxFromProse(prose).replace(/\n{3,}/g, '\n\n');
+        segments.push(segments.length ? cleaned : cleaned.trimStart(), line);
+        prose = '';
+        fence = opening[1];
+      } else {
+        prose += line;
+      }
+    }
+  }
+  const tail = stripJsxFromProse(prose).replace(/\n{3,}/g, '\n\n').trimEnd();
+  segments.push(segments.length ? tail : tail.trimStart());
+  return segments.join('');
 }
 
 function stripJsxFromProse(text) {
@@ -51,5 +61,5 @@ export function stripYamlFrontmatter(text) {
 }
 
 export function stripFrontmatterAndMdxForLlms(text) {
-  return stripMdxForPlainText(stripYamlFrontmatter(text));
+  return stripMdxForPlainText(stripFrontmatterBody(text));
 }

@@ -30,12 +30,16 @@ export function generateAgentDocs({root = path.resolve(import.meta.dirname, '..'
   fs.mkdirSync(agentMirrorRoot, {recursive: true});
 
   const written = [];
+  const excludedDocIds = new Set();
   const leaves = flattenPlaybookNodes(humanPlaybookTree).filter((node) => node.docId);
 
   for (const node of leaves) {
     const sourcePath = resolveHumanSourceFile(humanDocsRoot, node.docId);
     const sourceText = fs.readFileSync(sourcePath, 'utf8');
     const metadata = metadataFromNode(sourceText, node);
+    if (metadata.draft || metadata.unlisted) {
+      excludedDocIds.add(node.docId);
+    }
     const output = buildAgentMirrorDocument(sourceText, metadata);
     const outputPath = assertPathInside(
       agentMirrorRoot,
@@ -46,7 +50,7 @@ export function generateAgentDocs({root = path.resolve(import.meta.dirname, '..'
     written.push(node.docId);
   }
 
-  const overview = renderAgentMirrorOverview(humanPlaybookTree);
+  const overview = renderAgentMirrorOverview(humanPlaybookTree, excludedDocIds);
   const overviewPath = path.join(agentMirrorRoot, 'index.md');
   fs.writeFileSync(overviewPath, overview, 'utf8');
 
