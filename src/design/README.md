@@ -3,7 +3,7 @@
 Canonical owner: `TrilemmaFoundation/website_v2`. Other repositories vendor this
 contract and build independently. `contract.json` records the reference revision
 and SHA-256 checksums. Run `npm run check:design`; compare release copies with
-`node scripts/check-design-contract.mjs --peers /path/to/data /path/to/microproduct-lab`.
+`node scripts/check-design-contract.mjs --peers /path/to/data /path/to/build`.
 Update all copies together for a coordinated design release. No runtime sibling
 imports or network dependency is needed.
 

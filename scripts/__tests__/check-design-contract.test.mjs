@@ -7,12 +7,12 @@ import { checkDesignContract } from '../check-design-contract.mjs';
 
 const temporary = [];
 afterEach(() => { for (const root of temporary.splice(0)) rmSync(root, { recursive: true, force: true }); });
-function fixture(name = 'microproduct-lab') {
+function fixture(name = 'build') {
   const root = mkdtempSync(join(tmpdir(), 'design-contract-')); temporary.push(root);
   cpSync('src/design', join(root, 'src/design'), { recursive: true });
   writeFileSync(join(root, 'package.json'), JSON.stringify({ name }));
   const adapters = {
-    'microproduct-lab': ['src/css/custom.css', '--ifm-background-color:var(--tf-ghost-white);--ifm-font-color-base:var(--tf-ink-black);--ifm-color-primary:var(--tf-azure-bold)'],
+    'build': ['src/css/custom.css', '--ifm-background-color:var(--tf-ghost-white);--ifm-font-color-base:var(--tf-ink-black);--ifm-color-primary:var(--tf-azure-bold)'],
     'data': ['src/app/globals.css', '--background:var(--tf-ghost-white);--foreground:var(--tf-ink-black);--primary:var(--tf-soft-periwinkle);--primary-foreground:var(--tf-primary-navy)'],
     'trilemma-foundation': ['tailwind-ui-kit.preset.ts', '"--color-background":"var(--tf-background)","--color-foreground":"var(--tf-foreground)","--color-action-primary-hover-foreground":"var(--tf-action-primary-hover-foreground)"'],
   };

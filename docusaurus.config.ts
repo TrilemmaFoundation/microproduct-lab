@@ -16,7 +16,7 @@ const codeTheme = {
   ],
 };
 
-const REPO_URL = 'https://github.com/TrilemmaFoundation/microproduct-lab';
+const REPO_URL = 'https://github.com/TrilemmaFoundation/build';
 
 const DOC_ISLAND_EDIT_URL = `${REPO_URL}/edit/main/`;
 
@@ -132,7 +132,7 @@ const config: Config = {
   baseUrl: '/',
 
   organizationName: 'TrilemmaFoundation',
-  projectName: 'microproduct-lab',
+  projectName: 'build',
 
   onBrokenLinks: 'throw',
   future: {

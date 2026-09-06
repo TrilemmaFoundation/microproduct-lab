@@ -59,4 +59,4 @@ The following modules are open contribution areas — scaffolds awaiting deeper 
 - Insights framework: behavioral signals and product learning backlog.
 - Iteration framework: hypothesis, build, measure, decide.
 
-[Propose an improvement](https://github.com/TrilemmaFoundation/microproduct-lab/pulls)
+[Propose an improvement](https://github.com/TrilemmaFoundation/build/pulls)

@@ -19,4 +19,4 @@ This table is the canonical MVP showcase format.
 
 To submit an entry, open a PR and update this table directly.
 
-Propose an improvement: [https://github.com/TrilemmaFoundation/microproduct-lab/pulls](https://github.com/TrilemmaFoundation/microproduct-lab/pulls)
+Propose an improvement: [https://github.com/TrilemmaFoundation/build/pulls](https://github.com/TrilemmaFoundation/build/pulls)

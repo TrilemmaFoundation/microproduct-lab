@@ -41,4 +41,4 @@ The following topics are open contribution areas:
 
 Link to the next module in the playbook sequence.
 
-[Propose an improvement](https://github.com/TrilemmaFoundation/microproduct-lab/pulls)
+[Propose an improvement](https://github.com/TrilemmaFoundation/build/pulls)

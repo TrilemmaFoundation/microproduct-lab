@@ -24,4 +24,4 @@ Ship a reliable MVP by combining focused execution, explicit delivery workflows,
 - QA evidence for critical flows, error paths, and accessibility basics.
 - Pilot release summary with observed failures and next-iteration priorities.
 
-[Propose an improvement](https://github.com/TrilemmaFoundation/microproduct-lab/pulls)
+[Propose an improvement](https://github.com/TrilemmaFoundation/build/pulls)

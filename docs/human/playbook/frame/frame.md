@@ -25,4 +25,4 @@ Establish whether a microproduct is worth building and feasible to deliver befor
 - Go/no-go criteria for moving into implementation.
 - `architecture.md` `data_architecture` record for every material data product: sources, volume, freshness, ingestion, storage, transformation, orchestration, serving, reliability, quality, cost, and complexity justification.
 
-[Propose an improvement](https://github.com/TrilemmaFoundation/microproduct-lab/pulls)
+[Propose an improvement](https://github.com/TrilemmaFoundation/build/pulls)
