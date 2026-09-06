@@ -38,7 +38,7 @@ describe('human playbook data', () => {
         label: 'Operate',
         collapsed: false,
         collapsible: false,
-        items: ['playbook/operate/operate'],
+        items: ['playbook/operate/operate', 'playbook/operate/microproduct-deployment'],
       },
     ]);
   });
@@ -77,7 +77,7 @@ describe('human playbook data', () => {
         label: 'Operate',
         collapsed: false,
         collapsible: false,
-        items: ['human/playbook/operate/operate'],
+        items: ['human/playbook/operate/operate', 'human/playbook/operate/microproduct-deployment'],
       },
     ]);
   });

@@ -3,7 +3,7 @@ title: Operate
 description: "Phase 3 of the playbook: own distribution, learning, and iteration after launch."
 slug: /playbook/operate
 tags: [playbook, operate]
-last_reviewed: 2026-07-16
+last_reviewed: 2026-09-06
 authors: [trilemma-foundation]
 ---
 
@@ -13,6 +13,7 @@ Operate the microproduct as an outcome-focused product, not just a shipped codeb
 
 ## What Must Be True After Launch
 
+- The product has a stable public URL and a repeatable, reversible release workflow. See [Microproduct Deployment](/docs/playbook/operate/microproduct-deployment).
 - You know who the product serves and how they find it.
 - You capture behavioral signals that inform what to improve next.
 - You run a repeatable cycle for hypothesis, build, measure, and decide.

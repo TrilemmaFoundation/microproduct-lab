@@ -78,6 +78,13 @@
                 "description": "Own distribution, learning, and iteration after launch so the product keeps improving.",
                 "docId": "playbook/operate/operate",
                 "to": "/docs/playbook/operate"
+              },
+              {
+                "id": "microproduct-deployment",
+                "title": "Microproduct Deployment",
+                "description": "GitHub stores the code. Vercel runs the application. For many web-based microproducts, that is enough deployment architecture to get a product into users' hands.",
+                "docId": "playbook/operate/microproduct-deployment",
+                "to": "/docs/playbook/operate/microproduct-deployment"
               }
             ]
           }
