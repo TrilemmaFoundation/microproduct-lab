@@ -17,7 +17,6 @@ counterfactuals
 Explainability
 anonymization
 affordances
-Surgrisk
 backtesting
 backtests
 capex

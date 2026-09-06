@@ -77,10 +77,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .playbook-search [class*='dropdownMenu'] { max-height: calc(100dvh - var(--foundation-shell-height, 52px) - 16px); overflow-y: auto; overscroll-behavior: contain; }
 .playbook-search input { min-height: 44px; border: 1px solid var(--tf-azure-bold); border-radius: 10px; font-size: 14px; }
 .playbook-page-toggle { border: 1px solid var(--tf-soft-periwinkle); background: transparent; padding: 8px; cursor: pointer; }
-.navbar-sidebar { background: var(--tf-ghost-white); color: var(--tf-ink-black); }
-.navbar-sidebar__brand { box-shadow: none; }
+/* Keep the native page drawer above the local navigation. */
+.navbar-sidebar { background: var(--tf-ghost-white); color: var(--tf-ink-black); z-index: 100; }
+.navbar-sidebar__brand { box-shadow: none; height: var(--tf-header-height); }
 .navbar-sidebar .navbar__logo img { filter: brightness(0) saturate(100%); }
-.navbar-sidebar__backdrop { background: rgba(30,30,68,.6); }
+.navbar-sidebar__backdrop { background: rgba(30,30,68,.6); z-index: 90; }
 .navbar-sidebar .menu__link { min-height: 44px; align-items: center; }
 .theme-doc-sidebar-container { border-right: 1px solid var(--tf-soft-periwinkle); }
 .theme-doc-sidebar-menu { padding: 16px; }
@@ -126,10 +127,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 @media (prefers-reduced-motion: no-preference) { .button:hover, .bt-hero-button:hover { transform: translateY(-2px); box-shadow: 0 6px 8px rgba(10,10,20,.85); } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }
 
-/* Keep the native page drawer above the local navigation. */
-.navbar-sidebar { z-index: 100; }
-.navbar-sidebar__backdrop { z-index: 90; }
-.navbar-sidebar__brand { height: var(--tf-header-height); }
 .navbar-sidebar__items { height: calc(100% - var(--tf-header-height)); }
 .navbar-sidebar__close { min-width: 44px; min-height: 44px; }
 .theme-code-block button { min-width: 44px; min-height: 44px; }
