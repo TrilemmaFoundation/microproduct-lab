@@ -14,7 +14,7 @@ Cohort collaborators adopting Build Trilemma standards.
 Retrieval-augmented copilots with citation requirements.
 
 ## Value
-Faster alignment on contracts + guardrails inherited from incubator defaults.
+Faster alignment on contracts + guardrails inherited from Build Trilemma defaults.
 
 ## Non-goals
 Not a turnkey production deployment guide for regulated environments without review.

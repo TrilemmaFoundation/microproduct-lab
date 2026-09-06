@@ -14,7 +14,7 @@ Cohort collaborators adopting Build Trilemma standards.
 Repro benchmark harness with leaderboards.
 
 ## Value
-Faster alignment on contracts + guardrails inherited from incubator defaults.
+Faster alignment on contracts + guardrails inherited from Build Trilemma defaults.
 
 ## Non-goals
 Not a turnkey production deployment guide for regulated environments without review.

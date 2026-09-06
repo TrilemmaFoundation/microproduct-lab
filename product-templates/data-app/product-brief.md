@@ -14,7 +14,7 @@ Cohort collaborators adopting Build Trilemma standards.
 Governed spreadsheets become auditable operational decisions.
 
 ## Value
-Faster alignment on contracts + guardrails inherited from incubator defaults.
+Faster alignment on contracts + guardrails inherited from Build Trilemma defaults.
 
 ## Non-goals
 Not a turnkey production deployment guide for regulated environments without review.

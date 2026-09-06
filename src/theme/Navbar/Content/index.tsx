@@ -51,8 +51,8 @@ export default function NavbarContent() {
     };
   }, [sidebar.shown, sidebar.toggle]);
   return <div ref={header} className="playbook-header foundation-local-nav">
-    <nav className="foundation-local-inner playbook-tools" aria-label="Playbook navigation">
-      <Link to="/" className="foundation-local-brand">Build Playbook</Link>
+    <nav className="foundation-local-inner playbook-tools" aria-label="Build Trilemma navigation">
+      <Link to="/" className="foundation-local-brand">Build Trilemma</Link>
       {!sidebar.disabled && <button ref={pageToggle} type="button" className="playbook-page-toggle" aria-label="Open page navigation" aria-expanded={sidebar.shown} onClick={sidebar.toggle}>Pages</button>}
       <div className="playbook-links">{links.map(([label, to]) => <Link key={to} to={to} aria-current={pathname === to || pathname.startsWith(`${to}/`) || (label === 'Humans' && pathname.startsWith('/docs/')) ? 'page' : undefined}>{label}</Link>)}</div>
       <div className="playbook-search"

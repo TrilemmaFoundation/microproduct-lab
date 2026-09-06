@@ -9,7 +9,7 @@ authors: [trilemma-foundation]
 
 Build Trilemma hosts opinionated starters under **`product-templates/`** in [microproduct-lab](https://github.com/TrilemmaFoundation/microproduct-lab). Each starter includes README, AGENTS guidance, YAML metadata stubs, Markdown contracts, `src/` and `tests/` placeholders, and GitHub Actions (stub workflows until you attach a toolchain).
 
-:::info Legacy markdown templates
+:::info Documentation templates
 
 The top-level **`templates/`** folder is for documentation scaffolding (for example playbook modules)—not runnable product repos.
 

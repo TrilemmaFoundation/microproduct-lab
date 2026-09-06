@@ -3,7 +3,7 @@
 ## Tech stack
 
 - **Site framework**: Docusaurus 3 (`@docusaurus/core`, `@docusaurus/preset-classic`)
-- **UI**: React 19, TypeScript (extends `@docusaurus/tsconfig`)
+- **UI**: React 19, TypeScript (`tsconfig.json` with `@site/*` path mapping)
 - **Styling**: Docusaurus classic theme + project CSS in [`src/css/custom.css`](src/css/custom.css) (no Tailwind in this repo)
 - **Quality**: `cspell`, `markdownlint-cli`, Node validation scripts (`scripts/*.mjs`), Jest + Testing Library + ts-jest
 - **Hosting**: Static deploy (e.g. Vercel); see [`vercel.json`](vercel.json)
@@ -33,11 +33,11 @@ Config entry points: [`docusaurus.config.ts`](docusaurus.config.ts), [`sidebars.
 
 - **`/`** — Audience chooser (humans vs agents); implemented in [`src/pages/index.tsx`](src/pages/index.tsx)
 - **`/agents`** — Agent-facing docs island (`docs/agents`, `routeBasePath: agents`)
-- **Core docs** — Default docs plugin under `/docs/...` (e.g. intro, playbook)
+- **Core docs** — Default docs plugin under `/docs/...` (request-for-microproducts, playbook, authors)
 - **Other doc islands** — `/showcase`, `/contribute`, `/templates`, `/archetypes`, `/standards` (see `docsIslandPlugins` in `docusaurus.config.ts`)
 - **Custom pages** — e.g. [`src/pages/index.tsx`](src/pages/index.tsx)
 
-Navbar/footer grouping for Humans vs Agents is configured in `themeConfig` in [`docusaurus.config.ts`](docusaurus.config.ts).
+Navbar logo metadata lives in `themeConfig` in [`docusaurus.config.ts`](docusaurus.config.ts). Local header and Foundation footer are swizzled theme components.
 
 ## npm scripts
 

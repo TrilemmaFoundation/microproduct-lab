@@ -1,4 +1,4 @@
-# Microproduct lab (Build Trilemma)
+# Build Trilemma
 
 This repository is the **Build Trilemma** site—patterns, templates, standards, registry, and playbooks for humans and AI agents—served from `https://build.trilemma.foundation`. Microproducts remain focused apps that turn data into usable tools and real utility.
 
@@ -79,5 +79,4 @@ change is picked up in the checker script and can be used by others.
 
 ## Shared Foundation design
 
-See the [versioned design contract](src/design/README.md) and the
-[implementation, route coverage, and visual evidence](design-validation/README.md).
+See the [versioned design contract](src/design/README.md).

@@ -1,6 +1,6 @@
 # Contributing
 
-Thank you for helping improve the Microproduct Incubator knowledge hub. The full contribution workflow lives in the site guide at `/contribute` and in [`docs/contribute/how-to-contribute.md`](docs/contribute/how-to-contribute.md), which is the canonical source of truth.
+Thank you for helping improve the Build Trilemma knowledge hub. The full contribution workflow lives in the site guide at `/contribute` and in [`docs/contribute/how-to-contribute.md`](docs/contribute/how-to-contribute.md), which is the canonical source of truth.
 
 ## Quickstart
 

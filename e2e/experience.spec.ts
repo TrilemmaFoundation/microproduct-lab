@@ -133,7 +133,7 @@ test('only local navigation is rendered and offsets track its actual height', as
       await page.goto(path);
       const header = page.locator('.playbook-header');
       await expect(header).toBeVisible();
-      await expect(page.getByRole('navigation', { name: 'Playbook navigation', exact: true })).toBeVisible();
+      await expect(page.getByRole('navigation', { name: 'Build Trilemma navigation', exact: true })).toBeVisible();
       await expect(page.locator('.foundation-header, .foundation-header-bar')).toHaveCount(0);
       await expect(page.getByRole('button', { name: 'Open site menu' })).toHaveCount(0);
       const box = await header.boundingBox();
