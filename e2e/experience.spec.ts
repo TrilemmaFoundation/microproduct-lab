@@ -52,7 +52,11 @@ async function expectMarksMatchSurroundingText(root: Locator): Promise<void> {
     await expect(mark).toHaveCSS('text-decoration-line', 'none');
     const colors = await mark.evaluate((el) => {
       const style = getComputedStyle(el);
-      return { color: style.color, parent: getComputedStyle(el.parentElement!).color, background: style.backgroundColor };
+      return {
+        color: style.color,
+        parent: getComputedStyle(el.parentElement!).color,
+        background: style.backgroundColor,
+      };
     });
     expect(colors.color).toBe(colors.parent);
     expect(colors.background === 'rgba(0, 0, 0, 0)' || colors.background === 'transparent').toBe(true);
@@ -182,18 +186,55 @@ test('search results can be selected with the keyboard', async ({ page }) => {
   await expectNoTargetPageHighlights(page);
 });
 
-test('search match marks do not look like links', async ({ page }) => {
+function expectNotArchetypePath(href: string): void {
+  expect(new URL(href, 'http://127.0.0.1').pathname).not.toMatch(/^\/archetypes(?:\/|$)/);
+}
+
+test('search omits archetype pages', async ({ page }) => {
+  const indexResponse = await page.request.get('/search-index.json');
+  expect(indexResponse.ok()).toBeTruthy();
+  const indexedUrls: string[] = [];
+  JSON.stringify(await indexResponse.json(), (key, value) => {
+    if (key === 'u' && typeof value === 'string') indexedUrls.push(value);
+    return value;
+  });
+  expect(indexedUrls.length).toBeGreaterThan(0);
+  for (const url of indexedUrls) expectNotArchetypePath(url);
+
   await page.goto('/');
   const search = page.getByRole('textbox', { name: 'Search', exact: true });
-  await search.fill('arch');
-  await expect(page.getByRole('option').first()).toBeVisible();
-  await expectMarksMatchSurroundingText(page.locator('.playbook-search [class*="dropdownMenu"]'));
-  await page.keyboard.press('ArrowDown');
-  await expectMarksMatchSurroundingText(page.locator('[class*="suggestion"][class*="cursor"]'));
+  // Token exists only on /archetypes/forecasting-product. Suggestions have no hrefs.
+  await search.fill('visualized');
+  const dropdown = page.locator('[class*="dropdownMenu"]');
+  await expect(dropdown).toBeVisible();
+  await expect(dropdown.getByText('No results')).toBeVisible();
+  await expect(page.getByRole('option')).toHaveCount(0);
 
-  await page.goto('/search?q=arch');
+  await page.goto('/');
+  await page.getByRole('textbox', { name: 'Search', exact: true }).fill('archetype');
+  await expect(page.getByRole('option').first()).toBeVisible();
+  await expect(page.getByRole('option').filter({ hasText: /^Archetype(?::| catalog)/ })).toHaveCount(0);
+  await expectMarksMatchSurroundingText(page.locator('.playbook-search [class*="dropdownMenu"]'));
+
+  await page.goto('/search?q=visualized');
+  await expect(page.getByText(/no documents were found/i)).toBeVisible();
+  await expect(page.locator('section article')).toHaveCount(0);
+
+  await page.goto('/search?q=archetype');
   await expect(page.getByText(/documents? found/i)).toBeVisible();
+  const resultLinks = page.locator('section article h2 a');
+  const hrefs = await resultLinks.evaluateAll((anchors) =>
+    anchors.map((anchor) => (anchor as HTMLAnchorElement).href),
+  );
+  expect(hrefs.length).toBeGreaterThan(0);
+  for (const href of hrefs) expectNotArchetypePath(href);
   await expectMarksMatchSurroundingText(page.locator('article').first());
+
+  for (const path of ['/archetypes', '/archetypes/forecasting-product']) {
+    const response = await page.goto(path);
+    expect(response?.status()).toBeLessThan(400);
+    await expect(page.locator('h1')).toBeVisible();
+  }
 });
 
 test('search clicks omit highlight params and leftover highlights stay unmarked', async ({ page }) => {

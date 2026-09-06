@@ -1,5 +1,9 @@
 import {humanPlaybookTree} from '../../data/humanPlaybook';
-import {agentMirrorSearchIgnoreFiles} from '../agentMirrorSearchIgnore';
+import {
+  ARCHETYPE_SEARCH_IGNORE,
+  agentMirrorSearchIgnoreFiles,
+  searchIgnoreFiles,
+} from '../agentMirrorSearchIgnore';
 
 function matches(pattern: RegExp, route: string): boolean {
   return pattern.test(route);
@@ -68,5 +72,50 @@ describe('agentMirrorSearchIgnoreFiles', () => {
     );
     expect(matches(pattern, '/agents/foo.bar/page')).toBe(true);
     expect(matches(pattern, '/agents/fooXbar/page')).toBe(false);
+  });
+});
+
+describe('ARCHETYPE_SEARCH_IGNORE', () => {
+  it('ignores the archetypes island without neighboring routes', () => {
+    for (const route of [
+      'archetypes',
+      'archetypes/forecasting-product',
+      'archetypes/search-discovery-product',
+      '/archetypes',
+      '/archetypes/',
+      '/archetypes/forecasting-product',
+    ]) {
+      expect(matches(ARCHETYPE_SEARCH_IGNORE, route)).toBe(true);
+    }
+
+    for (const route of [
+      'templates',
+      'docs/request-for-microproducts',
+      'agents',
+      'agents/human',
+      'showcase',
+      'standards/folder-contract',
+      'contribute',
+      'archetypical',
+      'archetypes-extra',
+      'not-archetypes',
+      'docs/archetypes',
+    ]) {
+      expect(matches(ARCHETYPE_SEARCH_IGNORE, route)).toBe(false);
+    }
+  });
+});
+
+describe('searchIgnoreFiles', () => {
+  it('combines mirror and archetype ignore patterns', () => {
+    const patterns = searchIgnoreFiles(humanPlaybookTree);
+    expect(patterns).toEqual([
+      ...agentMirrorSearchIgnoreFiles(humanPlaybookTree),
+      ARCHETYPE_SEARCH_IGNORE,
+    ]);
+  });
+
+  it('still ignores archetypes when no mirror routes exist', () => {
+    expect(searchIgnoreFiles([], [])).toEqual([ARCHETYPE_SEARCH_IGNORE]);
   });
 });

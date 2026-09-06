@@ -61,7 +61,7 @@
   --search-local-hit-shadow: none;
   --search-local-hit-color: var(--tf-ink-black);
   --search-local-hit-active-color: var(--tf-ghost-white);
-  --search-local-highlight-color: var(--search-local-hit-color);
+  --search-local-highlight-color: var(--tf-azure-bold);
   --search-local-muted-color: var(--tf-primary-navy);
   --search-local-input-active-border-color: var(--tf-azure-bold);
 }

@@ -54,14 +54,29 @@ describe('performance guards', () => {
     );
   });
 
-  it('does not color search matches like links', () => {
-    const css = read('src/css/custom.css');
-    assert.doesNotMatch(
-      css,
+  it('does not index archetype pages in local search', () => {
+    assert.match(docusaurusConfig, /searchIgnoreFiles\(humanPlaybookTree\)/);
+    assert.match(docusaurusConfig, /routeBasePath:\s*'archetypes'/);
+  });
+
+  it('keeps search match and selection styles distinct', () => {
+    const customCss = read('src/css/custom.css');
+    assert.match(
+      customCss,
       /--search-local-highlight-color:\s*var\(--tf-azure-bold\)/,
     );
-    assert.match(css, /\.playbook-search mark/);
-    assert.match(css, /\[class\*='searchResultItem'\] mark/);
+    assert.match(
+      customCss,
+      /\.playbook-search mark[\s\S]{0,200}color:\s*inherit !important/,
+    );
+    assert.match(
+      customCss,
+      /\[class\*='searchResultItem'\] mark[\s\S]{0,200}text-decoration:\s*none/,
+    );
+    assert.doesNotMatch(
+      customCss,
+      /\[class\*=['"]?(suggestion|cursor)['"]?\][\s\S]{0,120}background/i,
+    );
   });
 
   it('keeps local check scripts including validators, tests, and build', () => {

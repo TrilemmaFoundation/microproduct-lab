@@ -5,7 +5,7 @@ import { SITE_URL } from './siteUrl';
 import {humanPlaybookTree} from './src/data/humanPlaybook';
 import authorPagesPlugin from './src/plugins/authorPages';
 import docReadTimesPlugin from './src/plugins/docReadTimes';
-import {agentMirrorSearchIgnoreFiles} from './src/utils/agentMirrorSearchIgnore';
+import {searchIgnoreFiles} from './src/utils/agentMirrorSearchIgnore';
 
 const codeTheme = {
   plain: { color: 'var(--tf-ink-black)', backgroundColor: 'var(--tf-ghost-white)' },
@@ -159,7 +159,7 @@ const config: Config = {
           'docs',
           ...docsIslandPlugins.map((spec) => spec.routeBasePath),
         ],
-        ignoreFiles: agentMirrorSearchIgnoreFiles(humanPlaybookTree),
+        ignoreFiles: searchIgnoreFiles(humanPlaybookTree),
         searchBarShortcut: true,
         searchBarShortcutKeymap: 'mod+k',
         searchBarPosition: 'right',

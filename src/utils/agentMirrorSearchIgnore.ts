@@ -4,6 +4,13 @@ import {flattenPlaybookNodes} from './playbookTree';
 /** Generated mirror overview lives at `/agents/human` (slug `/human`). */
 export const AGENT_MIRROR_OVERVIEW_SLUG = '/human';
 
+/**
+ * Omit the `/archetypes` docs island from local search. The plugin matches
+ * `url` with `baseUrl` and a trailing slash stripped, so this covers both
+ * `archetypes` and `/archetypes/...`. Pages remain routed.
+ */
+export const ARCHETYPE_SEARCH_IGNORE = /^\/?archetypes(?:\/|$)/;
+
 function firstPathSegment(path: string): string | undefined {
   const first = path.replace(/^\//, '').split('/')[0];
   return first || undefined;
@@ -47,4 +54,12 @@ export function agentMirrorSearchIgnoreFiles(
 
   const alternation = [...segments].sort().map(escapeRegex).join('|');
   return [new RegExp(`^/?agents/(?:${alternation})(?:/|$)`)];
+}
+
+/** Ignore patterns for `@easyops-cn/docusaurus-search-local`. */
+export function searchIgnoreFiles(
+  nodes: PlaybookTreeNode[],
+  extraSlugs: readonly string[] = [AGENT_MIRROR_OVERVIEW_SLUG],
+): RegExp[] {
+  return [...agentMirrorSearchIgnoreFiles(nodes, extraSlugs), ARCHETYPE_SEARCH_IGNORE];
 }
